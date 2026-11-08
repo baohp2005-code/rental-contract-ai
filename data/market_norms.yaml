@@ -1,0 +1,12 @@
+# Mức "bình thường" ở Hà Nội. ĐIỀN SAU KHI KHẢO SÁT, không tự bịa số.
+# LLM chỉ được dùng số trong file này cho trường what_is_common.
+source: "Khảo sát của nhóm, ngày ..., n = ... người trả lời"
+deposit_months_typical: null      # ví dụ 1
+deposit_months_max: null          # ngưỡng cảnh báo DEP-04
+electricity_vnd_per_kwh_typical: null
+electricity_max: null             # ngưỡng cảnh báo UTL-01
+water:
+  per_person_vnd_typical: null
+  per_m3_vnd_typical: null
+service_fee_vnd_typical: null
+notice_days_typical: null

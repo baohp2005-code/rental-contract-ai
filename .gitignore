@@ -1,0 +1,11 @@
+node_modules/
+.expo/
+dist/
+build/
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+# Ảnh hợp đồng gốc chưa che thông tin cá nhân: KHÔNG commit
+data/samples/raw/
