@@ -1,0 +1,236 @@
+{
+  "pages": [
+    {
+      "page": 1,
+      "width": 1240,
+      "height": 1754
+    },
+    {
+      "page": 2,
+      "width": 1240,
+      "height": 1754
+    }
+  ],
+  "lines": [
+    {
+      "id": "p1-L01",
+      "page": 1,
+      "text": "CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM",
+      "bbox": {
+        "x": 0.2653,
+        "y": 0.0661,
+        "w": 0.4702,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p1-L02",
+      "page": 1,
+      "text": "Độc lập - Tự do - Hạnh phúc",
+      "bbox": {
+        "x": 0.3419,
+        "y": 0.0918,
+        "w": 0.3169,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p1-L03",
+      "page": 1,
+      "text": "HỢP ĐỒNG THUÊ PHÒNG TRỌ (MẪU DÙNG THỬ)",
+      "bbox": {
+        "x": 0.2379,
+        "y": 0.1517,
+        "w": 0.5242,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p1-L04",
+      "page": 1,
+      "text": "Hôm nay, ngày 01 tháng 11 năm 2026, tại Hà Nội, chúng tôi gồm:",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.2087,
+        "w": 0.7145,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p1-L05",
+      "page": 1,
+      "text": "BÊN A (bên cho thuê): Ông Nguyễn Văn A",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.2429,
+        "w": 0.4419,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p1-L06",
+      "page": 1,
+      "text": "BÊN B (bên thuê): Bạn Trần Thị B, sinh viên",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.2771,
+        "w": 0.4984,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p1-L07",
+      "page": 1,
+      "text": "Điều 1. Bên A cho bên B thuê phòng số 203, diện tích 18 m2.",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.3341,
+        "w": 0.6806,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p1-L08",
+      "page": 1,
+      "text": "Thời hạn thuê: 12 tháng, kể từ ngày 05/11/2026.",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.3683,
+        "w": 0.5444,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p1-L09",
+      "page": 1,
+      "text": "Điều 2. Giá thuê: 3.500.000 đồng/tháng, thanh toán trước ngày 05 hàng tháng.",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.4253,
+        "w": 0.8323,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p1-L10",
+      "page": 1,
+      "text": "Bên A có quyền điều chỉnh giá thuê khi cần thiết.",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.4595,
+        "w": 0.5669,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p1-L11",
+      "page": 1,
+      "text": "Điều 3. Tiền đặt cọc: 7.000.000 đồng (hai tháng tiền nhà).",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.5165,
+        "w": 0.6694,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p1-L12",
+      "page": 1,
+      "text": "Nếu bên B chuyển đi trước hạn thì không được hoàn lại tiền cọc.",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.5507,
+        "w": 0.7258,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p1-L13",
+      "page": 1,
+      "text": "Điều 4. Tiền điện: theo giá chủ nhà quy định. Tiền nước: 100.000 đồng/người/tháng.",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.6078,
+        "w": 0.8323,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p1-L14",
+      "page": 1,
+      "text": "Phí dịch vụ: 150.000 đồng/tháng.",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.642,
+        "w": 0.3734,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p2-L01",
+      "page": 2,
+      "text": "Điều 5. Bên B chịu toàn bộ chi phí sửa chữa mọi hư hỏng trong phòng.",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.0775,
+        "w": 0.7831,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p2-L02",
+      "page": 2,
+      "text": "Điều 6. Bên A được vào kiểm tra phòng bất kỳ lúc nào.",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.1345,
+        "w": 0.6121,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p2-L03",
+      "page": 2,
+      "text": "Điều 7. Bên A có quyền chấm dứt hợp đồng và lấy lại phòng khi có nhu cầu.",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.1916,
+        "w": 0.8323,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p2-L04",
+      "page": 2,
+      "text": "Điều 8. Hai bên cam kết thực hiện đúng hợp đồng.",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.2486,
+        "w": 0.5556,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p2-L05",
+      "page": 2,
+      "text": "Hợp đồng lập thành 02 bản, mỗi bên giữ 01 bản.",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.2828,
+        "w": 0.5331,
+        "h": 0.0285
+      }
+    },
+    {
+      "id": "p2-L06",
+      "page": 2,
+      "text": "BÊN A (ký, ghi rõ họ tên)",
+      "bbox": {
+        "x": 0.0839,
+        "y": 0.3797,
+        "w": 0.3484,
+        "h": 0.0285
+      }
+    }
+  ]
+}

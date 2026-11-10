@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "Soi Hợp Đồng Trọ",
+    "slug": "soi-hop-dong-tro",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-image",
+      "expo-font",
+      "expo-splash-screen",
+      "expo-asset",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Ứng dụng cần dùng camera để chụp các trang hợp đồng thuê trọ của bạn.",
+          "recordAudioAndroid": false
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Ứng dụng cần truy cập thư viện ảnh để bạn chọn ảnh hợp đồng đã chụp."
+        }
+      ]
+    ],
+    "scheme": "soihopdong",
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
