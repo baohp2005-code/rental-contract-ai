@@ -1,8 +1,10 @@
 /**
  * Trạng thái của app. Mọi màn hình đọc/ghi qua đây.
  *
- * Quyền riêng tư: chỉ lưu xuống máy việc người dùng đã đồng ý điều khoản.
- * Ảnh hợp đồng và kết quả phân tích chỉ nằm trong bộ nhớ, tắt app là mất.
+ * Quyền riêng tư: chỉ lưu bền xuống máy việc người dùng đã đồng ý điều khoản.
+ * Danh sách trang và kết quả phân tích chỉ nằm trong bộ nhớ, tắt app là mất.
+ * Riêng file ảnh (camera, ảnh đã chuẩn hóa) nằm trong thư mục cache của app
+ * cho tới khi hệ điều hành dọn; app chưa tự xóa các file này.
  */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -109,6 +111,16 @@ function toAppError(error: unknown): AppError {
 
 let analysisAbort: AbortController | null = null;
 
+/**
+ * Tăng mỗi khi tin nhắn hiện tại không còn đúng (đổi xưng hô, giọng, lựa chọn...).
+ * Kết quả của một lần soạn cũ về sau sẽ bị bỏ qua thay vì đè lên bản mới.
+ */
+let messageSeq = 0;
+const invalidateMessage = () => {
+  messageSeq += 1;
+  return { message: null, messageStatus: 'idle' as RequestStatus, messageError: null };
+};
+
 export const useAppStore = create<State & Actions>()(
   persist(
     (set, get) => ({
@@ -181,30 +193,34 @@ export const useAppStore = create<State & Actions>()(
       cancelAnalysis: () => {
         analysisAbort?.abort();
         analysisAbort = null;
-        set({ analysisStatus: 'idle', analysisStep: null, analysisError: null });
+        // Giữ lại lỗi (nếu có) để màn chụp biết trang nào cần chụp lại.
+        set((s) => ({
+          analysisStatus: 'idle',
+          analysisStep: null,
+          analysisError: s.analysisStatus === 'error' ? s.analysisError : null,
+        }));
       },
 
       setDecision: (flagId, decision) =>
         set((s) => ({
           decisions: { ...s.decisions, [flagId]: decision },
           // Danh sách giữ đã đổi nên tin nhắn cũ không còn đúng.
-          message: null,
-          messageStatus: 'idle',
+          ...invalidateMessage(),
         })),
       setEditedQuestion: (flagId, question) =>
         set((s) => ({
           editedQuestions: { ...s.editedQuestions, [flagId]: question },
-          message: null,
-          messageStatus: 'idle',
+          ...invalidateMessage(),
         })),
 
-      setAddressing: (addressing) => set({ addressing, message: null, messageStatus: 'idle' }),
-      setTone: (tone) => set({ tone, message: null, messageStatus: 'idle' }),
+      setAddressing: (addressing) => set({ addressing, ...invalidateMessage() }),
+      setTone: (tone) => set({ tone, ...invalidateMessage() }),
 
       composeMessage: async () => {
         const state = get();
         const flags = selectKeptFlags(state);
         if (!state.analysis || flags.length === 0 || state.messageStatus === 'running') return;
+        const seq = ++messageSeq;
         set({ messageStatus: 'running', messageError: null });
         try {
           const message = await api.composeMessage({
@@ -213,8 +229,10 @@ export const useAppStore = create<State & Actions>()(
             addressing: state.addressing,
             tone: state.tone,
           });
+          if (seq !== messageSeq) return;
           set({ messageStatus: 'done', message });
         } catch (error) {
+          if (seq !== messageSeq) return;
           set({ messageStatus: 'error', messageError: toAppError(error) });
         }
       },
@@ -222,6 +240,7 @@ export const useAppStore = create<State & Actions>()(
       reset: () => {
         analysisAbort?.abort();
         analysisAbort = null;
+        messageSeq += 1;
         set({ ...sessionDefaults });
       },
     }),

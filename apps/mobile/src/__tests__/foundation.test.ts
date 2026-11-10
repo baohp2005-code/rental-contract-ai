@@ -100,3 +100,36 @@ describe('tin nhắn mẫu', () => {
     expect(message.message).toContain('2. ');
   });
 });
+
+describe('store', () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { useAppStore } = require('@/lib/store') as typeof import('@/lib/store');
+
+  beforeEach(() => {
+    useAppStore.getState().reset();
+    useAppStore.setState({
+      analysis: sampleAnalysis,
+      analysisStatus: 'done',
+      decisions: { F1: 'kept' },
+    });
+  });
+
+  it('bỏ kết quả soạn tin cũ khi người dùng đổi xưng hô giữa chừng', async () => {
+    const store = useAppStore.getState();
+    const first = store.composeMessage();
+    useAppStore.getState().setAddressing('chau-cochu');
+    const second = useAppStore.getState().composeMessage();
+    await Promise.all([first, second]);
+    const { message, messageStatus } = useAppStore.getState();
+    expect(messageStatus).toBe('done');
+    expect(message?.message).toContain('Cháu chào cô/chú');
+  }, 10_000);
+
+  it('hủy phân tích sau khi lỗi vẫn giữ lỗi để màn chụp biết trang cần chụp lại', () => {
+    const error = { code: 'image_unreadable' as const, message: 'mờ', pages: [2] };
+    useAppStore.setState({ analysisStatus: 'error', analysisError: error });
+    useAppStore.getState().cancelAnalysis();
+    expect(useAppStore.getState().analysisStatus).toBe('idle');
+    expect(useAppStore.getState().analysisError).toEqual(error);
+  });
+});
