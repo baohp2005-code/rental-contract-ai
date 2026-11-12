@@ -4,6 +4,8 @@ App "Soi Hợp Đồng Trọ": Expo SDK 58 (React Native 0.88, React 19.3) + Typ
 
 ## Chạy thử trên điện thoại (Expo Go)
 
+Hướng dẫn chi tiết cho cả nhóm, kèm cách xử lý lỗi đăng nhập và kết nối: [`docs/huong-dan-chay-thu.md`](../../docs/huong-dan-chay-thu.md). Tóm tắt:
+
 1. Cài app **Expo Go** trên điện thoại (Android: Google Play, iPhone: App Store). Điện thoại và máy tính dùng chung một mạng Wi-Fi.
 2. Trên máy tính, ở **thư mục gốc repo**:
 
