@@ -6,6 +6,18 @@ Có hai cách. **Cách 1** nhanh nhất nếu máy của bạn App đang bật a
 
 ---
 
+## Bước 0: Tham gia nhóm trên Expo (mỗi người làm một lần)
+
+App thuộc project `hop-dong-ai` của organization Expo **`pbao309s-team`**. Mỗi người dùng **tài khoản Expo của chính mình**, không ai cần mượn tài khoản người khác.
+
+1. Tạo tài khoản Expo miễn phí tại https://expo.dev/signup. Đăng nhập bằng Google cũng được.
+2. Gửi **username Expo** hoặc **email tài khoản Expo** của bạn cho chủ organization.
+3. Chủ organization mời bạn vào. Bạn **chấp nhận lời mời** trong email, hoặc trên expo.dev ở biểu tượng chuông thông báo.
+
+> Dành cho chủ organization: trên expo.dev, ở ô chọn tài khoản góc trên bên trái, chuyển sang **pbao309s-team** → **Members** → mời từng người bằng username hoặc email.
+
+---
+
 ## Cách 1: Quét mã từ máy đang chạy app
 
 Cần máy của người làm App đang bật máy chủ Expo. Hỏi người đó lấy **mã QR** hoặc **đường link** bắt đầu bằng `exp://`.
@@ -14,17 +26,16 @@ Cần máy của người làm App đang bật máy chủ Expo. Hỏi người �
    - Android: Google Play, tìm "Expo Go".
    - iPhone: App Store, tìm "Expo Go".
    - Đã cài rồi thì cập nhật lên bản mới nhất. App dùng Expo SDK 58; bản Expo Go cũ sẽ báo "not compatible".
-2. **Đăng nhập Expo Go:** iPhone bắt buộc, Android nên làm.
-   - Mở Expo Go, vào mục tài khoản (Profile/Account), chọn đăng nhập. Chọn **Google** cho nhanh.
-   - Chưa có tài khoản thì app sẽ cho tạo, miễn phí.
+2. **Đăng nhập Expo Go** bằng tài khoản Expo đã được mời vào `pbao309s-team` (Bước 0). iPhone bắt buộc, Android nên làm.
+   - Mở Expo Go, vào mục tài khoản (Profile/Account), chọn đăng nhập. Chọn **Google** nếu bạn tạo tài khoản bằng Google.
 3. **Mở app của nhóm:**
    - Android: trong Expo Go bấm **Scan QR code**, quét mã.
    - iPhone: mở app **Camera** quét mã, bấm vào thông báo hiện ra.
-   - Không quét được thì trong Expo Go chọn **Enter URL manually** và dán đường link `exp://...`.
+   - Không quét được thì sao chép đường link `exp://...` sang điện thoại, dán vào thanh địa chỉ của **Safari** (iPhone) hoặc **Chrome** (Android), chọn **Mở trong Expo Go**. Bấm thẳng vào link trong Zalo có thể không mở được.
 4. **Đợi lần tải đầu**, khoảng 30 giây đến 1 phút.
 5. **Thử trọn luồng:** tick đồng ý → ở màn chụp bấm **"Dùng hợp đồng mẫu"** → **Phân tích** → mở từng cảnh báo, bấm **Giữ** hoặc **Bỏ qua** → **Soạn tin nhắn**.
 
-> Đường link chỉ dùng được khi máy kia đang bật app. Máy đó tắt app hoặc tắt máy thì điện thoại sẽ báo lỗi kết nối. Nếu báo lỗi liên quan tới tài khoản, dùng Cách 2.
+> Đường link chỉ dùng được khi máy kia đang bật app, và **đổi mỗi lần máy chủ khởi động lại**. Máy đó tắt app hoặc tắt máy thì điện thoại sẽ báo lỗi kết nối. Nếu báo lỗi liên quan tới tài khoản, kiểm tra lại Bước 0, hoặc dùng Cách 2.
 
 ---
 
@@ -34,7 +45,7 @@ Cần máy của người làm App đang bật máy chủ Expo. Hỏi người �
 
 - **Node.js 22 LTS:** https://nodejs.org. Kiểm tra bằng `node -v`.
 - **Git:** https://git-scm.com. Kiểm tra bằng `git -v`.
-- **Tài khoản Expo:** tạo tại https://expo.dev/signup, đăng nhập bằng Google cũng được.
+- **Tài khoản Expo đã vào `pbao309s-team`** (Bước 0).
 - **Expo Go** trên điện thoại, đăng nhập **cùng tài khoản Expo đó** (xem Cách 1, bước 1–2).
 
 ### Lấy code về
@@ -99,6 +110,7 @@ Một số phím trong terminal: `r` tải lại app, `Ctrl+C` tắt máy chủ.
 | `Couldn't create a signed tunnel URL ... not logged in` | Laptop chưa đăng nhập Expo: chạy `npx expo login --browser` |
 | `cmd.exe /c start ... exited with non-zero code: 1` (Windows, khi đăng nhập) | Chạy `$env:BROWSER = "none"` trước, rồi tự dán link vào trình duyệt (xem phần Đăng nhập) |
 | `Project is incompatible with this version of Expo Go` | Cập nhật Expo Go lên bản mới nhất |
+| `Unable to resolve module @rental/shared` (màn đỏ trên điện thoại, máy chạy Windows) | Máy chủ được mở từ đường dẫn `d:\` viết thường. Tắt máy chủ (`Ctrl+C`), chạy lại từ đường dẫn **viết hoa ổ đĩa**: `cd D:\codex-hackathon\apps\mobile` rồi `npx expo start --tunnel` |
 | Màn hình đỏ báo lỗi code | Chụp màn hình gửi người làm App, kèm bạn đã bấm những gì trước đó |
 
 ---
