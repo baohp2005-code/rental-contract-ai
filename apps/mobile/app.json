@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "Soi Hợp Đồng Trọ",
-    "slug": "soi-hop-dong-tro",
+    "slug": "hop-dong-ai",
+    "owner": "pbao309s-team",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -44,6 +45,11 @@
     "scheme": "soihopdong",
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "da6cb73d-7989-4182-b490-1b13537788cc"
+      }
     }
   }
 }
