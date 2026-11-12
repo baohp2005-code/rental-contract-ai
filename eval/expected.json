@@ -1,0 +1,5 @@
+[
+  { "id": "hd01", "flags": [ {"rule_id":"DEP-02","type":"risky","line_ids":["p1-L03"]}, {"rule_id":"RNT-01","type":"risky","line_ids":["p1-L07"]}, {"rule_id":"REP-01","type":"risky","line_ids":["p1-L08"]}, {"rule_id":"TRM-01","type":"risky","line_ids":["p1-L09"]} ], "terms": { "rent_vnd":3500000, "deposit_vnd":7000000, "electricity_vnd_per_kwh":3800, "duration_months":12, "notice_days":30 } },
+  { "id": "hd02", "flags": [], "terms": { "rent_vnd":3000000, "deposit_vnd":3000000, "electricity_vnd_per_kwh":3500, "duration_months":12, "notice_days":30 } },
+  { "id": "hd03", "flags": [ {"rule_id":"DEP-01","type":"missing","line_ids":[]}, {"rule_id":"UTL-01","type":"unclear","line_ids":["p1-L04"]}, {"rule_id":"TRM-02","type":"missing","line_ids":[]} ], "terms": { "rent_vnd":2800000, "deposit_vnd":2800000, "electricity_vnd_per_kwh":null, "duration_months":12, "notice_days":null } }
+]

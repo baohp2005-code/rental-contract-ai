@@ -1,0 +1,347 @@
+{
+  "id": "hd02",
+  "title": "Bản in ít rủi ro trong phạm vi kiểm tra",
+  "source": "synthetic",
+  "pages": [
+    {
+      "id": "p1",
+      "width": 1600,
+      "height": 1400,
+      "lines": [
+        {
+          "id": "p1-L01",
+          "page_id": "p1",
+          "raw_text": "HỢP ĐỒNG THUÊ PHÒNG TRỌ — MẪU MÔ PHỎNG 02",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.1
+            },
+            {
+              "x": 0.95625,
+              "y": 0.1
+            },
+            {
+              "x": 0.95625,
+              "y": 0.13
+            },
+            {
+              "x": 0.04375,
+              "y": 0.13
+            }
+          ]
+        },
+        {
+          "id": "p1-L02",
+          "page_id": "p1",
+          "raw_text": "Tiền thuê phòng: 3.000.000 đồng/tháng, giữ nguyên trong suốt thời hạn hợp đồng.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.15857142857142856
+            },
+            {
+              "x": 0.95625,
+              "y": 0.15857142857142856
+            },
+            {
+              "x": 0.95625,
+              "y": 0.18857142857142858
+            },
+            {
+              "x": 0.04375,
+              "y": 0.18857142857142858
+            }
+          ]
+        },
+        {
+          "id": "p1-L03",
+          "page_id": "p1",
+          "raw_text": "Tiền đặt cọc: 3.000.000 đồng. Hoàn trong 7 ngày sau bàn giao, trừ chi phí có chứng từ hai bên đồng ý.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.21714285714285714
+            },
+            {
+              "x": 0.95625,
+              "y": 0.21714285714285714
+            },
+            {
+              "x": 0.95625,
+              "y": 0.24714285714285714
+            },
+            {
+              "x": 0.04375,
+              "y": 0.24714285714285714
+            }
+          ]
+        },
+        {
+          "id": "p1-L04",
+          "page_id": "p1",
+          "raw_text": "Tiền điện: 3.500 đồng/kWh, đo theo đồng hồ riêng và ghi chỉ số hàng tháng.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.2757142857142857
+            },
+            {
+              "x": 0.95625,
+              "y": 0.2757142857142857
+            },
+            {
+              "x": 0.95625,
+              "y": 0.3057142857142857
+            },
+            {
+              "x": 0.04375,
+              "y": 0.3057142857142857
+            }
+          ]
+        },
+        {
+          "id": "p1-L05",
+          "page_id": "p1",
+          "raw_text": "Tiền nước: 90.000 đồng/người/tháng.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.3342857142857143
+            },
+            {
+              "x": 0.95625,
+              "y": 0.3342857142857143
+            },
+            {
+              "x": 0.95625,
+              "y": 0.36428571428571427
+            },
+            {
+              "x": 0.04375,
+              "y": 0.36428571428571427
+            }
+          ]
+        },
+        {
+          "id": "p1-L06",
+          "page_id": "p1",
+          "raw_text": "Thời hạn thuê: 12 tháng. Mỗi bên báo trước 30 ngày khi chấm dứt trước hạn.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.39285714285714285
+            },
+            {
+              "x": 0.95625,
+              "y": 0.39285714285714285
+            },
+            {
+              "x": 0.95625,
+              "y": 0.4228571428571429
+            },
+            {
+              "x": 0.04375,
+              "y": 0.4228571428571429
+            }
+          ]
+        },
+        {
+          "id": "p1-L07",
+          "page_id": "p1",
+          "raw_text": "Người thuê báo đủ 30 ngày và bàn giao đầy đủ thì được hoàn cọc dù trả phòng sớm.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.4514285714285714
+            },
+            {
+              "x": 0.95625,
+              "y": 0.4514285714285714
+            },
+            {
+              "x": 0.95625,
+              "y": 0.48142857142857143
+            },
+            {
+              "x": 0.04375,
+              "y": 0.48142857142857143
+            }
+          ]
+        },
+        {
+          "id": "p1-L08",
+          "page_id": "p1",
+          "raw_text": "Chủ nhà sửa thiết bị hỏng do cũ hoặc hao mòn; người thuê chịu hư hỏng do mình gây ra.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.51
+            },
+            {
+              "x": 0.95625,
+              "y": 0.51
+            },
+            {
+              "x": 0.95625,
+              "y": 0.54
+            },
+            {
+              "x": 0.04375,
+              "y": 0.54
+            }
+          ]
+        },
+        {
+          "id": "p1-L09",
+          "page_id": "p1",
+          "raw_text": "Nếu lấy lại phòng trước hạn, chủ nhà phải báo trước 30 ngày và hoàn cọc trong 7 ngày.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.5685714285714286
+            },
+            {
+              "x": 0.95625,
+              "y": 0.5685714285714286
+            },
+            {
+              "x": 0.95625,
+              "y": 0.5985714285714285
+            },
+            {
+              "x": 0.04375,
+              "y": 0.5985714285714285
+            }
+          ]
+        },
+        {
+          "id": "p1-L10",
+          "page_id": "p1",
+          "raw_text": "Hai bên ký biên bản hiện trạng và danh sách thiết bị khi nhận phòng.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.6271428571428571
+            },
+            {
+              "x": 0.95625,
+              "y": 0.6271428571428571
+            },
+            {
+              "x": 0.95625,
+              "y": 0.6571428571428571
+            },
+            {
+              "x": 0.04375,
+              "y": 0.6571428571428571
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "extraction": {
+    "lines": [
+      {
+        "line_id": "p1-L01",
+        "corrected_text": "HỢP ĐỒNG THUÊ PHÒNG TRỌ — MẪU MÔ PHỎNG 02"
+      },
+      {
+        "line_id": "p1-L02",
+        "corrected_text": "Tiền thuê phòng: 3.000.000 đồng/tháng, giữ nguyên trong suốt thời hạn hợp đồng."
+      },
+      {
+        "line_id": "p1-L03",
+        "corrected_text": "Tiền đặt cọc: 3.000.000 đồng. Hoàn trong 7 ngày sau bàn giao, trừ chi phí có chứng từ hai bên đồng ý."
+      },
+      {
+        "line_id": "p1-L04",
+        "corrected_text": "Tiền điện: 3.500 đồng/kWh, đo theo đồng hồ riêng và ghi chỉ số hàng tháng."
+      },
+      {
+        "line_id": "p1-L05",
+        "corrected_text": "Tiền nước: 90.000 đồng/người/tháng."
+      },
+      {
+        "line_id": "p1-L06",
+        "corrected_text": "Thời hạn thuê: 12 tháng. Mỗi bên báo trước 30 ngày khi chấm dứt trước hạn."
+      },
+      {
+        "line_id": "p1-L07",
+        "corrected_text": "Người thuê báo đủ 30 ngày và bàn giao đầy đủ thì được hoàn cọc dù trả phòng sớm."
+      },
+      {
+        "line_id": "p1-L08",
+        "corrected_text": "Chủ nhà sửa thiết bị hỏng do cũ hoặc hao mòn; người thuê chịu hư hỏng do mình gây ra."
+      },
+      {
+        "line_id": "p1-L09",
+        "corrected_text": "Nếu lấy lại phòng trước hạn, chủ nhà phải báo trước 30 ngày và hoàn cọc trong 7 ngày."
+      },
+      {
+        "line_id": "p1-L10",
+        "corrected_text": "Hai bên ký biên bản hiện trạng và danh sách thiết bị khi nhận phòng."
+      }
+    ],
+    "key_terms": {
+      "rent_vnd": {
+        "value": 3000000,
+        "unit": "VND",
+        "raw_text": "3.000.000",
+        "line_ids": [
+          "p1-L02"
+        ],
+        "status": "found"
+      },
+      "deposit_vnd": {
+        "value": 3000000,
+        "unit": "VND",
+        "raw_text": "3.000.000",
+        "line_ids": [
+          "p1-L03"
+        ],
+        "status": "found"
+      },
+      "electricity_vnd_per_kwh": {
+        "value": 3500,
+        "unit": "VND/kWh",
+        "raw_text": "3.500",
+        "line_ids": [
+          "p1-L04"
+        ],
+        "status": "found"
+      },
+      "water": {
+        "value": "90.000 đồng/người/tháng",
+        "unit": "text",
+        "raw_text": "90.000 đồng/người/tháng",
+        "line_ids": [
+          "p1-L05"
+        ],
+        "status": "found"
+      },
+      "duration_months": {
+        "value": 12,
+        "unit": "month",
+        "raw_text": "12 tháng",
+        "line_ids": [
+          "p1-L06"
+        ],
+        "status": "found"
+      },
+      "notice_days": {
+        "value": 30,
+        "unit": "day",
+        "raw_text": "30 ngày",
+        "line_ids": [
+          "p1-L06"
+        ],
+        "status": "found"
+      }
+    }
+  },
+  "risk": {
+    "flags": []
+  }
+}

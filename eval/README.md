@@ -1,5 +1,9 @@
 # eval
 
+**Benchmark cảnh báo mới:** xem [benchmark/README.md](benchmark/README.md). Có 24 ca mô phỏng phát triển, nhãn độc lập với đầu ra AI, chấm một-một theo điều khoản, báo FP/FN và bằng chứng, lưu đầu ra để chấm lại. Chạy `npm run benchmark` để kiểm tra bộ dữ liệu không gọi API. Chưa có bộ holdout được con người duyệt.
+
+Đã có ba mẫu phát triển mô phỏng và nhãn `expected.json`. `npm run eval` kiểm tra replay, không đo chất lượng AI. `npm run eval -- --live` gọi dịch vụ thật khi cấu hình sẵn sàng. Xem [hướng dẫn](../docs/TRIAL.md).
+
 Bộ kiểm thử. Mỗi hợp đồng mẫu có một file nhãn `hdXX.expected.yaml` liệt kê các cảnh báo **đúng phải có**:
 
 ```yaml

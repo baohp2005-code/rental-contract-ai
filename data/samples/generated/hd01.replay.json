@@ -1,0 +1,427 @@
+{
+  "id": "hd01",
+  "title": "Bản in có điều khoản bất lợi",
+  "source": "synthetic",
+  "pages": [
+    {
+      "id": "p1",
+      "width": 1600,
+      "height": 1400,
+      "lines": [
+        {
+          "id": "p1-L01",
+          "page_id": "p1",
+          "raw_text": "HỢP ĐỒNG THUÊ PHÒNG TRỌ — MẪU MÔ PHỎNG 01",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.1
+            },
+            {
+              "x": 0.95625,
+              "y": 0.1
+            },
+            {
+              "x": 0.95625,
+              "y": 0.13
+            },
+            {
+              "x": 0.04375,
+              "y": 0.13
+            }
+          ]
+        },
+        {
+          "id": "p1-L02",
+          "page_id": "p1",
+          "raw_text": "Tiền thuê phòng: 3.500.000 đồng/tháng.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.15857142857142856
+            },
+            {
+              "x": 0.95625,
+              "y": 0.15857142857142856
+            },
+            {
+              "x": 0.95625,
+              "y": 0.18857142857142858
+            },
+            {
+              "x": 0.04375,
+              "y": 0.18857142857142858
+            }
+          ]
+        },
+        {
+          "id": "p1-L03",
+          "page_id": "p1",
+          "raw_text": "Tiền đặt cọc: 7.000.000 đồng. Trả phòng trước hạn mất toàn bộ cọc, kể cả đã báo trước.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.21714285714285714
+            },
+            {
+              "x": 0.95625,
+              "y": 0.21714285714285714
+            },
+            {
+              "x": 0.95625,
+              "y": 0.24714285714285714
+            },
+            {
+              "x": 0.04375,
+              "y": 0.24714285714285714
+            }
+          ]
+        },
+        {
+          "id": "p1-L04",
+          "page_id": "p1",
+          "raw_text": "Tiền điện: 3.800 đồng/kWh, ghi chỉ số hàng tháng.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.2757142857142857
+            },
+            {
+              "x": 0.95625,
+              "y": 0.2757142857142857
+            },
+            {
+              "x": 0.95625,
+              "y": 0.3057142857142857
+            },
+            {
+              "x": 0.04375,
+              "y": 0.3057142857142857
+            }
+          ]
+        },
+        {
+          "id": "p1-L05",
+          "page_id": "p1",
+          "raw_text": "Tiền nước: 100.000 đồng/người/tháng.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.3342857142857143
+            },
+            {
+              "x": 0.95625,
+              "y": 0.3342857142857143
+            },
+            {
+              "x": 0.95625,
+              "y": 0.36428571428571427
+            },
+            {
+              "x": 0.04375,
+              "y": 0.36428571428571427
+            }
+          ]
+        },
+        {
+          "id": "p1-L06",
+          "page_id": "p1",
+          "raw_text": "Thời hạn thuê: 12 tháng. Người thuê phải báo trước 30 ngày khi trả phòng.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.39285714285714285
+            },
+            {
+              "x": 0.95625,
+              "y": 0.39285714285714285
+            },
+            {
+              "x": 0.95625,
+              "y": 0.4228571428571429
+            },
+            {
+              "x": 0.04375,
+              "y": 0.4228571428571429
+            }
+          ]
+        },
+        {
+          "id": "p1-L07",
+          "page_id": "p1",
+          "raw_text": "Chủ nhà được tăng giá thuê bất kỳ lúc nào, không cần báo trước.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.4514285714285714
+            },
+            {
+              "x": 0.95625,
+              "y": 0.4514285714285714
+            },
+            {
+              "x": 0.95625,
+              "y": 0.48142857142857143
+            },
+            {
+              "x": 0.04375,
+              "y": 0.48142857142857143
+            }
+          ]
+        },
+        {
+          "id": "p1-L08",
+          "page_id": "p1",
+          "raw_text": "Người thuê chịu mọi chi phí sửa chữa, kể cả thiết bị cũ và hao mòn tự nhiên.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.51
+            },
+            {
+              "x": 0.95625,
+              "y": 0.51
+            },
+            {
+              "x": 0.95625,
+              "y": 0.54
+            },
+            {
+              "x": 0.04375,
+              "y": 0.54
+            }
+          ]
+        },
+        {
+          "id": "p1-L09",
+          "page_id": "p1",
+          "raw_text": "Chủ nhà được lấy lại phòng bất kỳ lúc nào, không cần báo trước; người thuê đi sớm mất cọc.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.5685714285714286
+            },
+            {
+              "x": 0.95625,
+              "y": 0.5685714285714286
+            },
+            {
+              "x": 0.95625,
+              "y": 0.5985714285714285
+            },
+            {
+              "x": 0.04375,
+              "y": 0.5985714285714285
+            }
+          ]
+        },
+        {
+          "id": "p1-L10",
+          "page_id": "p1",
+          "raw_text": "Khi hết hạn, cọc được hoàn trong 7 ngày, trừ hư hỏng có biên bản hai bên ký.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.6271428571428571
+            },
+            {
+              "x": 0.95625,
+              "y": 0.6271428571428571
+            },
+            {
+              "x": 0.95625,
+              "y": 0.6571428571428571
+            },
+            {
+              "x": 0.04375,
+              "y": 0.6571428571428571
+            }
+          ]
+        },
+        {
+          "id": "p1-L11",
+          "page_id": "p1",
+          "raw_text": "Danh sách thiết bị và hiện trạng phòng có biên bản bàn giao hai bên đã ký.",
+          "polygon": [
+            {
+              "x": 0.04375,
+              "y": 0.6857142857142857
+            },
+            {
+              "x": 0.95625,
+              "y": 0.6857142857142857
+            },
+            {
+              "x": 0.95625,
+              "y": 0.7157142857142857
+            },
+            {
+              "x": 0.04375,
+              "y": 0.7157142857142857
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "extraction": {
+    "lines": [
+      {
+        "line_id": "p1-L01",
+        "corrected_text": "HỢP ĐỒNG THUÊ PHÒNG TRỌ — MẪU MÔ PHỎNG 01"
+      },
+      {
+        "line_id": "p1-L02",
+        "corrected_text": "Tiền thuê phòng: 3.500.000 đồng/tháng."
+      },
+      {
+        "line_id": "p1-L03",
+        "corrected_text": "Tiền đặt cọc: 7.000.000 đồng. Trả phòng trước hạn mất toàn bộ cọc, kể cả đã báo trước."
+      },
+      {
+        "line_id": "p1-L04",
+        "corrected_text": "Tiền điện: 3.800 đồng/kWh, ghi chỉ số hàng tháng."
+      },
+      {
+        "line_id": "p1-L05",
+        "corrected_text": "Tiền nước: 100.000 đồng/người/tháng."
+      },
+      {
+        "line_id": "p1-L06",
+        "corrected_text": "Thời hạn thuê: 12 tháng. Người thuê phải báo trước 30 ngày khi trả phòng."
+      },
+      {
+        "line_id": "p1-L07",
+        "corrected_text": "Chủ nhà được tăng giá thuê bất kỳ lúc nào, không cần báo trước."
+      },
+      {
+        "line_id": "p1-L08",
+        "corrected_text": "Người thuê chịu mọi chi phí sửa chữa, kể cả thiết bị cũ và hao mòn tự nhiên."
+      },
+      {
+        "line_id": "p1-L09",
+        "corrected_text": "Chủ nhà được lấy lại phòng bất kỳ lúc nào, không cần báo trước; người thuê đi sớm mất cọc."
+      },
+      {
+        "line_id": "p1-L10",
+        "corrected_text": "Khi hết hạn, cọc được hoàn trong 7 ngày, trừ hư hỏng có biên bản hai bên ký."
+      },
+      {
+        "line_id": "p1-L11",
+        "corrected_text": "Danh sách thiết bị và hiện trạng phòng có biên bản bàn giao hai bên đã ký."
+      }
+    ],
+    "key_terms": {
+      "rent_vnd": {
+        "value": 3500000,
+        "unit": "VND",
+        "raw_text": "3.500.000",
+        "line_ids": [
+          "p1-L02"
+        ],
+        "status": "found"
+      },
+      "deposit_vnd": {
+        "value": 7000000,
+        "unit": "VND",
+        "raw_text": "7.000.000",
+        "line_ids": [
+          "p1-L03"
+        ],
+        "status": "found"
+      },
+      "electricity_vnd_per_kwh": {
+        "value": 3800,
+        "unit": "VND/kWh",
+        "raw_text": "3.800",
+        "line_ids": [
+          "p1-L04"
+        ],
+        "status": "found"
+      },
+      "water": {
+        "value": "100.000 đồng/người/tháng",
+        "unit": "text",
+        "raw_text": "100.000 đồng/người/tháng",
+        "line_ids": [
+          "p1-L05"
+        ],
+        "status": "found"
+      },
+      "duration_months": {
+        "value": 12,
+        "unit": "month",
+        "raw_text": "12 tháng",
+        "line_ids": [
+          "p1-L06"
+        ],
+        "status": "found"
+      },
+      "notice_days": {
+        "value": 30,
+        "unit": "day",
+        "raw_text": "30 ngày",
+        "line_ids": [
+          "p1-L06"
+        ],
+        "status": "found"
+      }
+    }
+  },
+  "risk": {
+    "flags": [
+      {
+        "id": "F1",
+        "rule_id": "DEP-02",
+        "type": "risky",
+        "severity": "high",
+        "line_ids": [
+          "p1-L03"
+        ],
+        "quote": "Tiền đặt cọc: 7.000.000 đồng. Trả phòng trước hạn mất toàn bộ cọc, kể cả đã báo trước.",
+        "title": "Mất cọc dù đã báo trước",
+        "explanation": "Theo điều khoản này, bạn có thể mất 7.000.000 đồng cọc khi chuyển đi trước hạn dù đã báo trước.",
+        "question_for_landlord": "Nếu em báo trước 30 ngày và bàn giao đầy đủ thì có được hoàn cọc khi chuyển đi sớm không ạ?"
+      },
+      {
+        "id": "F2",
+        "rule_id": "RNT-01",
+        "type": "risky",
+        "severity": "high",
+        "line_ids": [
+          "p1-L07"
+        ],
+        "quote": "Chủ nhà được tăng giá thuê bất kỳ lúc nào, không cần báo trước.",
+        "title": "Giá thuê có thể tăng bất ngờ",
+        "explanation": "Bạn khó dự tính chi phí vì chủ nhà có thể tăng giá giữa thời hạn thuê.",
+        "question_for_landlord": "Mình có thể giữ nguyên tiền thuê trong thời hạn hợp đồng không ạ?"
+      },
+      {
+        "id": "F3",
+        "rule_id": "REP-01",
+        "type": "risky",
+        "severity": "high",
+        "line_ids": [
+          "p1-L08"
+        ],
+        "quote": "Người thuê chịu mọi chi phí sửa chữa, kể cả thiết bị cũ và hao mòn tự nhiên.",
+        "title": "Phải trả cả sửa chữa do đồ cũ",
+        "explanation": "Bạn có thể phải trả chi phí cho thiết bị hỏng do hao mòn, dù không phải do bạn làm hỏng.",
+        "question_for_landlord": "Hư hỏng do thiết bị cũ và hao mòn tự nhiên thì chủ nhà có chịu sửa không ạ?"
+      },
+      {
+        "id": "F4",
+        "rule_id": "TRM-01",
+        "type": "risky",
+        "severity": "high",
+        "line_ids": [
+          "p1-L09"
+        ],
+        "quote": "Chủ nhà được lấy lại phòng bất kỳ lúc nào, không cần báo trước; người thuê đi sớm mất cọc.",
+        "title": "Chủ nhà có thể lấy lại phòng đột ngột",
+        "explanation": "Bạn có thể phải tìm chỗ ở gấp trong khi điều kiện trả phòng của hai bên không cân bằng.",
+        "question_for_landlord": "Nếu cần lấy lại phòng trước hạn thì anh/chị sẽ báo trước bao lâu và hoàn cọc thế nào ạ?"
+      }
+    ]
+  }
+}

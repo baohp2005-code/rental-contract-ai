@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", "module": "NodeNext", "moduleResolution": "NodeNext",
+    "strict": true, "esModuleInterop": true, "skipLibCheck": true,
+    "resolveJsonModule": true, "noEmit": true, "allowImportingTsExtensions": true,
+    "types": ["node"]
+  },
+  "include": ["apps/api/**/*.ts", "apps/benchmark/**/*.ts", "packages/**/*.ts", "scripts/**/*.ts", "eval/**/*.ts"]
+}

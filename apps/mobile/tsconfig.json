@@ -1,0 +1,5 @@
+{
+  "extends": "../../node_modules/expo/tsconfig.base.json",
+  "compilerOptions": { "strict": true, "noEmit": true },
+  "include": ["**/*.ts", "**/*.tsx", "../../packages/shared/src/index.ts"]
+}

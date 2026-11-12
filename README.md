@@ -4,7 +4,11 @@
 >
 > **App không phải tư vấn pháp lý.** Sinh viên duyệt từng cảnh báo trước khi gửi bất cứ điều gì.
 
-**Trạng thái:** đang chuẩn bị, 1 tuần trước ngày thi (bắt đầu 9/11/2026). README này là bản kế hoạch; sẽ cập nhật thành tài liệu sản phẩm sau khi triển khai xong.
+**Trạng thái:** đã có bản thử nghiệm cục bộ trên nhánh `develop`: app Expo, API Hono, schema dùng chung. Google Vision và OpenAI đã chạy xuyên suốt trên 3 hợp đồng mô phỏng; trích số đúng 15/15 nhưng cảnh báo còn thừa và bỏ sót. Đã bổ sung [benchmark cảnh báo 24 ca](eval/benchmark/README.md) để đo và so sánh các lần sửa; nhãn mới là draft, chưa có holdout độc lập. Các mục bên dưới còn bao gồm kế hoạch tính năng.
+
+**Chạy thử:** xem [docs/TRIAL.md](docs/TRIAL.md). Cài bằng `npm install`, chạy `npm run dev:api` và `npm run dev:web` trong hai terminal, mở `http://127.0.0.1:8081`.
+
+Kế hoạch triển khai đề xuất, so sánh chiến lược và đánh giá độ khả thi: [docs/PLAN.md](docs/PLAN.md).
 
 Bản kế hoạch cả nhóm cùng sửa và bình luận: [Claude Docs](https://claude.ai/artifact/K8m3iE7C2ruwwLZxEMVjci).
 
@@ -68,7 +72,7 @@ Toàn bộ viết bằng TypeScript để app và backend dùng chung schema.
 | Tô sáng dòng | react-native-svg | Vẽ khung lên ảnh theo vị trí OCR |
 | Backend | Node + Hono (TypeScript) | API key chỉ để ở backend, không bao giờ đưa vào app |
 | OCR | Google Cloud Vision, chế độ `DOCUMENT_TEXT_DETECTION` | Đọc tiếng Việt có dấu và chữ viết tay. Kết quả chia theo từ, phải tự ghép thành dòng theo dấu xuống dòng (`detectedBreak`) |
-| LLM | Claude Opus 5.5 (`claude-opus-5-5`) | Đọc ảnh, trả JSON đúng khuôn mẫu (structured outputs), lưu đệm phần prompt cố định (prompt caching) |
+| LLM | OpenAI Responses API, cấu hình qua `OPENAI_MODEL` | Dùng model hỗ trợ ảnh và Structured Outputs; đầu ra được kiểm tra bằng schema |
 | Kiểm tra dữ liệu | Zod, dùng chung app và backend | |
 | Lưu trữ | SQLite hoặc AsyncStorage trên máy | Bản hackathon không cần đăng nhập |
 | Deploy backend | Render, Railway hoặc Cloud Run | |
@@ -199,7 +203,7 @@ Câu pitch: *"Bỏ AI đi thì sản phẩm không còn tồn tại."* Demo dùn
 
 | Câu hỏi | Quyết định |
 | --- | --- |
-| Model bắt buộc? | Không. Chỉ cần trình bày sản phẩm đầu ra → dùng Claude Opus 5.5 |
+| Model bắt buộc? | Không. Chọn model OpenAI truy cập được qua `OPENAI_MODEL`; chưa xác minh model cho lần chạy thật |
 | Ngôn ngữ | TypeScript (cả app và backend) |
 | Thời gian | Chuẩn bị trước 1 tuần, được mang sản phẩm làm sẵn đến thi → hoàn thiện tối đa theo lịch 7 ngày |
 
@@ -214,7 +218,7 @@ Còn mở:
 ```bash
 git clone <url-repo>
 cd rental-contract-ai
-cp .env.example apps/api/.env   # điền ANTHROPIC_API_KEY, Google Cloud credentials
+cp .env.example apps/api/src/.env   # điền OPENAI_API_KEY, OPENAI_MODEL, Google Cloud credentials
 ```
 
 Quy ước:

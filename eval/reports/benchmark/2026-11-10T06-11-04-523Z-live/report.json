@@ -1,0 +1,5930 @@
+{
+  "run_id": "2026-11-10T06-11-04-523Z-live",
+  "created_at": "2026-11-10T06:16:02.936Z",
+  "mode": "live",
+  "split": "dev",
+  "dataset_version": "warnings-v1.0.0",
+  "dataset_hash": "6b8ce46264bbd1a22f09776494771573870875d5a9aa82d5ecb275c1addf23dc",
+  "scorer_hash": "c5e59cf2154d050af1266229c2353b08318edef511a82799f72ee4631a6dd2b2",
+  "case_ids": [
+    "dep-01-positive",
+    "dep-01-negative",
+    "dep-02-positive",
+    "dep-02-negative",
+    "dep-03-positive",
+    "dep-03-negative",
+    "utl-01-positive",
+    "utl-01-negative",
+    "rnt-01-positive",
+    "rnt-01-negative",
+    "rep-01-positive",
+    "rep-01-negative",
+    "trm-01-positive",
+    "trm-01-negative",
+    "trm-02-positive",
+    "trm-02-negative",
+    "incomplete-no-missing",
+    "incomplete-known-risk",
+    "unreadable-return",
+    "appendix-resolves",
+    "conflicting-rent",
+    "embedded-instruction",
+    "explicit-price-no-threshold",
+    "eight-risks"
+  ],
+  "provenance": {
+    "provider": "google-vision+openai",
+    "model": "gpt-4.1-mini",
+    "git_revision": "b47dec80989b49a9f1fd6118dd295fcbf597ea52",
+    "git_dirty": true,
+    "files": {
+      "apps/api/src/llm.ts": "6e552de5beba3ae1931c8cb0f016ac73145b657d2516553d2e6069836e7a6817",
+      "apps/api/src/ocr.ts": "d6e3aa0e66f7e9e6bb2c2db731082c4a75399f9580085a048c502ccc5aa89b2c",
+      "apps/api/src/pipeline.ts": "7b78c0232e74c37144021af0a16a8ac6358ed0856a5f3ba9eff96c700890642a",
+      "packages/shared/src/index.ts": "37a79f658f6a419906519b281d2ddcb0e7cea8da467e372888db27a7514f26a2",
+      "prompts/01-extract.md": "c50c86b39cf3b8838e04dba6ce7bf1bb8adb4a1b4b4553210b852c1f50c335ca",
+      "prompts/02-risk.md": "1d5b6cfb05a571ef6ef8c938da3847c4723f7cc2dbba35b87a5896337df73ecd",
+      "data/checklist.yaml": "a31f8991fdeeb330bf89dd10c29b954f422ac266ca91ea91351692c830510b03",
+      "eval/benchmark/render.ts": "23c8600ee5cbb5af4625bee254e4c6f02d3454aeedaab6a43043bb6f20382179",
+      "package-lock.json": "7feb81342ad6e0892372e5e8773beeec70690f3bdaf42d9b8f2ad50ac9e41634"
+    },
+    "started_at": "2026-11-10T06:11:04.584Z"
+  },
+  "coverage": {
+    "cases": 24,
+    "clean_cases": 11,
+    "reviewed_cases": 0,
+    "families": 1,
+    "by_rule": {
+      "DEP-01": {
+        "positive_cases": 3,
+        "negative_cases": 21,
+        "targeted_negative_cases": 2
+      },
+      "DEP-02": {
+        "positive_cases": 2,
+        "negative_cases": 22,
+        "targeted_negative_cases": 1
+      },
+      "DEP-03": {
+        "positive_cases": 2,
+        "negative_cases": 22,
+        "targeted_negative_cases": 1
+      },
+      "UTL-01": {
+        "positive_cases": 2,
+        "negative_cases": 22,
+        "targeted_negative_cases": 3
+      },
+      "RNT-01": {
+        "positive_cases": 4,
+        "negative_cases": 20,
+        "targeted_negative_cases": 1
+      },
+      "REP-01": {
+        "positive_cases": 3,
+        "negative_cases": 21,
+        "targeted_negative_cases": 1
+      },
+      "TRM-01": {
+        "positive_cases": 2,
+        "negative_cases": 22,
+        "targeted_negative_cases": 1
+      },
+      "TRM-02": {
+        "positive_cases": 2,
+        "negative_cases": 22,
+        "targeted_negative_cases": 1
+      }
+    },
+    "by_tag": {
+      "DEP-01": 4,
+      "DEP-02": 2,
+      "DEP-03": 2,
+      "REP-01": 3,
+      "RNT-01": 4,
+      "TRM-01": 2,
+      "TRM-02": 2,
+      "UTL-01": 4,
+      "clean": 11,
+      "contradiction": 1,
+      "cross-clause": 1,
+      "incomplete": 2,
+      "minimal-pair": 16,
+      "multi-page": 1,
+      "multi-risk": 1,
+      "negative": 11,
+      "no-market-threshold": 1,
+      "positive": 11,
+      "prompt-injection": 1,
+      "unclear": 2,
+      "unreadable": 1
+    }
+  },
+  "totals": {
+    "cases": 24,
+    "completed": 24,
+    "failed": 0,
+    "tp": 14,
+    "fp": 107,
+    "fn": 6,
+    "precision": 0.11570247933884298,
+    "recall": 0.7,
+    "f1": 0.19858156028368795,
+    "macro_f1": 0.20504600963192296,
+    "high_found": 13,
+    "high_expected": 18,
+    "high_recall": 0.7222222222222222,
+    "supported_tp": 14,
+    "supported_precision": 0.11570247933884298,
+    "severity_accuracy_on_matches": 1,
+    "evidence_grounded": 99,
+    "evidence_total": 108,
+    "evidence_grounding_rate": 0.9166666666666666,
+    "unsupported_missing": 5,
+    "exact_cases": 5,
+    "exact_case_rate": 0.20833333333333334,
+    "clean_cases": 11,
+    "completed_clean_cases": 11,
+    "clean_false_alarm_cases": 7,
+    "clean_false_alarm_rate": 0.6363636363636364,
+    "clean_success_rate": 0.36363636363636365,
+    "input_tokens": 138958,
+    "output_tokens": 38532,
+    "latency_ms": {
+      "median": 13944,
+      "p95": 16024,
+      "count": 24
+    },
+    "by_rule": {
+      "DEP-01": {
+        "tp": 0,
+        "fp": 17,
+        "fn": 3,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      "DEP-02": {
+        "tp": 2,
+        "fp": 12,
+        "fn": 0,
+        "precision": 0.14285714285714285,
+        "recall": 1,
+        "f1": 0.25
+      },
+      "DEP-03": {
+        "tp": 2,
+        "fp": 15,
+        "fn": 0,
+        "precision": 0.11764705882352941,
+        "recall": 1,
+        "f1": 0.21052631578947367
+      },
+      "UTL-01": {
+        "tp": 1,
+        "fp": 15,
+        "fn": 1,
+        "precision": 0.0625,
+        "recall": 0.5,
+        "f1": 0.1111111111111111
+      },
+      "RNT-01": {
+        "tp": 3,
+        "fp": 8,
+        "fn": 1,
+        "precision": 0.2727272727272727,
+        "recall": 0.75,
+        "f1": 0.4
+      },
+      "REP-01": {
+        "tp": 3,
+        "fp": 13,
+        "fn": 0,
+        "precision": 0.1875,
+        "recall": 1,
+        "f1": 0.3157894736842105
+      },
+      "TRM-01": {
+        "tp": 2,
+        "fp": 13,
+        "fn": 0,
+        "precision": 0.13333333333333333,
+        "recall": 1,
+        "f1": 0.23529411764705882
+      },
+      "TRM-02": {
+        "tp": 1,
+        "fp": 14,
+        "fn": 1,
+        "precision": 0.06666666666666667,
+        "recall": 0.5,
+        "f1": 0.11764705882352941
+      }
+    }
+  },
+  "by_tag": {
+    "DEP-01": {
+      "cases": 4,
+      "completed": 4,
+      "failed": 0,
+      "tp": 0,
+      "fp": 15,
+      "fn": 2,
+      "precision": 0,
+      "recall": 0,
+      "f1": 0,
+      "macro_f1": 0,
+      "high_found": 0,
+      "high_expected": 2,
+      "high_recall": 0,
+      "supported_tp": 0,
+      "supported_precision": 0,
+      "severity_accuracy_on_matches": null,
+      "evidence_grounded": 11,
+      "evidence_total": 12,
+      "evidence_grounding_rate": 0.9166666666666666,
+      "unsupported_missing": 0,
+      "exact_cases": 1,
+      "exact_case_rate": 0.25,
+      "clean_cases": 2,
+      "completed_clean_cases": 2,
+      "clean_false_alarm_cases": 1,
+      "clean_false_alarm_rate": 0.5,
+      "clean_success_rate": 0.5,
+      "input_tokens": 25086,
+      "output_tokens": 5377,
+      "latency_ms": {
+        "median": 11865,
+        "p95": 14798,
+        "count": 4
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 2,
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    },
+    "DEP-02": {
+      "cases": 2,
+      "completed": 2,
+      "failed": 0,
+      "tp": 1,
+      "fp": 14,
+      "fn": 0,
+      "precision": 0.06666666666666667,
+      "recall": 1,
+      "f1": 0.125,
+      "macro_f1": 0.08333333333333333,
+      "high_found": 1,
+      "high_expected": 1,
+      "high_recall": 1,
+      "supported_tp": 1,
+      "supported_precision": 0.06666666666666667,
+      "severity_accuracy_on_matches": 1,
+      "evidence_grounded": 14,
+      "evidence_total": 15,
+      "evidence_grounding_rate": 0.9333333333333333,
+      "unsupported_missing": 0,
+      "exact_cases": 0,
+      "exact_case_rate": 0,
+      "clean_cases": 1,
+      "completed_clean_cases": 1,
+      "clean_false_alarm_cases": 1,
+      "clean_false_alarm_rate": 1,
+      "clean_success_rate": 0,
+      "input_tokens": 11529,
+      "output_tokens": 4270,
+      "latency_ms": {
+        "median": 15794,
+        "p95": 15794,
+        "count": 2
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.5,
+          "recall": 1,
+          "f1": 0.6666666666666666
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    },
+    "DEP-03": {
+      "cases": 2,
+      "completed": 2,
+      "failed": 0,
+      "tp": 1,
+      "fp": 7,
+      "fn": 0,
+      "precision": 0.125,
+      "recall": 1,
+      "f1": 0.2222222222222222,
+      "macro_f1": 0.09523809523809523,
+      "high_found": 1,
+      "high_expected": 1,
+      "high_recall": 1,
+      "supported_tp": 1,
+      "supported_precision": 0.125,
+      "severity_accuracy_on_matches": 1,
+      "evidence_grounded": 7,
+      "evidence_total": 8,
+      "evidence_grounding_rate": 0.875,
+      "unsupported_missing": 0,
+      "exact_cases": 1,
+      "exact_case_rate": 0.5,
+      "clean_cases": 1,
+      "completed_clean_cases": 1,
+      "clean_false_alarm_cases": 1,
+      "clean_false_alarm_rate": 1,
+      "clean_success_rate": 0,
+      "input_tokens": 11507,
+      "output_tokens": 2993,
+      "latency_ms": {
+        "median": 14245,
+        "p95": 14245,
+        "count": 2
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-03": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.5,
+          "recall": 1,
+          "f1": 0.6666666666666666
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    },
+    "REP-01": {
+      "cases": 3,
+      "completed": 3,
+      "failed": 0,
+      "tp": 2,
+      "fp": 13,
+      "fn": 0,
+      "precision": 0.13333333333333333,
+      "recall": 1,
+      "f1": 0.23529411764705882,
+      "macro_f1": 0.125,
+      "high_found": 2,
+      "high_expected": 2,
+      "high_recall": 1,
+      "supported_tp": 2,
+      "supported_precision": 0.13333333333333333,
+      "severity_accuracy_on_matches": 1,
+      "evidence_grounded": 12,
+      "evidence_total": 12,
+      "evidence_grounding_rate": 1,
+      "unsupported_missing": 0,
+      "exact_cases": 1,
+      "exact_case_rate": 0.3333333333333333,
+      "clean_cases": 1,
+      "completed_clean_cases": 1,
+      "clean_false_alarm_cases": 0,
+      "clean_false_alarm_rate": 0,
+      "clean_success_rate": 1,
+      "input_tokens": 17268,
+      "output_tokens": 4752,
+      "latency_ms": {
+        "median": 13955,
+        "p95": 14259,
+        "count": 3
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "REP-01": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    },
+    "RNT-01": {
+      "cases": 4,
+      "completed": 4,
+      "failed": 0,
+      "tp": 2,
+      "fp": 20,
+      "fn": 1,
+      "precision": 0.09090909090909091,
+      "recall": 0.6666666666666666,
+      "f1": 0.16,
+      "macro_f1": 0.07142857142857142,
+      "high_found": 2,
+      "high_expected": 3,
+      "high_recall": 0.6666666666666666,
+      "supported_tp": 2,
+      "supported_precision": 0.09090909090909091,
+      "severity_accuracy_on_matches": 1,
+      "evidence_grounded": 20,
+      "evidence_total": 21,
+      "evidence_grounding_rate": 0.9523809523809523,
+      "unsupported_missing": 0,
+      "exact_cases": 0,
+      "exact_case_rate": 0,
+      "clean_cases": 1,
+      "completed_clean_cases": 1,
+      "clean_false_alarm_cases": 1,
+      "clean_false_alarm_rate": 1,
+      "clean_success_rate": 0,
+      "input_tokens": 22837,
+      "output_tokens": 6951,
+      "latency_ms": {
+        "median": 15594,
+        "p95": 16278,
+        "count": 4
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 2,
+          "fp": 2,
+          "fn": 1,
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285714
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    },
+    "TRM-01": {
+      "cases": 2,
+      "completed": 2,
+      "failed": 0,
+      "tp": 1,
+      "fp": 6,
+      "fn": 0,
+      "precision": 0.14285714285714285,
+      "recall": 1,
+      "f1": 0.25,
+      "macro_f1": 0.14285714285714285,
+      "high_found": 1,
+      "high_expected": 1,
+      "high_recall": 1,
+      "supported_tp": 1,
+      "supported_precision": 0.14285714285714285,
+      "severity_accuracy_on_matches": 1,
+      "evidence_grounded": 6,
+      "evidence_total": 7,
+      "evidence_grounding_rate": 0.8571428571428571,
+      "unsupported_missing": 0,
+      "exact_cases": 1,
+      "exact_case_rate": 0.5,
+      "clean_cases": 1,
+      "completed_clean_cases": 1,
+      "clean_false_alarm_cases": 0,
+      "clean_false_alarm_rate": 0,
+      "clean_success_rate": 1,
+      "input_tokens": 11445,
+      "output_tokens": 2918,
+      "latency_ms": {
+        "median": 15434,
+        "p95": 15434,
+        "count": 2
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    },
+    "TRM-02": {
+      "cases": 2,
+      "completed": 2,
+      "failed": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "precision": null,
+      "recall": 0,
+      "f1": 0,
+      "macro_f1": 0,
+      "high_found": 0,
+      "high_expected": 0,
+      "high_recall": null,
+      "supported_tp": 0,
+      "supported_precision": null,
+      "severity_accuracy_on_matches": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0,
+      "evidence_grounding_rate": null,
+      "unsupported_missing": 0,
+      "exact_cases": 1,
+      "exact_case_rate": 0.5,
+      "clean_cases": 1,
+      "completed_clean_cases": 1,
+      "clean_false_alarm_cases": 0,
+      "clean_false_alarm_rate": 0,
+      "clean_success_rate": 1,
+      "input_tokens": 11302,
+      "output_tokens": 1518,
+      "latency_ms": {
+        "median": 7555,
+        "p95": 7555,
+        "count": 2
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": null,
+          "recall": 0,
+          "f1": 0
+        }
+      }
+    },
+    "UTL-01": {
+      "cases": 4,
+      "completed": 4,
+      "failed": 0,
+      "tp": 1,
+      "fp": 22,
+      "fn": 0,
+      "precision": 0.043478260869565216,
+      "recall": 1,
+      "f1": 0.08333333333333333,
+      "macro_f1": 0.0625,
+      "high_found": 1,
+      "high_expected": 1,
+      "high_recall": 1,
+      "supported_tp": 1,
+      "supported_precision": 0.043478260869565216,
+      "severity_accuracy_on_matches": 1,
+      "evidence_grounded": 21,
+      "evidence_total": 23,
+      "evidence_grounding_rate": 0.9130434782608695,
+      "unsupported_missing": 0,
+      "exact_cases": 1,
+      "exact_case_rate": 0.25,
+      "clean_cases": 3,
+      "completed_clean_cases": 3,
+      "clean_false_alarm_cases": 2,
+      "clean_false_alarm_rate": 0.6666666666666666,
+      "clean_success_rate": 0.3333333333333333,
+      "input_tokens": 25506,
+      "output_tokens": 7084,
+      "latency_ms": {
+        "median": 14362,
+        "p95": 16024,
+        "count": 4
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "UTL-01": {
+          "tp": 1,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.3333333333333333,
+          "recall": 1,
+          "f1": 0.5
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    },
+    "clean": {
+      "cases": 11,
+      "completed": 11,
+      "failed": 0,
+      "tp": 0,
+      "fp": 54,
+      "fn": 0,
+      "precision": 0,
+      "recall": null,
+      "f1": 0,
+      "macro_f1": 0,
+      "high_found": 0,
+      "high_expected": 0,
+      "high_recall": null,
+      "supported_tp": 0,
+      "supported_precision": 0,
+      "severity_accuracy_on_matches": null,
+      "evidence_grounded": 40,
+      "evidence_total": 45,
+      "evidence_grounding_rate": 0.8888888888888888,
+      "unsupported_missing": 5,
+      "exact_cases": 4,
+      "exact_case_rate": 0.36363636363636365,
+      "clean_cases": 11,
+      "completed_clean_cases": 11,
+      "clean_false_alarm_cases": 7,
+      "clean_false_alarm_rate": 0.6363636363636364,
+      "clean_success_rate": 0.36363636363636365,
+      "input_tokens": 65489,
+      "output_tokens": 17657,
+      "latency_ms": {
+        "median": 13837,
+        "p95": 16278,
+        "count": 11
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 5,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    },
+    "contradiction": {
+      "cases": 1,
+      "completed": 1,
+      "failed": 0,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0,
+      "recall": 0,
+      "f1": 0,
+      "macro_f1": 0,
+      "high_found": 0,
+      "high_expected": 1,
+      "high_recall": 0,
+      "supported_tp": 0,
+      "supported_precision": 0,
+      "severity_accuracy_on_matches": null,
+      "evidence_grounded": 1,
+      "evidence_total": 1,
+      "evidence_grounding_rate": 1,
+      "unsupported_missing": 0,
+      "exact_cases": 0,
+      "exact_case_rate": 0,
+      "clean_cases": 0,
+      "completed_clean_cases": 0,
+      "clean_false_alarm_cases": 0,
+      "clean_false_alarm_rate": null,
+      "clean_success_rate": null,
+      "input_tokens": 5876,
+      "output_tokens": 1114,
+      "latency_ms": {
+        "median": 10222,
+        "p95": 10222,
+        "count": 1
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        }
+      }
+    },
+    "cross-clause": {
+      "cases": 1,
+      "completed": 1,
+      "failed": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": null,
+      "recall": null,
+      "f1": null,
+      "macro_f1": null,
+      "high_found": 0,
+      "high_expected": 0,
+      "high_recall": null,
+      "supported_tp": 0,
+      "supported_precision": null,
+      "severity_accuracy_on_matches": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0,
+      "evidence_grounding_rate": null,
+      "unsupported_missing": 0,
+      "exact_cases": 1,
+      "exact_case_rate": 1,
+      "clean_cases": 1,
+      "completed_clean_cases": 1,
+      "clean_false_alarm_cases": 0,
+      "clean_false_alarm_rate": 0,
+      "clean_success_rate": 1,
+      "input_tokens": 8284,
+      "output_tokens": 914,
+      "latency_ms": {
+        "median": 8419,
+        "p95": 8419,
+        "count": 1
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        }
+      }
+    },
+    "incomplete": {
+      "cases": 2,
+      "completed": 2,
+      "failed": 0,
+      "tp": 1,
+      "fp": 12,
+      "fn": 0,
+      "precision": 0.07692307692307693,
+      "recall": 1,
+      "f1": 0.14285714285714285,
+      "macro_f1": 0.08333333333333333,
+      "high_found": 1,
+      "high_expected": 1,
+      "high_recall": 1,
+      "supported_tp": 1,
+      "supported_precision": 0.07692307692307693,
+      "severity_accuracy_on_matches": 1,
+      "evidence_grounded": 6,
+      "evidence_total": 8,
+      "evidence_grounding_rate": 0.75,
+      "unsupported_missing": 5,
+      "exact_cases": 0,
+      "exact_case_rate": 0,
+      "clean_cases": 1,
+      "completed_clean_cases": 1,
+      "clean_false_alarm_cases": 1,
+      "clean_false_alarm_rate": 1,
+      "clean_success_rate": 0,
+      "input_tokens": 10645,
+      "output_tokens": 2997,
+      "latency_ms": {
+        "median": 11668,
+        "p95": 11668,
+        "count": 2
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.5,
+          "recall": 1,
+          "f1": 0.6666666666666666
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    },
+    "minimal-pair": {
+      "cases": 16,
+      "completed": 16,
+      "failed": 0,
+      "tp": 6,
+      "fp": 73,
+      "fn": 2,
+      "precision": 0.0759493670886076,
+      "recall": 0.75,
+      "f1": 0.13793103448275862,
+      "macro_f1": 0.14299242424242425,
+      "high_found": 6,
+      "high_expected": 7,
+      "high_recall": 0.8571428571428571,
+      "supported_tp": 6,
+      "supported_precision": 0.0759493670886076,
+      "severity_accuracy_on_matches": 1,
+      "evidence_grounded": 67,
+      "evidence_total": 72,
+      "evidence_grounding_rate": 0.9305555555555556,
+      "unsupported_missing": 0,
+      "exact_cases": 4,
+      "exact_case_rate": 0.25,
+      "clean_cases": 8,
+      "completed_clean_cases": 8,
+      "clean_false_alarm_cases": 5,
+      "clean_false_alarm_rate": 0.625,
+      "clean_success_rate": 0.375,
+      "input_tokens": 91618,
+      "output_tokens": 25930,
+      "latency_ms": {
+        "median": 14362,
+        "p95": 16278,
+        "count": 16
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 11,
+          "fn": 1,
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 1,
+          "fp": 9,
+          "fn": 0,
+          "precision": 0.1,
+          "recall": 1,
+          "f1": 0.18181818181818182
+        },
+        "DEP-03": {
+          "tp": 1,
+          "fp": 10,
+          "fn": 0,
+          "precision": 0.09090909090909091,
+          "recall": 1,
+          "f1": 0.16666666666666666
+        },
+        "UTL-01": {
+          "tp": 1,
+          "fp": 9,
+          "fn": 0,
+          "precision": 0.1,
+          "recall": 1,
+          "f1": 0.18181818181818182
+        },
+        "RNT-01": {
+          "tp": 1,
+          "fp": 6,
+          "fn": 0,
+          "precision": 0.14285714285714285,
+          "recall": 1,
+          "f1": 0.25
+        },
+        "REP-01": {
+          "tp": 1,
+          "fp": 9,
+          "fn": 0,
+          "precision": 0.1,
+          "recall": 1,
+          "f1": 0.18181818181818182
+        },
+        "TRM-01": {
+          "tp": 1,
+          "fp": 9,
+          "fn": 0,
+          "precision": 0.1,
+          "recall": 1,
+          "f1": 0.18181818181818182
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 10,
+          "fn": 1,
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        }
+      }
+    },
+    "multi-page": {
+      "cases": 1,
+      "completed": 1,
+      "failed": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": null,
+      "recall": null,
+      "f1": null,
+      "macro_f1": null,
+      "high_found": 0,
+      "high_expected": 0,
+      "high_recall": null,
+      "supported_tp": 0,
+      "supported_precision": null,
+      "severity_accuracy_on_matches": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0,
+      "evidence_grounding_rate": null,
+      "unsupported_missing": 0,
+      "exact_cases": 1,
+      "exact_case_rate": 1,
+      "clean_cases": 1,
+      "completed_clean_cases": 1,
+      "clean_false_alarm_cases": 0,
+      "clean_false_alarm_rate": 0,
+      "clean_success_rate": 1,
+      "input_tokens": 8284,
+      "output_tokens": 914,
+      "latency_ms": {
+        "median": 8419,
+        "p95": 8419,
+        "count": 1
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        }
+      }
+    },
+    "multi-risk": {
+      "cases": 1,
+      "completed": 1,
+      "failed": 0,
+      "tp": 6,
+      "fp": 2,
+      "fn": 2,
+      "precision": 0.75,
+      "recall": 0.75,
+      "f1": 0.75,
+      "macro_f1": 0.75,
+      "high_found": 5,
+      "high_expected": 7,
+      "high_recall": 0.7142857142857143,
+      "supported_tp": 6,
+      "supported_precision": 0.75,
+      "severity_accuracy_on_matches": 1,
+      "evidence_grounded": 6,
+      "evidence_total": 7,
+      "evidence_grounding_rate": 0.8571428571428571,
+      "unsupported_missing": 0,
+      "exact_cases": 0,
+      "exact_case_rate": 0,
+      "clean_cases": 0,
+      "completed_clean_cases": 0,
+      "clean_false_alarm_cases": 0,
+      "clean_false_alarm_rate": null,
+      "clean_success_rate": null,
+      "input_tokens": 5431,
+      "output_tokens": 1915,
+      "latency_ms": {
+        "median": 13944,
+        "p95": 13944,
+        "count": 1
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "DEP-03": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "REP-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "TRM-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "TRM-02": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        }
+      }
+    },
+    "negative": {
+      "cases": 11,
+      "completed": 11,
+      "failed": 0,
+      "tp": 0,
+      "fp": 54,
+      "fn": 0,
+      "precision": 0,
+      "recall": null,
+      "f1": 0,
+      "macro_f1": 0,
+      "high_found": 0,
+      "high_expected": 0,
+      "high_recall": null,
+      "supported_tp": 0,
+      "supported_precision": 0,
+      "severity_accuracy_on_matches": null,
+      "evidence_grounded": 40,
+      "evidence_total": 45,
+      "evidence_grounding_rate": 0.8888888888888888,
+      "unsupported_missing": 5,
+      "exact_cases": 4,
+      "exact_case_rate": 0.36363636363636365,
+      "clean_cases": 11,
+      "completed_clean_cases": 11,
+      "clean_false_alarm_cases": 7,
+      "clean_false_alarm_rate": 0.6363636363636364,
+      "clean_success_rate": 0.36363636363636365,
+      "input_tokens": 65489,
+      "output_tokens": 17657,
+      "latency_ms": {
+        "median": 13837,
+        "p95": 16278,
+        "count": 11
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 5,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    },
+    "no-market-threshold": {
+      "cases": 1,
+      "completed": 1,
+      "failed": 0,
+      "tp": 0,
+      "fp": 7,
+      "fn": 0,
+      "precision": 0,
+      "recall": null,
+      "f1": 0,
+      "macro_f1": 0,
+      "high_found": 0,
+      "high_expected": 0,
+      "high_recall": null,
+      "supported_tp": 0,
+      "supported_precision": 0,
+      "severity_accuracy_on_matches": null,
+      "evidence_grounded": 6,
+      "evidence_total": 7,
+      "evidence_grounding_rate": 0.8571428571428571,
+      "unsupported_missing": 0,
+      "exact_cases": 0,
+      "exact_case_rate": 0,
+      "clean_cases": 1,
+      "completed_clean_cases": 1,
+      "clean_false_alarm_cases": 1,
+      "clean_false_alarm_rate": 1,
+      "clean_success_rate": 0,
+      "input_tokens": 5713,
+      "output_tokens": 1933,
+      "latency_ms": {
+        "median": 13837,
+        "p95": 13837,
+        "count": 1
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    },
+    "positive": {
+      "cases": 11,
+      "completed": 11,
+      "failed": 0,
+      "tp": 14,
+      "fp": 46,
+      "fn": 4,
+      "precision": 0.23333333333333334,
+      "recall": 0.7777777777777778,
+      "f1": 0.358974358974359,
+      "macro_f1": 0.3712752525252525,
+      "high_found": 13,
+      "high_expected": 16,
+      "high_recall": 0.8125,
+      "supported_tp": 14,
+      "supported_precision": 0.23333333333333334,
+      "severity_accuracy_on_matches": 1,
+      "evidence_grounded": 52,
+      "evidence_total": 56,
+      "evidence_grounding_rate": 0.9285714285714286,
+      "unsupported_missing": 0,
+      "exact_cases": 1,
+      "exact_case_rate": 0.09090909090909091,
+      "clean_cases": 0,
+      "completed_clean_cases": 0,
+      "clean_false_alarm_cases": 0,
+      "clean_false_alarm_rate": null,
+      "clean_success_rate": null,
+      "input_tokens": 62002,
+      "output_tokens": 18049,
+      "latency_ms": {
+        "median": 13955,
+        "p95": 15794,
+        "count": 11
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 9,
+          "fn": 2,
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 2,
+          "fp": 5,
+          "fn": 0,
+          "precision": 0.2857142857142857,
+          "recall": 1,
+          "f1": 0.4444444444444444
+        },
+        "DEP-03": {
+          "tp": 2,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0.2222222222222222,
+          "recall": 1,
+          "f1": 0.36363636363636365
+        },
+        "UTL-01": {
+          "tp": 1,
+          "fp": 7,
+          "fn": 1,
+          "precision": 0.125,
+          "recall": 0.5,
+          "f1": 0.2
+        },
+        "RNT-01": {
+          "tp": 3,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.6,
+          "recall": 1,
+          "f1": 0.75
+        },
+        "REP-01": {
+          "tp": 3,
+          "fp": 5,
+          "fn": 0,
+          "precision": 0.375,
+          "recall": 1,
+          "f1": 0.5454545454545454
+        },
+        "TRM-01": {
+          "tp": 2,
+          "fp": 5,
+          "fn": 0,
+          "precision": 0.2857142857142857,
+          "recall": 1,
+          "f1": 0.4444444444444444
+        },
+        "TRM-02": {
+          "tp": 1,
+          "fp": 6,
+          "fn": 1,
+          "precision": 0.14285714285714285,
+          "recall": 0.5,
+          "f1": 0.2222222222222222
+        }
+      }
+    },
+    "prompt-injection": {
+      "cases": 1,
+      "completed": 1,
+      "failed": 0,
+      "tp": 1,
+      "fp": 6,
+      "fn": 0,
+      "precision": 0.14285714285714285,
+      "recall": 1,
+      "f1": 0.25,
+      "macro_f1": 0.14285714285714285,
+      "high_found": 1,
+      "high_expected": 1,
+      "high_recall": 1,
+      "supported_tp": 1,
+      "supported_precision": 0.14285714285714285,
+      "severity_accuracy_on_matches": 1,
+      "evidence_grounded": 7,
+      "evidence_total": 7,
+      "evidence_grounding_rate": 1,
+      "unsupported_missing": 0,
+      "exact_cases": 0,
+      "exact_case_rate": 0,
+      "clean_cases": 0,
+      "completed_clean_cases": 0,
+      "clean_false_alarm_cases": 0,
+      "clean_false_alarm_rate": null,
+      "clean_success_rate": null,
+      "input_tokens": 5800,
+      "output_tokens": 2017,
+      "latency_ms": {
+        "median": 14259,
+        "p95": 14259,
+        "count": 1
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "REP-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1,
+          "recall": 1,
+          "f1": 1
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    },
+    "unclear": {
+      "cases": 2,
+      "completed": 2,
+      "failed": 0,
+      "tp": 0,
+      "fp": 7,
+      "fn": 2,
+      "precision": 0,
+      "recall": 0,
+      "f1": 0,
+      "macro_f1": 0,
+      "high_found": 0,
+      "high_expected": 2,
+      "high_recall": 0,
+      "supported_tp": 0,
+      "supported_precision": 0,
+      "severity_accuracy_on_matches": null,
+      "evidence_grounded": 7,
+      "evidence_total": 7,
+      "evidence_grounding_rate": 1,
+      "unsupported_missing": 0,
+      "exact_cases": 0,
+      "exact_case_rate": 0,
+      "clean_cases": 0,
+      "completed_clean_cases": 0,
+      "clean_false_alarm_cases": 0,
+      "clean_false_alarm_rate": null,
+      "clean_success_rate": null,
+      "input_tokens": 11467,
+      "output_tokens": 2826,
+      "latency_ms": {
+        "median": 11865,
+        "p95": 11865,
+        "count": 2
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    },
+    "unreadable": {
+      "cases": 1,
+      "completed": 1,
+      "failed": 0,
+      "tp": 0,
+      "fp": 6,
+      "fn": 1,
+      "precision": 0,
+      "recall": 0,
+      "f1": 0,
+      "macro_f1": 0,
+      "high_found": 0,
+      "high_expected": 1,
+      "high_recall": 0,
+      "supported_tp": 0,
+      "supported_precision": 0,
+      "severity_accuracy_on_matches": null,
+      "evidence_grounded": 6,
+      "evidence_total": 6,
+      "evidence_grounding_rate": 1,
+      "unsupported_missing": 0,
+      "exact_cases": 0,
+      "exact_case_rate": 0,
+      "clean_cases": 0,
+      "completed_clean_cases": 0,
+      "clean_false_alarm_cases": 0,
+      "clean_false_alarm_rate": null,
+      "clean_success_rate": null,
+      "input_tokens": 5591,
+      "output_tokens": 1712,
+      "latency_ms": {
+        "median": 11865,
+        "p95": 11865,
+        "count": 1
+      },
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0,
+          "recall": 0,
+          "f1": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0,
+          "recall": null,
+          "f1": 0
+        }
+      }
+    }
+  },
+  "gates": {
+    "full_split": true,
+    "all_cases_completed": true,
+    "precision_85": false,
+    "high_recall_90": false,
+    "supported_precision_85": false,
+    "evidence_grounding_100": false,
+    "no_unsupported_missing": false,
+    "clean_false_alarm_at_most_10": false
+  },
+  "automatic_gates_passed": false,
+  "release_ready": false,
+  "limitations": [
+    "Synthetic development set with related templates, not independent real-world accuracy.",
+    "Draft labels need two-person review.",
+    "Explanation correctness, usefulness, question quality and visual highlight alignment require human review.",
+    "Quote grounding is not semantic correctness.",
+    "No independent holdout or human quality sign-off in this run."
+  ],
+  "comparison": {
+    "comparable": true,
+    "previous_run": "2026-11-10T05-39-13-012Z-live",
+    "delta": {
+      "tp": 2,
+      "fp": -30,
+      "fn": -2,
+      "failed": 0
+    }
+  },
+  "cases": [
+    {
+      "id": "dep-01-positive",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "DEP-01",
+        "minimal-pair",
+        "positive"
+      ],
+      "clean": false,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "high_expected": 1,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 1,
+      "evidence_total": 1,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [],
+      "missed": [
+        {
+          "id": "DEP-01",
+          "rule_id": "DEP-01",
+          "type": "missing",
+          "severity": "high",
+          "evidence_any_of": [],
+          "rationale": "Có khoản cọc nhưng toàn bộ hợp đồng không quy định cách hoặc thời điểm hoàn."
+        }
+      ],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L04"
+          ],
+          "quote": "Tiền đặt cọc 3.000.000 đồng.",
+          "title": "Không ghi điều kiện hoặc thời hạn trả cọc",
+          "explanation": "Hợp đồng chỉ ghi số tiền cọc mà không nói rõ khi nào sẽ trả lại tiền cọc và trong những trường hợp nào được trừ cọc. Điều này có thể khiến chủ nhà giữ tiền cọc lâu hoặc không trả.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 11166,
+      "input_tokens": 5501,
+      "output_tokens": 830
+    },
+    {
+      "id": "dep-01-negative",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "DEP-01",
+        "minimal-pair",
+        "negative",
+        "clean"
+      ],
+      "clean": true,
+      "tp": 0,
+      "fp": 8,
+      "fn": 0,
+      "high_expected": 0,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 4,
+      "evidence_total": 5,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L05",
+            "p1-L06"
+          ],
+          "quote": "Cọc hoàn trong vòng 5 ngày sau bàn giao, chỉ khấu trừ nợ và thiệt hại do người thuê gây ra có xác nhận hai bên.",
+          "title": "Không ghi điều kiện hoặc thời hạn trả cọc rõ ràng",
+          "explanation": "Hợp đồng ghi rõ cọc sẽ trả trong vòng 5 ngày, nhưng điều kiện \"khấu trừ nợ và thiệt hại\" thì phải có xác nhận hai bên mới trừ được. Bạn nên hỏi kỹ cách xác nhận này để tránh tranh chấp khi trả cọc.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì có quy trình cụ thể thế nào để xác nhận thiệt hại, và trong bao lâu thì em nhận lại cọc ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F2",
+          "rule_id": "DEP-02",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L07"
+          ],
+          "quote": "Nếu trả phòng sớm và báo đủ 30 ngày, người thuê vẫn được hoàn cọc theo điều kiện và thời hạn nêu trên.",
+          "title": "Điều kiện hoàn cọc khi trả phòng sớm",
+          "explanation": "Hợp đồng này cho bạn quyền báo trước 30 ngày nếu trả phòng sớm và vẫn được hoàn cọc. Đây là điều bạn cần xác nhận kỹ để không mất tiền cọc nếu thay đổi kế hoạch thuê.",
+          "question_for_landlord": "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Câu trích chưa khớp OCR gốc hoặc dữ liệu liên quan chưa chắc chắn; không tô vùng như bằng chứng đã xác minh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L09"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Có biên bản bàn giao hiện trạng rõ ràng",
+          "explanation": "Có biên bản bàn giao hiện trạng giúp bạn chứng minh tình trạng phòng khi nhận, tránh bị trừ cọc oan vì hư hỏng cũ.",
+          "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "UTL-01",
+          "type": "missing",
+          "severity": "high",
+          "line_ids": [],
+          "quote": "",
+          "title": "Đơn giá điện rõ ràng, không do chủ nhà tự quy định",
+          "explanation": "Mức giá điện trong hợp đồng đã cụ thể, không bị mơ hồ hay thay đổi linh tinh nên không có cảnh báo về giá điện.",
+          "question_for_landlord": "Anh/chị cho em hỏi giá điện đã cố định trong hợp đồng rồi phải không ạ?",
+          "evidence_status": "not_applicable",
+          "evidence_reason": "Đã xác nhận đủ trang; đây là nhận định của AI về điều khoản thiếu."
+        },
+        {
+          "id": "F5",
+          "rule_id": "RNT-01",
+          "type": "missing",
+          "severity": "high",
+          "line_ids": [],
+          "quote": "",
+          "title": "Chủ nhà không được tăng giá giữa hợp đồng",
+          "explanation": "Hợp đồng ghi rõ tiền thuê giữ nguyên trong suốt thời hạn 12 tháng, tốt cho bạn vì không bị tăng giá bất ngờ.",
+          "question_for_landlord": "Anh/chị có thể xác nhận rằng trong 12 tháng thuê này giá thuê sẽ không thay đổi không ạ?",
+          "evidence_status": "not_applicable",
+          "evidence_reason": "Đã xác nhận đủ trang; đây là nhận định của AI về điều khoản thiếu."
+        },
+        {
+          "id": "F6",
+          "rule_id": "REP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L11",
+            "p1-L12"
+          ],
+          "quote": "Chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên; người thuê chỉ chịu hư hỏng do mình gây ra.",
+          "title": "Phân chia chi phí sửa chữa rõ ràng",
+          "explanation": "Bạn không phải chịu sửa hỏng do thiết bị cũ hay hao mòn tự nhiên, chỉ chịu chi phí nếu là hư hỏng do bạn gây ra. Đây là điểm tốt, nhưng nên hỏi kỹ để tránh tranh cãi sau này.",
+          "question_for_landlord": "Những hư hỏng do thiết bị cũ hoặc hao mòn tự nhiên thì bên nào chịu chi phí sửa ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F7",
+          "rule_id": "TRM-01",
+          "type": "missing",
+          "severity": "high",
+          "line_ids": [],
+          "quote": "",
+          "title": "Chủ nhà không được tự ý chấm dứt hợp đồng không báo trước",
+          "explanation": "Hợp đồng ghi rõ chủ nhà muốn lấy lại phòng phải báo trước 30 ngày và hoàn cọc trong 7 ngày, nên bạn không lo bị mất chỗ ở đột ngột.",
+          "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?",
+          "evidence_status": "not_applicable",
+          "evidence_reason": "Đã xác nhận đủ trang; đây là nhận định của AI về điều khoản thiếu."
+        },
+        {
+          "id": "F8",
+          "rule_id": "TRM-02",
+          "type": "risky",
+          "severity": "medium",
+          "line_ids": [
+            "p1-L15"
+          ],
+          "quote": "Mỗi bên phải báo trước 30 ngày khi chấm dứt thuê.",
+          "title": "Thời hạn báo trước chấm dứt hợp đồng rõ ràng",
+          "explanation": "Cả bạn và chủ nhà đều phải báo trước 30 ngày khi muốn chấm dứt hợp đồng, giúp bạn có thời gian chuẩn bị khi muốn chuyển phòng.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 14798,
+      "input_tokens": 5710,
+      "output_tokens": 1921
+    },
+    {
+      "id": "dep-02-positive",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "DEP-02",
+        "minimal-pair",
+        "positive"
+      ],
+      "clean": false,
+      "tp": 1,
+      "fp": 6,
+      "fn": 0,
+      "high_expected": 1,
+      "high_found": 1,
+      "supported_tp": 1,
+      "severity_correct": 1,
+      "evidence_grounded": 6,
+      "evidence_total": 7,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [
+        {
+          "prediction_index": 1,
+          "gold_index": 0,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "DEP-02",
+          "prediction_id": "F2"
+        }
+      ],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L05"
+          ],
+          "quote": "Khi kết thúc thuê, cọc được trả trong 7 ngày sau bàn giao; chỉ trừ nợ và hư hỏng do người thuê gây ra có chứng từ hai bên đồng ý.",
+          "title": "Không ghi điều kiện hoặc thời hạn trả cọc",
+          "explanation": "Hợp đồng ghi rõ tiền cọc được trả trong 7 ngày sau khi bàn giao và sẽ trừ nợ hoặc hư hỏng có chứng từ hai bên đồng ý. Điều này tốt vì bạn biết được thời hạn trả cọc và điều kiện bị trừ.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Câu trích chưa khớp OCR gốc hoặc dữ liệu liên quan chưa chắc chắn; không tô vùng như bằng chứng đã xác minh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L09"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Được trừ cọc vì \"hư hỏng\" nhưng không có biên bản bàn giao hiện trạng",
+          "explanation": "Hợp đồng có biên bản bàn giao hiện trạng và danh sách thiết bị, ký khi nhận phòng. Điều này giúp bạn tránh bị trừ tiền cọc oan khi có hư hỏng do trước đó.",
+          "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "UTL-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L10"
+          ],
+          "quote": "Tiền điện cố định 3.500 đồng/kWh, theo đồng hồ riêng; nước 90.000 đồng/người/tháng.",
+          "title": "Đơn giá điện mơ hồ, do chủ nhà tự quy định",
+          "explanation": "Giá điện 3.500 đồng/kWh được ghi rõ trong hợp đồng và dùng đồng hồ riêng, giúp bạn kiểm soát được tiền điện. Đây là điều tốt, không bị mơ hồ hay do chủ nhà tự định giá.",
+          "question_for_landlord": "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F5",
+          "rule_id": "REP-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L11",
+            "p1-L12"
+          ],
+          "quote": "Chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên; người thuê chỉ chịu hư hỏng do mình gây ra.",
+          "title": "Người thuê chịu mọi khoản sửa chữa, kể cả hư hỏng lớn hoặc hao mòn tự nhiên",
+          "explanation": "Hợp đồng quy định rõ chủ nhà chịu sửa chữa hư hỏng lớn và hao mòn tự nhiên. Bạn chỉ chịu các hư hỏng do mình gây ra, giúp bạn không bị mất tiền sửa những hỏng hóc do dùng lâu.",
+          "question_for_landlord": "Những hư hỏng do thiết bị cũ hoặc hao mòn tự nhiên thì bên nào chịu chi phí sửa ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F6",
+          "rule_id": "TRM-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L13",
+            "p1-L14"
+          ],
+          "quote": "Chủ nhà chỉ được lấy lại phòng trước hạn khi hai bên đồng ý, phải báo trước 30 ngày và hoàn cọc trong 7 ngày theo điều kiện nêu trên.",
+          "title": "Chủ nhà được tự ý chấm dứt không cần báo trước, còn người thuê thì mất cọc",
+          "explanation": "Chủ nhà chỉ được lấy lại phòng trước hạn nếu hai bên đồng ý và phải báo trước 30 ngày, đồng thời hoàn trả cọc. Đây là điều bạn nên hỏi lại để chắc chắn không bị mất nơi ở đột ngột.",
+          "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F7",
+          "rule_id": "TRM-02",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L15"
+          ],
+          "quote": "Mỗi bên phải báo trước 30 ngày khi chấm dứt thuê.",
+          "title": "Không ghi thời hạn báo trước",
+          "explanation": "Hợp đồng quy định rõ mỗi bên phải báo trước 30 ngày khi muốn chấm dứt hợp đồng. Điều này giúp bạn có thời gian sắp xếp khi kết thúc thuê.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 15794,
+      "input_tokens": 5719,
+      "output_tokens": 1993
+    },
+    {
+      "id": "dep-02-negative",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "DEP-02",
+        "minimal-pair",
+        "negative",
+        "clean"
+      ],
+      "clean": true,
+      "tp": 0,
+      "fp": 8,
+      "fn": 0,
+      "high_expected": 0,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 8,
+      "evidence_total": 8,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L05",
+            "p1-L06"
+          ],
+          "quote": "Khi kết thúc thuê, cọc được trả trong 7 ngày sau bàn giao; chỉ trừ nợ và hư hỏng do\nngười thuê gây ra có chứng từ hai bên đồng ý.",
+          "title": "Thời hạn trả cọc rõ ràng nhưng cần hỏi chi tiết về việc trừ cọc",
+          "explanation": "Hợp đồng ghi rõ sẽ trả cọc trong 7 ngày sau khi bàn giao phòng và chỉ trừ nợ, hư hỏng với chứng từ đồng ý của hai bên, điều này tốt vì không để cọc bị giữ lâu vô lý. Tuy nhiên, bạn cần hỏi kỹ xem chứng từ cụ thể là gì và trường hợp nào bị trừ tiền để tránh mất cọc oan.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F2",
+          "rule_id": "DEP-02",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L07",
+            "p1-L08"
+          ],
+          "quote": "Không áp dụng mất cọc trong mọi trường hợp: nếu người thuê báo đủ 30 ngày khi đi sớm thì\nhoàn cọc theo điều kiện đã ghi.",
+          "title": "Có điều khoản không mất cọc nếu báo trước đủ 30 ngày khi trả phòng sớm",
+          "explanation": "Hợp đồng có ghi rõ bạn không bị mất cọc nếu báo trước 30 ngày khi chuyển đi sớm, rất tốt cho việc bạn có thể chuyển đi giữa chừng mà không mất tiền cọc.",
+          "question_for_landlord": "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Câu trích chưa khớp OCR gốc hoặc dữ liệu liên quan chưa chắc chắn; không tô vùng như bằng chứng đã xác minh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L09"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Có biên bản bàn giao hiện trạng phòng, giúp bảo vệ quyền lợi bạn",
+          "explanation": "Hợp đồng đã có biên bản bàn giao và danh sách thiết bị hai bên ký nhận, sẽ giúp bạn chứng minh tình trạng phòng ban đầu, tránh bị trừ cọc oan do hư hỏng từ trước.",
+          "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "UTL-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L10"
+          ],
+          "quote": "Tiền điện cố định 3.500 đồng/kWh, theo đồng hồ riêng; nước 90.000 đồng/người/tháng.",
+          "title": "Giá điện và nước rõ ràng, không mơ hồ",
+          "explanation": "Hợp đồng ghi giá điện cố định 3.500đ/kWh theo đồng hồ riêng và nước 90.000 đồng/người/tháng, không để giá điện do chủ nhà tự quy định, nên bạn yên tâm không lo bị chủ nhà tăng giá điện bất ngờ.",
+          "question_for_landlord": "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F5",
+          "rule_id": "RNT-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L03"
+          ],
+          "quote": "Tiền thuê 3.000.000 đồng/tháng, giữ nguyên trong suốt thời hạn thuê 12 tháng.",
+          "title": "Giá thuê giữ nguyên trong suốt hợp đồng",
+          "explanation": "Hợp đồng ghi rõ giá thuê không tăng trong 12 tháng, giúp bạn yên tâm không bị tăng tiền thuê giữa chừng. Đây là điều tốt, bạn nên hỏi lại để chắc chắn không có điều kiện ngầm tăng giá.",
+          "question_for_landlord": "Trong thời hạn hợp đồng giá thuê có giữ nguyên không, nếu tăng thì báo trước bao lâu ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Câu trích chưa khớp OCR gốc hoặc dữ liệu liên quan chưa chắc chắn; không tô vùng như bằng chứng đã xác minh."
+        },
+        {
+          "id": "F6",
+          "rule_id": "REP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L11",
+            "p1-L12"
+          ],
+          "quote": "Chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên; người thuê chỉ chịu hư hỏng do mình\ngây ra.",
+          "title": "Bạn không chịu sửa chữa hao mòn tự nhiên, bảo vệ được chi phí sửa chữa",
+          "explanation": "Hợp đồng quy định chủ nhà chịu chi phí sửa chữa hư hỏng lớn và hao mòn tự nhiên, chỉ bạn chịu các hư hỏng do bạn gây ra. Điều này tránh trường hợp bạn phải trả tiền sửa máy lạnh hay bình nóng lạnh hỏng do sử dụng lâu ngày.",
+          "question_for_landlord": "Những hư hỏng do thiết bị cũ hoặc hao mòn tự nhiên thì bên nào chịu chi phí sửa ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F7",
+          "rule_id": "TRM-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L13",
+            "p1-L14"
+          ],
+          "quote": "Chủ nhà chỉ được lấy lại phòng trước hạn khi hai bên đồng ý, phải báo trước 30 ngày và\nhoàn cọc trong 7 ngày theo điều kiện nêu trên.",
+          "title": "Chủ nhà không được lấy lại phòng đột ngột, có thông báo trước 30 ngày và hoàn cọc",
+          "explanation": "Hợp đồng quy định rõ chủ nhà chỉ được lấy lại phòng khi hai bên đồng ý và báo trước 30 ngày, sau đó hoàn tiền cọc, bạn ít lo mất chỗ đột ngột.",
+          "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F8",
+          "rule_id": "TRM-02",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L15"
+          ],
+          "quote": "Mỗi bên phải báo trước 30 ngày khi chấm dứt thuê.",
+          "title": "Có ghi rõ thời hạn báo trước là 30 ngày khi chấm dứt hợp đồng",
+          "explanation": "Hợp đồng quy định mỗi bên phải báo trước 30 ngày khi muốn chấm dứt hợp đồng, giúp giảm tranh chấp về việc nghỉ giữa chừng.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 15750,
+      "input_tokens": 5810,
+      "output_tokens": 2277
+    },
+    {
+      "id": "dep-03-positive",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "DEP-03",
+        "minimal-pair",
+        "positive"
+      ],
+      "clean": false,
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "high_expected": 1,
+      "high_found": 1,
+      "supported_tp": 1,
+      "severity_correct": 1,
+      "evidence_grounded": 1,
+      "evidence_total": 1,
+      "unsupported_missing": 0,
+      "exact": true,
+      "matches": [
+        {
+          "prediction_index": 0,
+          "gold_index": 0,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "DEP-03",
+          "prediction_id": "F1"
+        }
+      ],
+      "missed": [],
+      "extra": [],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 8837,
+      "input_tokens": 5685,
+      "output_tokens": 914
+    },
+    {
+      "id": "dep-03-negative",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "DEP-03",
+        "minimal-pair",
+        "negative",
+        "clean"
+      ],
+      "clean": true,
+      "tp": 0,
+      "fp": 7,
+      "fn": 0,
+      "high_expected": 0,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 6,
+      "evidence_total": 7,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L05",
+            "p1-L06"
+          ],
+          "quote": "Khi kết thúc thuê, cọc được trả trong 7 ngày sau bàn giao; chỉ trừ nợ và hư hỏng do\nngười thuê gây ra có chứng từ hai bên đồng ý.",
+          "title": "Không ghi điều kiện hoặc thời hạn trả cọc",
+          "explanation": "Hợp đồng ghi rõ sau khi bàn giao phòng thì tiền cọc sẽ được trả trong 7 ngày, trừ khi có nợ hay hư hỏng do bạn gây ra với chứng từ đồng thuận. Điều này giúp bạn biết rõ khi nào nhận lại cọc và trong trường hợp nào bị trừ.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F2",
+          "rule_id": "DEP-02",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L07",
+            "p1-L08"
+          ],
+          "quote": "Nếu trả phòng sớm và báo đủ 30 ngày, người thuê vẫn được hoàn cọc theo điều kiện và thời hạn nêu trên.",
+          "title": "\"Mất cọc trong mọi trường hợp\" khi trả phòng sớm, kể cả đã báo trước",
+          "explanation": "Hợp đồng quy định nếu bạn báo trước 30 ngày và trả phòng sớm, bạn vẫn được hoàn lại tiền cọc theo điều kiện thông thường. Điều này tốt vì bạn không bị mất cọc nếu chuyển đi trước hạn và báo trước đúng quy định.",
+          "question_for_landlord": "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L09"
+          ],
+          "quote": "Hồ sơ bàn giao gồm ảnh hiện trạng từng thiết bị, được cả hai bên ký xác nhận và giữ một\nbản.",
+          "title": "Được trừ cọc vì \"hư hỏng\" nhưng không có biên bản bàn giao hiện trạng",
+          "explanation": "Hợp đồng quy định có hồ sơ bàn giao gồm ảnh và chữ ký của hai bên, giúp bạn có bằng chứng về hiện trạng phòng khi nhận, tránh bị trừ cọc oan do hư hỏng trước đó.",
+          "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Câu trích chưa khớp OCR gốc hoặc dữ liệu liên quan chưa chắc chắn; không tô vùng như bằng chứng đã xác minh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "UTL-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L11"
+          ],
+          "quote": "Tiền điện cố định 3.500 đồng/kWh, theo đồng hồ riêng; nước 90.000 đồng/người/tháng.",
+          "title": "Đơn giá điện mơ hồ, do chủ nhà tự quy định; không đánh giá mức giá cao/thấp.",
+          "explanation": "Hợp đồng ghi rõ giá điện 3.500đ/kWh cố định theo đồng hồ riêng và nước 90.000đ/người/tháng. Đây là thông tin cụ thể giúp bạn biết chi phí điện nước, tránh bị tính giá không rõ ràng hoặc tăng bất ngờ.",
+          "question_for_landlord": "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F5",
+          "rule_id": "REP-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L12",
+            "p1-L13"
+          ],
+          "quote": "Chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên; người thuê chỉ chịu hư hỏng do mình\ngây ra.",
+          "title": "Người thuê chịu mọi khoản sửa chữa, kể cả hư hỏng lớn hoặc hao mòn tự nhiên",
+          "explanation": "Hợp đồng quy định chủ nhà chịu trách nhiệm sửa hư hỏng lớn và hao mòn tự nhiên, chỉ trừ hư hỏng do bạn gây ra. Điều này có lợi vì bạn không phải trả tiền sửa những hỏng hóc do dùng lâu hay thiết bị cũ hỏng.",
+          "question_for_landlord": "Những hư hỏng do thiết bị cũ hoặc hao mòn tự nhiên thì bên nào chịu chi phí sửa ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F6",
+          "rule_id": "TRM-01",
+          "type": "risky",
+          "severity": "medium",
+          "line_ids": [
+            "p1-L14",
+            "p1-L15"
+          ],
+          "quote": "Chủ nhà chỉ được lấy lại phòng trước hạn khi hai bên đồng ý, phải báo trước 30 ngày và\nhoàn cọc trong 7 ngày theo điều kiện nêu trên.",
+          "title": "Chủ nhà được tự ý chấm dứt không cần báo trước, còn người thuê thì mất cọc",
+          "explanation": "Hợp đồng quy định chủ nhà chỉ được lấy lại phòng sớm khi hai bên đồng ý, phải báo trước 30 ngày và hoàn trả cọc đúng hạn. Điều này giúp bạn yên tâm không bị mất chỗ ở đột ngột và mất tiền cọc oan.",
+          "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F7",
+          "rule_id": "TRM-02",
+          "type": "risky",
+          "severity": "medium",
+          "line_ids": [
+            "p1-L16"
+          ],
+          "quote": "Mỗi bên phải báo trước 30 ngày khi chấm dứt thuê.",
+          "title": "Không ghi thời hạn báo trước",
+          "explanation": "Hợp đồng ghi rõ mỗi bên phải báo trước 30 ngày khi muốn chấm dứt hợp đồng, giúp bạn có thời gian chuẩn bị và tránh tranh chấp về báo trước hay không.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 14245,
+      "input_tokens": 5822,
+      "output_tokens": 2079
+    },
+    {
+      "id": "utl-01-positive",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "UTL-01",
+        "minimal-pair",
+        "positive"
+      ],
+      "clean": false,
+      "tp": 1,
+      "fp": 7,
+      "fn": 0,
+      "high_expected": 1,
+      "high_found": 1,
+      "supported_tp": 1,
+      "severity_correct": 1,
+      "evidence_grounded": 8,
+      "evidence_total": 8,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [
+        {
+          "prediction_index": 3,
+          "gold_index": 0,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "UTL-01",
+          "prediction_id": "F4"
+        }
+      ],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L05",
+            "p1-L06"
+          ],
+          "quote": "Khi kết thúc thuê, cọc được trả trong 7 ngày sau bàn giao; chỉ trừ nợ và hư hỏng do người thuê gây ra có chứng từ hai bên đồng ý.",
+          "title": "Không ghi điều kiện hoặc thời hạn trả cọc",
+          "explanation": "Hợp đồng có ghi rõ thời hạn trả cọc là 7 ngày sau bàn giao, chủ nhà chỉ được trừ những khoản có chứng từ đồng ý hai bên nên điểm này ổn.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F2",
+          "rule_id": "DEP-02",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L07",
+            "p1-L08"
+          ],
+          "quote": "Nếu trả phòng sớm và báo đủ 30 ngày, người thuê vẫn được hoàn cọc theo điều kiện và thời hạn nêu trên.",
+          "title": "\"Mất cọc trong mọi trường hợp\" khi trả phòng sớm, kể cả đã báo trước",
+          "explanation": "Hợp đồng rõ ràng ghi bạn trả phòng sớm và báo trước 30 ngày vẫn được hoàn cọc theo điều kiện nên bạn không bị mất cọc nếu báo trước 30 ngày.",
+          "question_for_landlord": "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L09"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Được trừ cọc vì \"hư hỏng\" nhưng không có biên bản bàn giao hiện trạng",
+          "explanation": "Hợp đồng có biên bản bàn giao hiện trạng do hai bên ký nên bạn có cơ sở để đối chiếu, tránh bị trừ cọc oan.",
+          "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F5",
+          "rule_id": "RNT-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L03"
+          ],
+          "quote": "Tiền thuê 3.000.000 đồng/tháng, giữ nguyên trong suốt thời hạn thuê 12 tháng.",
+          "title": "Chủ nhà được tăng giá bất kỳ lúc nào, không báo trước",
+          "explanation": "Hợp đồng ghi rõ tiền thuê cố định trong 12 tháng nên bạn được yên tâm không bị tăng giá giữa hợp đồng.",
+          "question_for_landlord": "Trong thời hạn hợp đồng giá thuê có giữ nguyên không, nếu tăng thì báo trước bao lâu ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F6",
+          "rule_id": "REP-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L11",
+            "p1-L12"
+          ],
+          "quote": "Chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên; người thuê chỉ chịu hư hỏng do mình gây ra.",
+          "title": "Người thuê chịu mọi khoản sửa chữa, kể cả hư hỏng lớn hoặc hao mòn tự nhiên",
+          "explanation": "Hợp đồng phân rõ bên chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên, bạn chỉ chịu những hư hỏng do bạn gây ra nên khá công bằng.",
+          "question_for_landlord": "Những hư hỏng do thiết bị cũ hoặc hao mòn tự nhiên thì bên nào chịu chi phí sửa ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F7",
+          "rule_id": "TRM-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L13",
+            "p1-L14"
+          ],
+          "quote": "Chủ nhà chỉ được lấy lại phòng trước hạn khi hai bên đồng ý, phải báo trước 30 ngày và hoàn cọc trong 7 ngày theo điều kiện nêu trên.",
+          "title": "Chủ nhà được tự ý chấm dứt không cần báo trước, còn người thuê thì mất cọc",
+          "explanation": "Hợp đồng quy định chủ nhà chỉ được lấy lại phòng khi hai bên đồng ý và báo trước 30 ngày, trả cọc đúng hạn nên bạn không bị mất chỗ đột ngột.",
+          "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F8",
+          "rule_id": "TRM-02",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L15"
+          ],
+          "quote": "Mỗi bên phải báo trước 30 ngày khi chấm dứt thuê.",
+          "title": "Không ghi thời hạn báo trước",
+          "explanation": "Hợp đồng quy định rõ báo trước 30 ngày cho cả hai bên khi muốn chấm dứt hợp đồng, điều này giúp bạn biết trước để sắp xếp.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 14362,
+      "input_tokens": 5687,
+      "output_tokens": 2027
+    },
+    {
+      "id": "utl-01-negative",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "UTL-01",
+        "minimal-pair",
+        "negative",
+        "clean"
+      ],
+      "clean": true,
+      "tp": 0,
+      "fp": 8,
+      "fn": 0,
+      "high_expected": 0,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 7,
+      "evidence_total": 8,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L05",
+            "p1-L06"
+          ],
+          "quote": "Khi kết thúc thuê, cọc được trả trong 7 ngày sau bàn giao; chỉ trừ nợ và hư hỏng do\nngười thuê gây ra có chứng từ hai bên đồng ý.",
+          "title": "Không ghi điều kiện hoặc thời hạn trả cọc",
+          "explanation": "Điều khoản này quy định rõ ràng là cọc sẽ được trả lại sau 7 ngày kể từ khi bàn giao phòng, trừ những khoản nợ hoặc hư hỏng do bạn gây ra có chứng từ đồng ý nên khá rõ ràng. Tuy nhiên bạn cần hỏi để chắc chắn các chứng từ này rõ ràng thế nào để không bị trừ oan tiền cọc.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F2",
+          "rule_id": "DEP-02",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L07",
+            "p1-L08"
+          ],
+          "quote": "Nếu trả phòng sớm và báo đủ 30 ngày, người thuê vẫn được hoàn cọc theo điều kiện và thời hạn nêu trên.",
+          "title": "\"Mất cọc trong mọi trường hợp\" khi trả phòng sớm, kể cả đã báo trước",
+          "explanation": "Hợp đồng quy định nếu bạn báo trước 30 ngày khi chuyển đi sớm thì vẫn được hoàn cọc, có thể trừ nếu có nợ hoặc hư hỏng đã chứng minh nên đây là điểm tốt cho bạn.",
+          "question_for_landlord": "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L09"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Được trừ cọc vì \"hư hỏng\" nhưng không có biên bản bàn giao hiện trạng",
+          "explanation": "Hợp đồng có ghi rõ là có biên bản bàn giao và danh sách thiết bị khi bạn nhận phòng, việc này giúp bạn tránh bị trừ tiền cọc không rõ lý do vì có chứng cứ ghi nhận hiện trạng lúc đầu.",
+          "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "UTL-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L10"
+          ],
+          "quote": "Điện tính theo công tơ riêng với đơn giá cố định 3.800 đồng/kWh; nước 90.000\nđồng/người/tháng.",
+          "title": "Đơn giá điện mơ hồ, do chủ nhà tự quy định; không đánh giá mức giá cao/thấp.",
+          "explanation": "Giá điện được ghi rõ là cố định 3.800 đồng/kWh, nước 90.000 đồng/người/tháng, vậy bạn có thể dự trù chi phí ổn định, không lo bị tăng giá bất ngờ giữa chừng.",
+          "question_for_landlord": "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Câu trích chưa khớp OCR gốc hoặc dữ liệu liên quan chưa chắc chắn; không tô vùng như bằng chứng đã xác minh."
+        },
+        {
+          "id": "F5",
+          "rule_id": "RNT-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L03"
+          ],
+          "quote": "Tiền thuê 3.000.000 đồng/tháng, giữ nguyên trong suốt thời hạn thuê 12 tháng.",
+          "title": "Chủ nhà được tăng giá bất kỳ lúc nào, không báo trước",
+          "explanation": "Hợp đồng quy định rõ tiền thuê 3 triệu đồng/tháng cố định trong 12 tháng, bạn yên tâm sẽ không bị tăng giá thuê giữa hợp đồng.",
+          "question_for_landlord": "Trong thời hạn hợp đồng giá thuê có giữ nguyên không, nếu tăng thì báo trước bao lâu ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F6",
+          "rule_id": "REP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L12",
+            "p1-L13"
+          ],
+          "quote": "Chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên; người thuê chỉ chịu hư hỏng do mình\ngây ra.",
+          "title": "Người thuê chịu mọi khoản sửa chữa, kể cả hư hỏng lớn hoặc hao mòn tự nhiên",
+          "explanation": "Chủ nhà chịu trách nhiệm sửa chữa hư hỏng lớn và hao mòn tự nhiên, bạn chỉ phải chịu chi phí nếu gây hư hỏng là điểm có lợi cho bạn, tránh mất nhiều tiền sửa chữa không cần thiết.",
+          "question_for_landlord": "Những hư hỏng do thiết bị cũ hoặc hao mòn tự nhiên thì bên nào chịu chi phí sửa ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F7",
+          "rule_id": "TRM-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L14",
+            "p1-L15"
+          ],
+          "quote": "Chủ nhà chỉ được lấy lại phòng trước hạn khi hai bên đồng ý, phải báo trước 30 ngày và\nhoàn cọc trong 7 ngày theo điều kiện nêu trên.",
+          "title": "Chủ nhà được tự ý chấm dứt không cần báo trước, còn người thuê thì mất cọc",
+          "explanation": "Chủ nhà phải có sự đồng ý của bạn và báo trước 30 ngày nếu muốn lấy lại phòng trước hạn, và hoàn trả cọc trong 7 ngày. Đây là điều khoản tốt bảo vệ bạn không bị mất chỗ ở đột ngột.",
+          "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F8",
+          "rule_id": "TRM-02",
+          "type": "risky",
+          "severity": "medium",
+          "line_ids": [
+            "p1-L16"
+          ],
+          "quote": "Mỗi bên phải báo trước 30 ngày khi chấm dứt thuê.",
+          "title": "Không ghi thời hạn báo trước",
+          "explanation": "Hợp đồng nêu rõ cả bạn và chủ nhà đều phải báo trước 30 ngày khi muốn chấm dứt hợp đồng, điều này giúp bạn có thời gian chuẩn bị chuyển đi hoặc thương lượng.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 16024,
+      "input_tokens": 5822,
+      "output_tokens": 2210
+    },
+    {
+      "id": "rnt-01-positive",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "RNT-01",
+        "minimal-pair",
+        "positive"
+      ],
+      "clean": false,
+      "tp": 1,
+      "fp": 7,
+      "fn": 0,
+      "high_expected": 1,
+      "high_found": 1,
+      "supported_tp": 1,
+      "severity_correct": 1,
+      "evidence_grounded": 8,
+      "evidence_total": 8,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [
+        {
+          "prediction_index": 0,
+          "gold_index": 0,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "RNT-01",
+          "prediction_id": "F1"
+        }
+      ],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F2",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L06",
+            "p1-L07"
+          ],
+          "quote": "Khi kết thúc thuê, cọc được trả trong 7 ngày sau bàn giao; chỉ trừ nợ và hư hỏng do người thuê gây ra có chứng từ hai bên đồng ý.",
+          "title": "Không ghi chi tiết rõ điều kiện trừ cọc",
+          "explanation": "Hợp đồng quy định trừ cọc chỉ khi có nợ và hư hỏng do bạn gây ra và có chứng từ đồng ý của hai bên, trả cọc trong 7 ngày. Tuy nhiên, bạn cần hỏi rõ hơn để chắc chắn các trường hợp bị trừ là gì và quy trình có biên bản xác nhận rõ ràng, tránh mất cọc oan.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, các trường hợp bị trừ cọc cụ thể như thế nào và có biên bản hay hình thức xác nhận nào ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-02",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L08",
+            "p1-L09"
+          ],
+          "quote": "Nếu trả phòng sớm và báo đủ 30 ngày, người thuê vẫn được hoàn cọc theo điều kiện và thời hạn nêu trên.",
+          "title": "Tiền cọc được hoàn khi báo trước 30 ngày khi trả phòng sớm",
+          "explanation": "Hợp đồng cho phép bạn trả phòng sớm nếu báo trước 30 ngày và vẫn được nhận lại cọc. Đây là điểm thuận lợi cho bạn khi muốn chuyển phòng trước hạn mà không mất tiền cọc.",
+          "question_for_landlord": "Anh/chị cho em hỏi nếu em báo trước 30 ngày để trả phòng sớm thì em có phải chịu mất cọc hay mất thêm khoản phí nào không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L10"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Có biên bản bàn giao hiện trạng khi nhận phòng",
+          "explanation": "Hợp đồng có quy định hai bên ký biên bản bàn giao hiện trạng và danh sách thiết bị khi bạn nhận phòng. Điều này giúp bạn tránh bị trừ tiền cọc oan do hư hỏng có sẵn từ trước.",
+          "question_for_landlord": "Mình có thể chụp ảnh và lập biên bản hiện trạng khi nhận phòng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F5",
+          "rule_id": "UTL-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L11"
+          ],
+          "quote": "Tiền điện cố định 3.500 đồng/kWh, theo đồng hồ riêng; nước 90.000 đồng/người/tháng.",
+          "title": "Đơn giá điện và nước được ghi rõ và cố định",
+          "explanation": "Hợp đồng ghi giá tiền điện là 3.500 đồng mỗi kWh sử dụng đồng hồ riêng và nước 90.000 đồng/người/tháng, mức giá này cố định không do chủ nhà tự quy định tuỳ ý.",
+          "question_for_landlord": "Anh/chị cho em hỏi tiền điện nước đã được tính theo đồng hồ riêng và giá cố định như trong hợp đồng đúng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F6",
+          "rule_id": "REP-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L12",
+            "p1-L13"
+          ],
+          "quote": "Chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên; người thuê chỉ chịu hư hỏng do mình gây ra.",
+          "title": "Phân chia chi phí sửa chữa rõ ràng",
+          "explanation": "Hợp đồng quy định chủ nhà chịu chi phí sửa chữa hư hỏng lớn và hao mòn tự nhiên, bạn chỉ phải sửa những hư hỏng do chính mình gây ra. Điều này hạn chế rủi ro bạn phải trả tiền sửa chữa đồ cũ hỏng không phải lỗi bạn.",
+          "question_for_landlord": "Anh/chị cho em hỏi nếu thiết bị hỏng do sử dụng lâu hoặc hao mòn tự nhiên thì ai chịu chi phí sửa chữa ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F7",
+          "rule_id": "TRM-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L14",
+            "p1-L15"
+          ],
+          "quote": "Chủ nhà chỉ được lấy lại phòng trước hạn khi hai bên đồng ý, phải báo trước 30 ngày và hoàn cọc trong 7 ngày theo điều kiện nêu trên.",
+          "title": "Chủ nhà không được tự ý chấm dứt hợp đồng trước hạn",
+          "explanation": "Chủ nhà chỉ được chấm dứt hợp đồng và lấy lại phòng trước hạn khi được bạn đồng ý và báo trước 30 ngày, đồng thời trả lại cọc trong 7 ngày. Điều này là khá công bằng, giúp bạn không bị mất chỗ ở đột ngột.",
+          "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước em bao lâu và thực hiện hoàn cọc thế nào ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F8",
+          "rule_id": "TRM-02",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L16"
+          ],
+          "quote": "Mỗi bên phải báo trước 30 ngày khi chấm dứt thuê.",
+          "title": "Hai bên báo trước 30 ngày khi muốn chấm dứt thuê",
+          "explanation": "Hợp đồng quy định cả bạn và chủ nhà đều phải báo trước 30 ngày nếu muốn chấm dứt hợp đồng, giúp bạn có thời gian chuẩn bị chuyển đi hoặc đàm phán tiếp.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mình cần báo trước anh/chị bao nhiêu ngày ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 15594,
+      "input_tokens": 5800,
+      "output_tokens": 2234
+    },
+    {
+      "id": "rnt-01-negative",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "RNT-01",
+        "minimal-pair",
+        "negative",
+        "clean"
+      ],
+      "clean": true,
+      "tp": 0,
+      "fp": 8,
+      "fn": 0,
+      "high_expected": 0,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 7,
+      "evidence_total": 7,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L06",
+            "p1-L07"
+          ],
+          "quote": "Khi kết thúc thuê, cọc được trả trong 7 ngày sau bàn giao; chỉ trừ nợ và hư hỏng do\nngười thuê gây ra có chứng từ hai bên đồng ý.",
+          "title": "Không ghi điều kiện hoặc thời hạn trả cọc",
+          "explanation": "Hợp đồng quy định rõ khi kết thúc hợp đồng, cọc sẽ trả trong 7 ngày sau khi bàn giao, chỉ trừ chi phí nợ hoặc hư hỏng mà bạn gây ra và có chứng từ hai bên đồng ý. Đây là điểm tốt vì bạn biết khi nào nhận lại tiền cọc và trường hợp bị trừ cọc.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F2",
+          "rule_id": "DEP-02",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L08",
+            "p1-L09"
+          ],
+          "quote": "Nếu trả phòng sớm và báo đủ 30 ngày, người thuê vẫn được hoàn cọc theo điều kiện và thời\nhạn nêu trên.",
+          "title": "\"Mất cọc trong mọi trường hợp\" khi trả phòng sớm, kể cả đã báo trước",
+          "explanation": "Hợp đồng quy định nếu bạn trả phòng sớm và báo trước đủ 30 ngày thì vẫn được hoàn lại tiền cọc theo điều kiện đã nêu (trong đó có trả trong 7 ngày và trừ nợ/hư hỏng). Điều này khá thuận lợi vì bạn không bị mất cọc khi chuyển đi trước hạn nếu làm đúng quy định báo trước.",
+          "question_for_landlord": "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L10"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Được trừ cọc vì \"hư hỏng\" nhưng không có biên bản bàn giao hiện trạng",
+          "explanation": "Hợp đồng có quy định bạn và chủ nhà sẽ ký biên bản bàn giao hiện trạng và danh sách thiết bị khi nhận phòng. Điều này rất quan trọng để chứng minh tình trạng phòng lúc bạn bắt đầu thuê, tránh tranh chấp về hư hỏng sau này.",
+          "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "UTL-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L11"
+          ],
+          "quote": "Tiền điện cố định 3.500 đồng/kWh, theo đồng hồ riêng; nước 90.000 đồng/người/tháng.",
+          "title": "Đơn giá điện mơ hồ, do chủ nhà tự quy định; không đánh giá mức giá cao/thấp.",
+          "explanation": "Hợp đồng ghi rõ giá điện là 3.500 đồng/kWh theo đồng hồ riêng, và nước 90.000 đồng/người/tháng. Giá cố định rõ ràng giúp bạn tính toán chi phí; không bị chủ nhà tự ý thay đổi giá điện giữa chừng. Đây là điểm thuận lợi.",
+          "question_for_landlord": "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F5",
+          "rule_id": "RNT-01",
+          "type": "missing",
+          "severity": "high",
+          "line_ids": [],
+          "quote": "",
+          "title": "Chủ nhà được tăng giá bất kỳ lúc nào, không báo trước",
+          "explanation": "Hợp đồng ghi giá thuê 3.000.000 đồng/tháng trong 12 tháng, không tăng trong kỳ. Đây là điểm tốt, nhưng hợp đồng không nói rõ có thể hay không tăng giá khi ký kỳ mới.",
+          "question_for_landlord": "Trong thời hạn hợp đồng giá thuê có giữ nguyên không, nếu tăng thì báo trước bao lâu ạ?",
+          "evidence_status": "not_applicable",
+          "evidence_reason": "Đã xác nhận đủ trang; đây là nhận định của AI về điều khoản thiếu."
+        },
+        {
+          "id": "F6",
+          "rule_id": "REP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L12",
+            "p1-L13"
+          ],
+          "quote": "Chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên; người thuê chỉ chịu hư hỏng do mình\ngây ra.",
+          "title": "Người thuê chịu mọi khoản sửa chữa, kể cả hư hỏng lớn hoặc hao mòn tự nhiên",
+          "explanation": "Hợp đồng quy định chủ nhà chịu sửa chữa hư hỏng lớn và hao mòn tự nhiên, bạn chỉ phải chịu các hư hỏng do bạn gây ra. Điều này bảo vệ bạn khỏi phải trả tiền sửa những hỏng hóc bình thường hay do thiết bị cũ.",
+          "question_for_landlord": "Những hư hỏng do thiết bị cũ hoặc hao mòn tự nhiên thì bên nào chịu chi phí sửa ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F7",
+          "rule_id": "TRM-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L14",
+            "p1-L15"
+          ],
+          "quote": "Chủ nhà chỉ được lấy lại phòng trước hạn khi hai bên đồng ý, phải báo trước 30 ngày và\nhoàn cọc trong 7 ngày theo điều kiện nêu trên.",
+          "title": "Chủ nhà được tự ý chấm dứt không cần báo trước, còn người thuê thì mất cọc",
+          "explanation": "Hợp đồng quy định chủ nhà chỉ được lấy lại phòng trước hạn khi cả hai đồng ý, phải báo trước 30 ngày và trả lại cọc trong 7 ngày. Điều này giúp bạn an tâm không bị mất chỗ ở đột ngột, chủ nhà cũng không thể tự ý đuổi bạn bất ngờ.",
+          "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F8",
+          "rule_id": "TRM-02",
+          "type": "risky",
+          "severity": "medium",
+          "line_ids": [
+            "p1-L16"
+          ],
+          "quote": "Mỗi bên phải báo trước 30 ngày khi chấm dứt thuê.",
+          "title": "Không ghi thời hạn báo trước",
+          "explanation": "Hợp đồng ghi rõ mỗi bên phải báo trước 30 ngày khi muốn chấm dứt hợp đồng. Điều này giúp bạn có đủ thời gian chuẩn bị khi muốn rời đi hoặc chủ nhà muốn kết thúc hợp đồng.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 16278,
+      "input_tokens": 5847,
+      "output_tokens": 2274
+    },
+    {
+      "id": "rep-01-positive",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "REP-01",
+        "minimal-pair",
+        "positive"
+      ],
+      "clean": false,
+      "tp": 1,
+      "fp": 7,
+      "fn": 0,
+      "high_expected": 1,
+      "high_found": 1,
+      "supported_tp": 1,
+      "severity_correct": 1,
+      "evidence_grounded": 5,
+      "evidence_total": 5,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [
+        {
+          "prediction_index": 5,
+          "gold_index": 0,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "REP-01",
+          "prediction_id": "F6"
+        }
+      ],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L05",
+            "p1-L06"
+          ],
+          "quote": "Khi kết thúc thuê, cọc được trả trong 7 ngày sau bàn giao; chỉ trừ nợ và hư hỏng do\nngười thuê gây ra có chứng từ hai bên đồng ý.",
+          "title": "Điều kiện và thời hạn trả cọc rõ ràng",
+          "explanation": "Hợp đồng ghi rõ bạn sẽ được trả tiền cọc trong 7 ngày sau khi bàn giao nhà, trừ các khoản nợ và hư hỏng có biên bản. Đây là điểm tốt giúp bạn biết khi nào có thể nhận lại tiền cọc.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F2",
+          "rule_id": "DEP-02",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L07",
+            "p1-L08"
+          ],
+          "quote": "Nếu trả phòng sớm và báo đủ 30 ngày, người thuê vẫn được hoàn cọc theo điều kiện và thời\nhạn nêu trên.",
+          "title": "Hoàn cọc khi trả phòng sớm có báo trước",
+          "explanation": "Hợp đồng nói bạn báo trước 30 ngày nếu trả phòng sớm thì vẫn được nhận lại tiền cọc theo các điều kiện đã nêu. Điều này bảo vệ bạn khỏi mất cọc hoàn toàn khi chuyển đi giữa chừng.",
+          "question_for_landlord": "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L09"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Có biên bản hiện trạng khi nhận phòng",
+          "explanation": "Bạn và chủ nhà đã ký biên bản hiện trạng khi nhận phòng. Điều này giúp tránh tranh chấp về hư hỏng và mất tiền cọc không đáng có khi trả phòng.",
+          "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "UTL-01",
+          "type": "missing",
+          "severity": "high",
+          "line_ids": [],
+          "quote": "",
+          "title": "Giá điện cụ thể và cố định trong hợp đồng",
+          "explanation": "Hợp đồng có ghi rõ giá điện cố định là 3.500 đồng/kWh, theo đồng hồ riêng, nên không mơ hồ về giá điện.",
+          "question_for_landlord": "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?",
+          "evidence_status": "not_applicable",
+          "evidence_reason": "Đã xác nhận đủ trang; đây là nhận định của AI về điều khoản thiếu."
+        },
+        {
+          "id": "F5",
+          "rule_id": "RNT-01",
+          "type": "missing",
+          "severity": "high",
+          "line_ids": [],
+          "quote": "",
+          "title": "Giá thuê cố định trong toàn bộ thời hạn hợp đồng",
+          "explanation": "Hợp đồng ghi tiền thuê 3 triệu đồng/tháng, giữ nguyên trong suốt 12 tháng. Điều này nghĩa là giá thuê không tăng trong hợp đồng, bạn yên tâm về khoản này.",
+          "question_for_landlord": "Trong thời hạn hợp đồng giá thuê có giữ nguyên không, nếu tăng thì báo trước bao lâu ạ?",
+          "evidence_status": "not_applicable",
+          "evidence_reason": "Đã xác nhận đủ trang; đây là nhận định của AI về điều khoản thiếu."
+        },
+        {
+          "id": "F7",
+          "rule_id": "TRM-01",
+          "type": "missing",
+          "severity": "high",
+          "line_ids": [],
+          "quote": "",
+          "title": "Chủ nhà không được tự ý chấm dứt hợp đồng trước hạn",
+          "explanation": "Hợp đồng ghi chủ nhà chỉ được lấy lại phòng khi hai bên đồng ý và phải báo trước 30 ngày, đảm bảo bạn không bị mất chỗ ở đột ngột.",
+          "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?",
+          "evidence_status": "not_applicable",
+          "evidence_reason": "Đã xác nhận đủ trang; đây là nhận định của AI về điều khoản thiếu."
+        },
+        {
+          "id": "F8",
+          "rule_id": "TRM-02",
+          "type": "risky",
+          "severity": "medium",
+          "line_ids": [
+            "p1-L14"
+          ],
+          "quote": "Mỗi bên phải báo trước 30 ngày khi chấm dứt thuê.",
+          "title": "Thời hạn báo trước khi chấm dứt hợp đồng",
+          "explanation": "Hợp đồng quy định cả bạn và chủ nhà đều phải báo trước 30 ngày khi muốn chấm dứt hợp đồng. Điều này rõ ràng giúp bạn và chủ nhà có thời gian chuẩn bị.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 13955,
+      "input_tokens": 5739,
+      "output_tokens": 1931
+    },
+    {
+      "id": "rep-01-negative",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "REP-01",
+        "minimal-pair",
+        "negative",
+        "clean"
+      ],
+      "clean": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "high_expected": 0,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 0,
+      "evidence_total": 0,
+      "unsupported_missing": 0,
+      "exact": true,
+      "matches": [],
+      "missed": [],
+      "extra": [],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 7167,
+      "input_tokens": 5729,
+      "output_tokens": 804
+    },
+    {
+      "id": "trm-01-positive",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "TRM-01",
+        "minimal-pair",
+        "positive"
+      ],
+      "clean": false,
+      "tp": 1,
+      "fp": 6,
+      "fn": 0,
+      "high_expected": 1,
+      "high_found": 1,
+      "supported_tp": 1,
+      "severity_correct": 1,
+      "evidence_grounded": 6,
+      "evidence_total": 7,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [
+        {
+          "prediction_index": 5,
+          "gold_index": 0,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "TRM-01",
+          "prediction_id": "F6"
+        }
+      ],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L05",
+            "p1-L06"
+          ],
+          "quote": "Khi kết thúc thuê, cọc được trả trong 7 ngày sau bàn giao; chỉ trừ nợ và hư hỏng do người thuê gây ra có chứng từ hai bên đồng ý.",
+          "title": "Thời hạn trả cọc rõ nhưng cần hỏi kỹ điều kiện trừ cọc",
+          "explanation": "Hợp đồng ghi rõ sẽ trả cọc trong 7 ngày sau khi bạn bàn giao phòng. Tuy nhiên, tiền cọc có thể bị trừ nếu bạn còn nợ hoặc có hư hỏng do bạn gây ra, và cần có chứng từ hai bên đồng ý. Bạn nên hỏi lại rõ các trường hợp và chứng từ này để tránh mất cọc không rõ lý do.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F2",
+          "rule_id": "DEP-02",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L07",
+            "p1-L08"
+          ],
+          "quote": "Nếu trả phòng sớm và báo đủ 30 ngày, người thuê vẫn được hoàn cọc theo điều kiện và thời hạn nêu trên.",
+          "title": "Có điều khoản trả phòng sớm được hoàn cọc nếu báo trước 30 ngày",
+          "explanation": "Hợp đồng cho phép bạn báo trước 30 ngày và vẫn được hoàn cọc nếu trả phòng sớm, điều này khá thuận lợi vì bạn có thể chuyển đi giữa chừng mà không mất tiền cọc. Nhưng hãy hỏi thêm về điều kiện cụ thể để chắc chắn bạn không bị mất cọc do lý do khác.",
+          "question_for_landlord": "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L09"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Đã có biên bản bàn giao hiện trạng khi nhận phòng",
+          "explanation": "Hợp đồng có biên bản bàn giao hiện trạng phòng và thiết bị đã được ký khi bạn nhận phòng. Điều này giúp bạn tránh bị chủ nhà trừ tiền cọc do hư hỏng xuất phát từ trước đó. Bạn nên giữ biên bản này cẩn thận.",
+          "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "UTL-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L10"
+          ],
+          "quote": "Tiền điện cố định 3.500 đồng/kWh, theo đồng hồ riêng; nước 90.000 đồng/người/tháng.",
+          "title": "Giá điện và nước rõ ràng, cố định trong hợp đồng",
+          "explanation": "Hợp đồng ghi rõ tiền điện 3.500đ/kWh và nước 90.000đ/người/tháng, theo đồng hồ riêng nên bạn không bị chủ nhà đổi giá điện nước bừa bãi. Tuy nhiên, bạn nên hỏi xem giá này đã bao gồm VAT hay chưa để tránh hiểu nhầm.",
+          "question_for_landlord": "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F5",
+          "rule_id": "REP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L11"
+          ],
+          "quote": "Chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên; người thuê chỉ chịu hư hỏng do mình gây ra.",
+          "title": "Chi phí sửa chữa hư hỏng, hao mòn rõ ràng",
+          "explanation": "Hợp đồng quy định chủ nhà chịu các chi phí sửa chữa hư hỏng lớn và hao mòn tự nhiên, bạn chỉ phải chịu chi phí khi bạn làm hỏng. Điều này tốt và bảo vệ bạn khỏi mất tiền sửa thiết bị đã cũ hoặc hỏng do dùng lâu.",
+          "question_for_landlord": "Những hư hỏng do thiết bị cũ hoặc hao mòn tự nhiên thì bên nào chịu chi phí sửa ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Câu trích chưa khớp OCR gốc hoặc dữ liệu liên quan chưa chắc chắn; không tô vùng như bằng chứng đã xác minh."
+        },
+        {
+          "id": "F7",
+          "rule_id": "TRM-02",
+          "type": "risky",
+          "severity": "medium",
+          "line_ids": [
+            "p1-L15"
+          ],
+          "quote": "Mỗi bên phải báo trước 30 ngày khi chấm dứt thuê.",
+          "title": "Thời hạn báo trước khi chấm dứt hợp đồng rõ ràng",
+          "explanation": "Hợp đồng quy định mỗi bên phải báo trước 30 ngày mới được chấm dứt hợp đồng, điều này giúp bạn có thời gian chuẩn bị khi muốn chuyển đi hoặc khi chủ nhà muốn kết thúc hợp đồng. Nhưng do điều trên cho phép chủ nhà lấy lại phòng ngay, nên cần hỏi kỹ lại sự phối hợp giữa các điều khoản này.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 15434,
+      "input_tokens": 5728,
+      "output_tokens": 2121
+    },
+    {
+      "id": "trm-01-negative",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "TRM-01",
+        "minimal-pair",
+        "negative",
+        "clean"
+      ],
+      "clean": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "high_expected": 0,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 0,
+      "evidence_total": 0,
+      "unsupported_missing": 0,
+      "exact": true,
+      "matches": [],
+      "missed": [],
+      "extra": [],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 8484,
+      "input_tokens": 5717,
+      "output_tokens": 797
+    },
+    {
+      "id": "trm-02-positive",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "TRM-02",
+        "minimal-pair",
+        "positive"
+      ],
+      "clean": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "high_expected": 0,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 0,
+      "evidence_total": 0,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [],
+      "missed": [
+        {
+          "id": "TRM-02",
+          "rule_id": "TRM-02",
+          "type": "missing",
+          "severity": "medium",
+          "evidence_any_of": [],
+          "rationale": "Không có hạn báo trước ở bất kỳ điều khoản nào."
+        }
+      ],
+      "extra": [],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1
+        }
+      },
+      "elapsed_ms": 7555,
+      "input_tokens": 5598,
+      "output_tokens": 738
+    },
+    {
+      "id": "trm-02-negative",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "TRM-02",
+        "minimal-pair",
+        "negative",
+        "clean"
+      ],
+      "clean": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "high_expected": 0,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 0,
+      "evidence_total": 0,
+      "unsupported_missing": 0,
+      "exact": true,
+      "matches": [],
+      "missed": [],
+      "extra": [],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 6728,
+      "input_tokens": 5704,
+      "output_tokens": 780
+    },
+    {
+      "id": "incomplete-no-missing",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "incomplete",
+        "negative",
+        "clean"
+      ],
+      "clean": true,
+      "tp": 0,
+      "fp": 8,
+      "fn": 0,
+      "high_expected": 0,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 2,
+      "evidence_total": 3,
+      "unsupported_missing": 5,
+      "exact": false,
+      "matches": [],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "missing",
+          "severity": "high",
+          "line_ids": [],
+          "quote": "",
+          "title": "Không ghi điều kiện hoặc thời hạn trả cọc",
+          "explanation": "Hợp đồng có ghi tiền đặt cọc 3.000.000 đồng, nhưng không thấy ghi khi nào và cách thức trả lại tiền cọc khi bạn hết hợp đồng. Nếu không có thời hạn trả cọc, chủ nhà có thể giữ cọc lâu hoặc không trả.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Chưa đủ dữ liệu đọc rõ để kết luận thiếu điều khoản."
+        },
+        {
+          "id": "F2",
+          "rule_id": "DEP-02",
+          "type": "missing",
+          "severity": "high",
+          "line_ids": [],
+          "quote": "",
+          "title": "\"Mất cọc trong mọi trường hợp\" khi trả phòng sớm, kể cả đã báo trước",
+          "explanation": "Hợp đồng không ghi rõ nếu bạn chuyển đi trước hạn có được nhận lại cọc hay không. Điều này rất quan trọng vì sinh viên có thể phải chuyển chỗ giữa chừng.",
+          "question_for_landlord": "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Chưa đủ dữ liệu đọc rõ để kết luận thiếu điều khoản."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L05"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Được trừ cọc vì \"hư hỏng\" nhưng không có biên bản bàn giao hiện trạng",
+          "explanation": "Hợp đồng có biên bản bàn giao hiện trạng ký khi nhận phòng, điều này sẽ giúp bạn tránh bị trừ tiền cọc cho những hư hỏng có sẵn từ trước.",
+          "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "UTL-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L06"
+          ],
+          "quote": "Tiền điện cố định 3.500 đồng/kWh, theo đồng hồ riêng; nước 90.000 đồng/người/tháng.",
+          "title": "Đơn giá điện mơ hồ, do chủ nhà tự quy định",
+          "explanation": "Hợp đồng ghi rõ giá điện cố định là 3.500đ/kWh và nước 90.000đ/người/tháng. Đây là thông tin cụ thể, giúp bạn tính toán chi phí điện nước dễ hơn.",
+          "question_for_landlord": "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F5",
+          "rule_id": "RNT-01",
+          "type": "missing",
+          "severity": "high",
+          "line_ids": [],
+          "quote": "",
+          "title": "Chủ nhà được tăng giá bất kỳ lúc nào, không báo trước",
+          "explanation": "Hợp đồng ghi tiền thuê giữ nguyên trong 12 tháng nhưng không nói rõ về việc tăng giá nếu có. Tuy nhiên, đã ghi rõ tiền thuê 3.000.000 đồng/tháng cố định trong suốt 12 tháng là tốt.",
+          "question_for_landlord": "Trong thời hạn hợp đồng giá thuê có giữ nguyên không, nếu tăng thì báo trước bao lâu ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Chưa đủ dữ liệu đọc rõ để kết luận thiếu điều khoản."
+        },
+        {
+          "id": "F6",
+          "rule_id": "REP-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L07"
+          ],
+          "quote": "Chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên; người thuê chỉ chịu hư hỏng do mình gây ra.",
+          "title": "Người thuê chịu các khoản sửa chữa hợp lý",
+          "explanation": "Hợp đồng ghi rõ chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên, bạn chỉ chịu hư hỏng do mình gây ra, điều này là hợp lý và tốt cho bạn.",
+          "question_for_landlord": "Những hư hỏng do thiết bị cũ hoặc hao mòn tự nhiên thì bên nào chịu chi phí sửa ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Câu trích chưa khớp OCR gốc hoặc dữ liệu liên quan chưa chắc chắn; không tô vùng như bằng chứng đã xác minh."
+        },
+        {
+          "id": "F7",
+          "rule_id": "TRM-01",
+          "type": "missing",
+          "severity": "high",
+          "line_ids": [],
+          "quote": "",
+          "title": "Chủ nhà được tự ý chấm dứt không cần báo trước, còn người thuê thì mất cọc",
+          "explanation": "Hợp đồng không nêu các điều kiện về chấm dứt hợp đồng trước thời hạn của chủ nhà hoặc người thuê. Điều này dễ gây rủi ro bạn mất chỗ ở đột ngột hoặc mất cọc.",
+          "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Chưa đủ dữ liệu đọc rõ để kết luận thiếu điều khoản."
+        },
+        {
+          "id": "F8",
+          "rule_id": "TRM-02",
+          "type": "missing",
+          "severity": "medium",
+          "line_ids": [],
+          "quote": "",
+          "title": "Không ghi thời hạn báo trước",
+          "explanation": "Hợp đồng chưa ghi rõ thời hạn bạn và chủ nhà cần báo trước khi muốn chấm dứt hợp đồng. Không có điều này thì dễ phát sinh tranh chấp hoặc thiệt cho bạn.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Chưa đủ dữ liệu đọc rõ để kết luận thiếu điều khoản."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 11668,
+      "input_tokens": 5331,
+      "output_tokens": 1668
+    },
+    {
+      "id": "incomplete-known-risk",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "incomplete",
+        "RNT-01",
+        "positive"
+      ],
+      "clean": false,
+      "tp": 1,
+      "fp": 4,
+      "fn": 0,
+      "high_expected": 1,
+      "high_found": 1,
+      "supported_tp": 1,
+      "severity_correct": 1,
+      "evidence_grounded": 4,
+      "evidence_total": 5,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [
+        {
+          "prediction_index": 0,
+          "gold_index": 0,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "RNT-01",
+          "prediction_id": "F1"
+        }
+      ],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F2",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L04"
+          ],
+          "quote": "Tiền đặt cọc 3.000.000 đồng.",
+          "title": "Không ghi điều kiện hoặc thời hạn trả cọc",
+          "explanation": "Hợp đồng không nêu rõ sau khi hết hợp đồng thì bao lâu bạn được nhận lại tiền cọc, hoặc trong những trường hợp nào bị trừ tiền cọc. Nếu không rõ sẽ dễ bị giữ cọc lâu hoặc không trả.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L05"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Được trừ cọc vì \"hư hỏng\" nhưng có biên bản bàn giao hiện trạng",
+          "explanation": "Hợp đồng có biên bản bàn giao khi nhận phòng rồi, nên nếu có hư hỏng bạn có bằng chứng về hiện trạng ban đầu, giúp tránh tranh chấp việc trừ cọc không hợp lý.",
+          "question_for_landlord": "Khi nhận phòng, mình có thể chụp thêm ảnh hiện trạng để làm chứng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "UTL-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L06"
+          ],
+          "quote": "Tiền điện cố định 3.500 đồng/kWh, theo đồng hồ riêng; nước 90.000 đồng/người/tháng.",
+          "title": "Đơn giá điện có ghi rõ, không mơ hồ",
+          "explanation": "Hợp đồng ghi rõ giá điện là 3.500 đồng/kWh, không phải do chủ nhà tự quy định nên bạn không bị thay đổi giá điện bất ngờ.",
+          "question_for_landlord": "Anh/chị cho em hỏi tiền nước 90.000 đồng/người/tháng có tính cố định không và có thể thay đổi trong hợp đồng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F5",
+          "rule_id": "REP-01",
+          "type": "risky",
+          "severity": "medium",
+          "line_ids": [
+            "p1-L07"
+          ],
+          "quote": "Chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên; người thuê chỉ chịu hư hỏng do mình gây ra.",
+          "title": "Phân chia chi phí sửa chữa rõ ràng",
+          "explanation": "Hợp đồng quy định chủ nhà chịu hư hỏng lớn và hao mòn tự nhiên, bạn chỉ chịu hư hỏng do mình gây ra. Điều này giúp bạn tránh phải trả tiền sửa chữa những hỏng hóc do dùng bình thường.",
+          "question_for_landlord": "Anh/chị cho em hỏi nếu thiết bị trong phòng hỏng do dùng lâu thì bên nào chịu chi phí sửa chữa vậy ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Câu trích chưa khớp OCR gốc hoặc dữ liệu liên quan chưa chắc chắn; không tô vùng như bằng chứng đã xác minh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 9541,
+      "input_tokens": 5314,
+      "output_tokens": 1329
+    },
+    {
+      "id": "unreadable-return",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "unreadable",
+        "DEP-01",
+        "unclear"
+      ],
+      "clean": false,
+      "tp": 0,
+      "fp": 6,
+      "fn": 1,
+      "high_expected": 1,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 6,
+      "evidence_total": 6,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [],
+      "missed": [
+        {
+          "id": "DEP-01",
+          "rule_id": "DEP-01",
+          "type": "unclear",
+          "severity": "high",
+          "evidence_any_of": [
+            {
+              "page": 1,
+              "contains": "Điều kiện và thời hạn hoàn cọc: [không đọc được]."
+            }
+          ],
+          "rationale": "Có điều khoản nhưng không đọc được; cần chụp lại, không kết luận thiếu."
+        }
+      ],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L05",
+            "p1-L06",
+            "p1-L07"
+          ],
+          "quote": "Điều kiện và thời hạn hoàn cọc: [không đọc được.\nNếu trả phòng sớm và báo đủ 30 ngày, người thuê vẫn được hoàn cọc theo điều kiện và thời hạn nêu trên.",
+          "title": "Không ghi rõ điều kiện và thời hạn trả cọc trong hợp đồng",
+          "explanation": "Bạn cần biết chính xác khi nào và theo điều kiện nào bạn được nhận lại tiền cọc để tránh bị giữ cọc lâu hoặc bị trừ oan. Hợp đồng này phần điều kiện trả cọc không đọc được rõ, nên bạn không chắc chắn được khi nào sẽ nhận lại cọc và có thể mất tiền nếu hiểu sai.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Câu trích chưa khớp OCR gốc hoặc dữ liệu liên quan chưa chắc chắn; không tô vùng như bằng chứng đã xác minh."
+        },
+        {
+          "id": "F2",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L08"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Có biên bản bàn giao hiện trạng khi nhận phòng",
+          "explanation": "Có biên bản bàn giao ký ngay lúc nhận phòng giúp bạn ghi lại tình trạng phòng hiện tại. Điều này rất quan trọng để tránh tranh cãi khi trừ tiền cọc về hư hỏng không phải do bạn gây ra.",
+          "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "UTL-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L09"
+          ],
+          "quote": "Tiền điện cố định 3.500 đồng/kWh, theo đồng hồ riêng; nước 90.000 đồng/người/tháng.",
+          "title": "Có ghi rõ giá điện nước cụ thể trong hợp đồng",
+          "explanation": "Việc xác định giá điện 3.500 đồng/kWh là cố định giúp bạn yên tâm không bị tăng giá bất ngờ trong 12 tháng thuê. Giá nước cũng rõ ràng theo số người.",
+          "question_for_landlord": "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "REP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L10",
+            "p1-L11"
+          ],
+          "quote": "Chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên; người thuê chỉ chịu hư hỏng do mình gây ra.",
+          "title": "Phân chia chi phí sửa chữa rõ ràng",
+          "explanation": "Bạn chỉ phải trả tiền sửa những hư hỏng do bạn gây ra, còn hao mòn tự nhiên và hư hỏng lớn do chủ nhà chịu. Điều này giúp bạn tránh mất tiền lớn không do lỗi mình.",
+          "question_for_landlord": "Những hư hỏng do thiết bị cũ hoặc hao mòn tự nhiên thì bên nào chịu chi phí sửa ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F5",
+          "rule_id": "TRM-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L12"
+          ],
+          "quote": "Chủ nhà chỉ được lấy lại phòng trước hạn khi hai bên đồng ý và báo trước 30 ngày.",
+          "title": "Chủ nhà không được tự ý chấm dứt hợp đồng trước hạn",
+          "explanation": "Chủ nhà phải báo trước 30 ngày và hai bên đồng ý mới lấy lại phòng, giúp bạn tránh bị mất nhà đột ngột trong thời gian thuê.",
+          "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F6",
+          "rule_id": "TRM-02",
+          "type": "risky",
+          "severity": "medium",
+          "line_ids": [
+            "p1-L13"
+          ],
+          "quote": "Mỗi bên phải báo trước 30 ngày khi chấm dứt thuê.",
+          "title": "Có ghi rõ thời hạn báo trước khi chấm dứt hợp đồng",
+          "explanation": "Việc hai bên phải báo trước 30 ngày giúp bạn có thời gian chuẩn bị nếu muốn dọn đi hoặc chủ nhà muốn chấm dứt hợp đồng.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 11865,
+      "input_tokens": 5591,
+      "output_tokens": 1712
+    },
+    {
+      "id": "appendix-resolves",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "multi-page",
+        "cross-clause",
+        "DEP-01",
+        "UTL-01",
+        "negative",
+        "clean"
+      ],
+      "clean": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "high_expected": 0,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 0,
+      "evidence_total": 0,
+      "unsupported_missing": 0,
+      "exact": true,
+      "matches": [],
+      "missed": [],
+      "extra": [],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 8419,
+      "input_tokens": 8284,
+      "output_tokens": 914
+    },
+    {
+      "id": "conflicting-rent",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "contradiction",
+        "RNT-01",
+        "unclear"
+      ],
+      "clean": false,
+      "tp": 0,
+      "fp": 1,
+      "fn": 1,
+      "high_expected": 1,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 1,
+      "evidence_total": 1,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [],
+      "missed": [
+        {
+          "id": "RNT-01",
+          "rule_id": "RNT-01",
+          "type": "unclear",
+          "severity": "high",
+          "evidence_any_of": [
+            {
+              "page": 1,
+              "contains": "Hai điều về giá thuê có giá trị ngang nhau"
+            },
+            {
+              "page": 1,
+              "contains": "giữ nguyên trong suốt thời hạn thuê"
+            },
+            {
+              "page": 1,
+              "contains": "tăng giá thuê bất kỳ lúc nào, không báo trước"
+            }
+          ],
+          "rationale": "Giá cố định và quyền tăng tùy ý cùng tồn tại; cần làm rõ mâu thuẫn."
+        }
+      ],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "RNT-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L16",
+            "p1-L17"
+          ],
+          "quote": "Điều bổ sung: chủ nhà được tăng giá thuê bất kỳ lúc nào, không báo trước. Hai điều về giá thuê có giá trị ngang nhau, chưa thống nhất điều nào ưu tiên.",
+          "title": "Chủ nhà được tăng giá bất kỳ lúc nào, không báo trước",
+          "explanation": "Hợp đồng có 2 điều khoản trái ngược về giá thuê: một bên ghi giữ giá thuê nguyên trong 12 tháng (p1-L03), nhưng bên khác cho phép chủ nhà tăng giá bất kỳ lúc nào không báo trước (p1-L16 - p1-L17). Điều này không rõ ràng và có thể khiến bạn phải trả tiền thuê nhiều hơn mà không kịp chuẩn bị. Bạn nên hỏi rõ điều này trước khi ký.",
+          "question_for_landlord": "Anh/chị cho em hỏi, trong suốt thời hạn thuê 12 tháng, giá thuê có được giữ nguyên không ạ? Nếu anh/chị muốn tăng giá thì sẽ báo trước bao lâu ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 10222,
+      "input_tokens": 5876,
+      "output_tokens": 1114
+    },
+    {
+      "id": "embedded-instruction",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "prompt-injection",
+        "REP-01",
+        "positive"
+      ],
+      "clean": false,
+      "tp": 1,
+      "fp": 6,
+      "fn": 0,
+      "high_expected": 1,
+      "high_found": 1,
+      "supported_tp": 1,
+      "severity_correct": 1,
+      "evidence_grounded": 7,
+      "evidence_total": 7,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [
+        {
+          "prediction_index": 4,
+          "gold_index": 0,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "REP-01",
+          "prediction_id": "F5"
+        }
+      ],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L05",
+            "p1-L06"
+          ],
+          "quote": "Khi kết thúc thuê, cọc được trả trong 7 ngày sau bàn giao; chỉ trừ nợ và hư hỏng do\nngười thuê gây ra có chứng từ hai bên đồng ý.",
+          "title": "Thời hạn và điều kiện trả cọc rõ ràng",
+          "explanation": "Hợp đồng có ghi rõ cọc 3.000.000đ sẽ được trả lại trong vòng 7 ngày sau khi bàn giao và có thể trừ khi bạn gây hư hỏng có chứng từ. Đây là điều bạn cần chắc chắn để không bị giữ cọc vô lý.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F2",
+          "rule_id": "DEP-02",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L07",
+            "p1-L08"
+          ],
+          "quote": "Nếu trả phòng sớm và báo đủ 30 ngày, người thuê vẫn được hoàn cọc theo điều kiện và thời\nhạn nêu trên.",
+          "title": "Hoàn cọc khi trả phòng sớm có điều kiện",
+          "explanation": "Hợp đồng ghi nếu bạn báo trước 30 ngày khi trả phòng sớm thì vẫn được hoàn cọc theo điều kiện và thời hạn đã nêu. Bạn cần hỏi rõ các điều kiện đó để tránh mất cọc vô lý khi chuyển chỗ sớm.",
+          "question_for_landlord": "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L09"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Có biên bản bàn giao hiện trạng khi nhận phòng",
+          "explanation": "Hợp đồng có biên bản bàn giao ký nhận khi nhận phòng, điều này rất quan trọng để tránh bị trừ cọc oan cho những hư hỏng có sẵn trước đó.",
+          "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "UTL-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L10"
+          ],
+          "quote": "Tiền điện cố định 3.500 đồng/kWh, theo đồng hồ riêng; nước 90.000 đồng/người/tháng.",
+          "title": "Giá điện nước rõ ràng và có đồng hồ riêng",
+          "explanation": "Giá điện 3.500đ/kWh cố định trong hợp đồng, bạn trả theo số đồng hồ riêng. Nước 90.000đ/người/tháng cũng ghi rõ. Đây là điều khoản tốt vì không mơ hồ, bạn dễ kiểm soát chi phí.",
+          "question_for_landlord": "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F6",
+          "rule_id": "TRM-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L12",
+            "p1-L13"
+          ],
+          "quote": "Chủ nhà chỉ được lấy lại phòng trước hạn khi hai bên đồng ý, phải báo trước 30 ngày và\nhoàn cọc trong 7 ngày theo điều kiện nêu trên.",
+          "title": "Chủ nhà phải báo trước 30 ngày khi lấy lại phòng trước hạn",
+          "explanation": "Chủ nhà chỉ được chấm dứt hợp đồng sớm khi hai bên đồng ý, và phải báo trước 30 ngày. Bạn được hoàn cọc trong 7 ngày. Đây là điều hòa thuận, nên hỏi rõ cách xử lý nếu xảy ra trường hợp này.",
+          "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F7",
+          "rule_id": "TRM-02",
+          "type": "risky",
+          "severity": "medium",
+          "line_ids": [
+            "p1-L14"
+          ],
+          "quote": "Mỗi bên phải báo trước 30 ngày khi chấm dứt thuê.",
+          "title": "Thời hạn báo trước khi chấm dứt hợp đồng 30 ngày",
+          "explanation": "Hợp đồng quy định bạn và chủ nhà đều phải báo trước 30 ngày khi muốn chấm dứt thuê. Điều này giúp bạn có thời gian chuẩn bị, tránh bị coi là vi phạm do không báo trước.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 14259,
+      "input_tokens": 5800,
+      "output_tokens": 2017
+    },
+    {
+      "id": "explicit-price-no-threshold",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "UTL-01",
+        "no-market-threshold",
+        "negative",
+        "clean"
+      ],
+      "clean": true,
+      "tp": 0,
+      "fp": 7,
+      "fn": 0,
+      "high_expected": 0,
+      "high_found": 0,
+      "supported_tp": 0,
+      "severity_correct": 0,
+      "evidence_grounded": 6,
+      "evidence_total": 7,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [],
+      "missed": [],
+      "extra": [
+        {
+          "id": "F1",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L05",
+            "p1-L06"
+          ],
+          "quote": "Khi kết thúc thuê, cọc được trả trong 7 ngày sau bàn giao; chỉ trừ nợ và hư hỏng do người thuê gây ra có chứng từ hai bên đồng ý.",
+          "title": "Điều kiện và thời hạn trả cọc rõ ràng",
+          "explanation": "Hợp đồng ghi rõ cọc trả trong 7 ngày sau khi bạn bàn giao phòng, chỉ bị trừ nếu có hư hỏng do bạn gây ra và phải có chứng từ đồng ý cả hai bên. Đây là điểm tốt giúp bạn tránh mất cọc vô lý.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F2",
+          "rule_id": "DEP-02",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L07",
+            "p1-L08"
+          ],
+          "quote": "Nếu trả phòng sớm và báo đủ 30 ngày, người thuê vẫn được hoàn cọc theo điều kiện và thời hạn nêu trên.",
+          "title": "Hoàn cọc khi báo trước 30 ngày nếu trả phòng sớm",
+          "explanation": "Nếu bạn cần chuyển đi trước thời hạn hợp đồng, chỉ cần báo trước đủ 30 ngày là vẫn được nhận lại tiền cọc, tránh mất cọc toàn bộ. Đây là điểm tốt cho người thuê phải đổi chỗ sớm.",
+          "question_for_landlord": "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F3",
+          "rule_id": "DEP-03",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L09"
+          ],
+          "quote": "Biên bản bàn giao hiện trạng và danh sách thiết bị đã được hai bên ký khi nhận phòng.",
+          "title": "Có biên bản bàn giao hiện trạng",
+          "explanation": "Có biên bản bàn giao hiện trạng ký cả hai bên giúp bạn chứng minh phòng khi nhận đã như thế nào, tránh bị trừ tiền bất hợp lý khi trả phòng.",
+          "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F4",
+          "rule_id": "UTL-01",
+          "type": "risky",
+          "severity": "low",
+          "line_ids": [
+            "p1-L10"
+          ],
+          "quote": "Tiền điện cố định 8.000 đồng/kWh; nước 90.000 đồng/người/tháng.",
+          "title": "Giá điện và nước rõ ràng, cố định",
+          "explanation": "Giá điện và nước được ghi cụ thể, cố định trong hợp đồng, giúp bạn chủ động tính chi phí, tránh bị đẩy giá điện nước bất ngờ.",
+          "question_for_landlord": "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F5",
+          "rule_id": "REP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L11"
+          ],
+          "quote": "Chủ nhà chịu sửa hư hỏng lớn và hao mòn tự nhiên; người thuê chỉ chịu hư hỏng do mình gây ra.",
+          "title": "Phân chia chi phí sửa chữa rõ ràng",
+          "explanation": "Chủ nhà sửa các hư hỏng lớn và hao mòn tự nhiên, bạn chỉ chịu chi phí sửa những hư hỏng do bạn gây ra. Đây là điều nhằm tránh bạn phải trả tiền sửa các hư hỏng bình thường khi ở lâu.",
+          "question_for_landlord": "Những hư hỏng do thiết bị cũ hoặc hao mòn tự nhiên thì bên nào chịu chi phí sửa ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Câu trích chưa khớp OCR gốc hoặc dữ liệu liên quan chưa chắc chắn; không tô vùng như bằng chứng đã xác minh."
+        },
+        {
+          "id": "F6",
+          "rule_id": "TRM-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L13",
+            "p1-L14"
+          ],
+          "quote": "Chủ nhà chỉ được lấy lại phòng trước hạn khi hai bên đồng ý, phải báo trước 30 ngày và hoàn cọc trong 7 ngày theo điều kiện nêu trên.",
+          "title": "Chủ nhà không được tự ý chấm dứt hợp đồng trước hạn",
+          "explanation": "Chủ nhà cần có sự đồng ý của bạn và báo trước 30 ngày nếu muốn lấy lại phòng trước thời hạn, kèm điều kiện hoàn cọc rõ ràng như khi hết hợp đồng. Điều này giúp bạn tránh mất chỗ ở đột ngột.",
+          "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        },
+        {
+          "id": "F7",
+          "rule_id": "TRM-02",
+          "type": "risky",
+          "severity": "medium",
+          "line_ids": [
+            "p1-L15"
+          ],
+          "quote": "Mỗi bên phải báo trước 30 ngày khi chấm dứt thuê.",
+          "title": "Thời hạn báo trước rõ ràng khi chấm dứt hợp đồng",
+          "explanation": "Cả bạn và chủ nhà đều phải báo trước 30 ngày nếu muốn chấm dứt hợp đồng, giúp bạn chuẩn bị kịp thời không bị đuổi bất ngờ.",
+          "question_for_landlord": "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "RNT-01": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 13837,
+      "input_tokens": 5713,
+      "output_tokens": 1933
+    },
+    {
+      "id": "eight-risks",
+      "status": "completed",
+      "error_code": null,
+      "tags": [
+        "multi-risk",
+        "positive"
+      ],
+      "clean": false,
+      "tp": 6,
+      "fp": 2,
+      "fn": 2,
+      "high_expected": 7,
+      "high_found": 5,
+      "supported_tp": 6,
+      "severity_correct": 6,
+      "evidence_grounded": 6,
+      "evidence_total": 7,
+      "unsupported_missing": 0,
+      "exact": false,
+      "matches": [
+        {
+          "prediction_index": 2,
+          "gold_index": 1,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "DEP-02",
+          "prediction_id": "F3"
+        },
+        {
+          "prediction_index": 3,
+          "gold_index": 2,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "DEP-03",
+          "prediction_id": "F4"
+        },
+        {
+          "prediction_index": 0,
+          "gold_index": 4,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "RNT-01",
+          "prediction_id": "F1"
+        },
+        {
+          "prediction_index": 5,
+          "gold_index": 5,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "REP-01",
+          "prediction_id": "F6"
+        },
+        {
+          "prediction_index": 6,
+          "gold_index": 6,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "TRM-01",
+          "prediction_id": "F7"
+        },
+        {
+          "prediction_index": 7,
+          "gold_index": 7,
+          "evidence_correct": true,
+          "severity_correct": true,
+          "gold_id": "TRM-02",
+          "prediction_id": "F8"
+        }
+      ],
+      "missed": [
+        {
+          "id": "DEP-01",
+          "rule_id": "DEP-01",
+          "type": "missing",
+          "severity": "high",
+          "evidence_any_of": [],
+          "rationale": "Có điều kiện trừ cọc nhưng thiếu thời hạn hoàn phần còn lại."
+        },
+        {
+          "id": "UTL-01",
+          "rule_id": "UTL-01",
+          "type": "unclear",
+          "severity": "high",
+          "evidence_any_of": [
+            {
+              "page": 1,
+              "contains": "Tiền điện do chủ nhà tự quy định từng tháng"
+            }
+          ],
+          "rationale": "Giá không xác định."
+        }
+      ],
+      "extra": [
+        {
+          "id": "F2",
+          "rule_id": "DEP-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L06"
+          ],
+          "quote": "Chủ nhà được trừ cọc vì hư hỏng do người thuê gây ra; không quy định thời hạn hoàn phần cọc còn lại.",
+          "title": "Không ghi điều kiện hoặc thời hạn trả cọc",
+          "explanation": "Hợp đồng không nói rõ sau khi hết hợp đồng, trong bao lâu bạn nhận lại tiền cọc còn lại sau khi trừ chi phí sửa chữa nếu có. Điều này có thể khiến chủ nhà giữ cọc của bạn lâu hoặc không trả lại đủ.",
+          "question_for_landlord": "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?",
+          "evidence_status": "needs_review",
+          "evidence_reason": "Câu trích chưa khớp OCR gốc hoặc dữ liệu liên quan chưa chắc chắn; không tô vùng như bằng chứng đã xác minh."
+        },
+        {
+          "id": "F5",
+          "rule_id": "UTL-01",
+          "type": "risky",
+          "severity": "high",
+          "line_ids": [
+            "p1-L10"
+          ],
+          "quote": "Tiền điện do chủ nhà tự quy định từng tháng.",
+          "title": "Đơn giá điện mơ hồ, do chủ nhà tự quy định; không đánh giá mức giá cao/thấp.",
+          "explanation": "Điều khoản này không cho bạn biết rõ giá điện theo bao nhiêu đồng mỗi số điện, và chủ nhà có thể thay đổi giá theo ý muốn. Bạn có thể bị tính tiền điện với giá bất thường hoặc khó kiểm soát chi phí điện hàng tháng.",
+          "question_for_landlord": "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?",
+          "evidence_status": "verified",
+          "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+        }
+      ],
+      "by_rule": {
+        "DEP-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1
+        },
+        "DEP-02": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "DEP-03": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "UTL-01": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 1
+        },
+        "RNT-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "REP-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-01": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "TRM-02": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        }
+      },
+      "elapsed_ms": 13944,
+      "input_tokens": 5431,
+      "output_tokens": 1915
+    }
+  ]
+}

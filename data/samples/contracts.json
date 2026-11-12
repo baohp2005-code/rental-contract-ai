@@ -1,0 +1,62 @@
+[
+  {
+    "id": "hd01", "title": "Bản in có điều khoản bất lợi", "source": "synthetic",
+    "lines": [
+      "HỢP ĐỒNG THUÊ PHÒNG TRỌ — MẪU MÔ PHỎNG 01",
+      "Tiền thuê phòng: 3.500.000 đồng/tháng.",
+      "Tiền đặt cọc: 7.000.000 đồng. Trả phòng trước hạn mất toàn bộ cọc, kể cả đã báo trước.",
+      "Tiền điện: 3.800 đồng/kWh, ghi chỉ số hàng tháng.",
+      "Tiền nước: 100.000 đồng/người/tháng.",
+      "Thời hạn thuê: 12 tháng. Người thuê phải báo trước 30 ngày khi trả phòng.",
+      "Chủ nhà được tăng giá thuê bất kỳ lúc nào, không cần báo trước.",
+      "Người thuê chịu mọi chi phí sửa chữa, kể cả thiết bị cũ và hao mòn tự nhiên.",
+      "Chủ nhà được lấy lại phòng bất kỳ lúc nào, không cần báo trước; người thuê đi sớm mất cọc.",
+      "Khi hết hạn, cọc được hoàn trong 7 ngày, trừ hư hỏng có biên bản hai bên ký.",
+      "Danh sách thiết bị và hiện trạng phòng có biên bản bàn giao hai bên đã ký."
+    ],
+    "terms": { "rent_vnd": [3500000, 2, "3.500.000"], "deposit_vnd": [7000000, 3, "7.000.000"], "electricity_vnd_per_kwh": [3800, 4, "3.800"], "water": ["100.000 đồng/người/tháng", 5, "100.000 đồng/người/tháng"], "duration_months": [12, 6, "12 tháng"], "notice_days": [30, 6, "30 ngày"] },
+    "flags": [
+      { "rule_id": "DEP-02", "line": 3, "type": "risky", "severity": "high", "title": "Mất cọc dù đã báo trước", "explanation": "Theo điều khoản này, bạn có thể mất 7.000.000 đồng cọc khi chuyển đi trước hạn dù đã báo trước.", "question_for_landlord": "Nếu em báo trước 30 ngày và bàn giao đầy đủ thì có được hoàn cọc khi chuyển đi sớm không ạ?" },
+      { "rule_id": "RNT-01", "line": 7, "type": "risky", "severity": "high", "title": "Giá thuê có thể tăng bất ngờ", "explanation": "Bạn khó dự tính chi phí vì chủ nhà có thể tăng giá giữa thời hạn thuê.", "question_for_landlord": "Mình có thể giữ nguyên tiền thuê trong thời hạn hợp đồng không ạ?" },
+      { "rule_id": "REP-01", "line": 8, "type": "risky", "severity": "high", "title": "Phải trả cả sửa chữa do đồ cũ", "explanation": "Bạn có thể phải trả chi phí cho thiết bị hỏng do hao mòn, dù không phải do bạn làm hỏng.", "question_for_landlord": "Hư hỏng do thiết bị cũ và hao mòn tự nhiên thì chủ nhà có chịu sửa không ạ?" },
+      { "rule_id": "TRM-01", "line": 9, "type": "risky", "severity": "high", "title": "Chủ nhà có thể lấy lại phòng đột ngột", "explanation": "Bạn có thể phải tìm chỗ ở gấp trong khi điều kiện trả phòng của hai bên không cân bằng.", "question_for_landlord": "Nếu cần lấy lại phòng trước hạn thì anh/chị sẽ báo trước bao lâu và hoàn cọc thế nào ạ?" }
+    ]
+  },
+  {
+    "id": "hd02", "title": "Bản in ít rủi ro trong phạm vi kiểm tra", "source": "synthetic",
+    "lines": [
+      "HỢP ĐỒNG THUÊ PHÒNG TRỌ — MẪU MÔ PHỎNG 02",
+      "Tiền thuê phòng: 3.000.000 đồng/tháng, giữ nguyên trong suốt thời hạn hợp đồng.",
+      "Tiền đặt cọc: 3.000.000 đồng. Hoàn trong 7 ngày sau bàn giao, trừ chi phí có chứng từ hai bên đồng ý.",
+      "Tiền điện: 3.500 đồng/kWh, đo theo đồng hồ riêng và ghi chỉ số hàng tháng.",
+      "Tiền nước: 90.000 đồng/người/tháng.",
+      "Thời hạn thuê: 12 tháng. Mỗi bên báo trước 30 ngày khi chấm dứt trước hạn.",
+      "Người thuê báo đủ 30 ngày và bàn giao đầy đủ thì được hoàn cọc dù trả phòng sớm.",
+      "Chủ nhà sửa thiết bị hỏng do cũ hoặc hao mòn; người thuê chịu hư hỏng do mình gây ra.",
+      "Nếu lấy lại phòng trước hạn, chủ nhà phải báo trước 30 ngày và hoàn cọc trong 7 ngày.",
+      "Hai bên ký biên bản hiện trạng và danh sách thiết bị khi nhận phòng."
+    ],
+    "terms": { "rent_vnd": [3000000, 2, "3.000.000"], "deposit_vnd": [3000000, 3, "3.000.000"], "electricity_vnd_per_kwh": [3500, 4, "3.500"], "water": ["90.000 đồng/người/tháng", 5, "90.000 đồng/người/tháng"], "duration_months": [12, 6, "12 tháng"], "notice_days": [30, 6, "30 ngày"] },
+    "flags": []
+  },
+  {
+    "id": "hd03", "title": "Bản in có thông tin mơ hồ và thiếu", "source": "synthetic",
+    "lines": [
+      "HỢP ĐỒNG THUÊ PHÒNG TRỌ — MẪU MÔ PHỎNG 03",
+      "Tiền thuê phòng: 2.800.000 đồng/tháng, giữ nguyên trong thời hạn hợp đồng.",
+      "Tiền đặt cọc: 2.800.000 đồng.",
+      "Tiền điện theo mức do chủ nhà quy định.",
+      "Tiền nước: 80.000 đồng/người/tháng.",
+      "Thời hạn thuê: 12 tháng.",
+      "Chủ nhà sửa hỏng hóc do hao mòn; người thuê sửa hỏng hóc do mình gây ra.",
+      "Có biên bản bàn giao hiện trạng và thiết bị hai bên ký.",
+      "Hai bên ký xác nhận toàn bộ các nội dung trên. Không có phụ lục khác."
+    ],
+    "terms": { "rent_vnd": [2800000, 2, "2.800.000"], "deposit_vnd": [2800000, 3, "2.800.000"], "electricity_vnd_per_kwh": null, "water": ["80.000 đồng/người/tháng", 5, "80.000 đồng/người/tháng"], "duration_months": [12, 6, "12 tháng"], "notice_days": null },
+    "flags": [
+      { "rule_id": "DEP-01", "line": null, "type": "missing", "severity": "high", "title": "Chưa ghi điều kiện và hạn hoàn cọc", "explanation": "Hợp đồng ghi số tiền cọc nhưng chưa nêu khi nào được nhận lại và được trừ những khoản nào.", "question_for_landlord": "Cọc được hoàn trong bao nhiêu ngày sau bàn giao và trường hợp nào bị trừ cọc ạ?" },
+      { "rule_id": "UTL-01", "line": 4, "type": "unclear", "severity": "high", "title": "Chưa biết đơn giá điện", "explanation": "Bạn chưa dự tính được chi phí điện vì hợp đồng chưa có giá cụ thể.", "question_for_landlord": "Giá điện cụ thể là bao nhiêu đồng/kWh và có thể ghi vào hợp đồng không ạ?" },
+      { "rule_id": "TRM-02", "line": null, "type": "missing", "severity": "medium", "title": "Chưa ghi thời hạn báo trước", "explanation": "Hai bên chưa thống nhất phải báo trước bao lâu khi muốn chấm dứt hợp đồng.", "question_for_landlord": "Khi cần chấm dứt hợp đồng thì mỗi bên phải báo trước bao nhiêu ngày ạ?" }
+    ]
+  }
+]

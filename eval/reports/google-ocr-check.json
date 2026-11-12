@@ -1,0 +1,9 @@
+{
+  "checked_at": "2026-11-09T14:34:06.614Z",
+  "mode": "live",
+  "status": "completed",
+  "stage": "google_ocr",
+  "http_status": 200,
+  "pages": 1,
+  "text_characters": 758
+}

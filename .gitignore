@@ -9,3 +9,10 @@ build/
 .DS_Store
 # Ảnh hợp đồng gốc chưa che thông tin cá nhân: KHÔNG commit
 data/samples/raw/
+**/*service-account*.json
+
+# Benchmark render previews and per-run synthetic images are reproducible.
+/eval/reports/benchmark/render-check/
+/eval/reports/benchmark/*/images/
+# Local human review records, separate from benchmark labels and reports.
+/eval/reviews/

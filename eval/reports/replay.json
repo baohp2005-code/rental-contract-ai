@@ -1,0 +1,62 @@
+{
+  "mode": "replay",
+  "note": "Kiểm tra tích hợp bằng dữ liệu soạn sẵn. Các chỉ số không đo chất lượng OCR/LLM thật.",
+  "samples": [
+    {
+      "id": "hd01",
+      "true_positive": 4,
+      "false_negative": 0,
+      "false_positive": 0,
+      "high_found": 4,
+      "high_expected": 4,
+      "terms_correct": 5,
+      "terms_expected": 5,
+      "evidence_verified": 4,
+      "evidence_total": 4,
+      "elapsed_ms": 12,
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "id": "hd02",
+      "true_positive": 0,
+      "false_negative": 0,
+      "false_positive": 0,
+      "high_found": 0,
+      "high_expected": 0,
+      "terms_correct": 5,
+      "terms_expected": 5,
+      "evidence_verified": 0,
+      "evidence_total": 0,
+      "elapsed_ms": 2,
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "id": "hd03",
+      "true_positive": 3,
+      "false_negative": 0,
+      "false_positive": 0,
+      "high_found": 2,
+      "high_expected": 2,
+      "terms_correct": 5,
+      "terms_expected": 5,
+      "evidence_verified": 1,
+      "evidence_total": 1,
+      "elapsed_ms": 2,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  ],
+  "totals": {
+    "true_positive": 7,
+    "false_negative": 0,
+    "false_positive": 0,
+    "high_found": 6,
+    "high_expected": 6,
+    "terms_correct": 15,
+    "terms_expected": 15,
+    "evidence_verified": 5,
+    "evidence_total": 5
+  }
+}

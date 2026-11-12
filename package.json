@@ -1,6 +1,25 @@
 {
   "name": "rental-contract-ai",
   "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:api": "npm run dev --workspace @rental/api",
+    "dev:mobile": "npm run start --workspace @rental/mobile",
+    "dev:web": "npm run web --workspace @rental/mobile",
+    "samples:generate": "tsx scripts/generate-samples.ts",
+    "typecheck": "tsc --noEmit && npm run typecheck --workspace @rental/mobile",
+    "test": "tsx --test packages/shared/src/*.test.ts apps/api/src/*.test.ts eval/benchmark/*.test.ts apps/benchmark/*.test.ts",
+    "benchmark": "tsx eval/benchmark/run.ts",
+    "benchmark:ui": "tsx apps/benchmark/server.ts",
+    "eval": "tsx eval/run.ts",
+    "smoke:live": "tsx scripts/smoke-live.ts",
+    "smoke:openai": "tsx scripts/smoke-openai.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"

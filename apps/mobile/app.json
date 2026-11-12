@@ -1,0 +1,9 @@
+{
+  "expo": {
+    "name": "Đọc hợp đồng trọ", "slug": "rental-contract-ai", "version": "0.0.1",
+    "orientation": "portrait", "userInterfaceStyle": "light",
+    "ios": { "supportsTablet": true },
+    "android": { "package": "vn.rentalcontract.demo" },
+    "web": { "bundler": "metro" }
+  }
+}

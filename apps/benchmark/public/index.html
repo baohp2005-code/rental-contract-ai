@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#181b26"><title>LeaseLens · Duyệt benchmark</title><link rel="stylesheet" href="/styles.css"></head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="/" aria-label="LeaseLens, trang duyệt benchmark"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3h10v14H7zM3 7v14h10" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m10 10 2 2 3-4" stroke="currentColor" stroke-width="2"/></svg></span><span>LeaseLens<span class="brand-sub">BENCHMARK STUDIO</span></span></a>
+  <div class="nav-label">WORKSPACE</div>
+  <nav><button class="nav-item active" data-action="review-home" aria-label="Duyệt benchmark"><span data-icon="layers"></span><span>Duyệt benchmark</span><span class="nav-dot"></span></button><button class="nav-item" data-action="overview" aria-label="Kết quả lượt chạy"><span data-icon="chart"></span><span>Kết quả lượt chạy</span></button><button class="nav-item" data-action="guide" aria-label="Hướng dẫn chấm"><span data-icon="book"></span><span>Hướng dẫn chấm</span></button></nav>
+  <div class="sidebar-note"><div class="note-symbol">✳</div><strong>Chất lượng nằm ở chi tiết.</strong><p>Đọc nguồn trước khi đồng ý với một cảnh báo.</p><button data-action="guide">Xem tiêu chí chấm <span>↗</span></button></div>
+  <div class="local-status"><span class="status-dot"></span><span>Local workspace<small>Phiếu duyệt lưu trên máy</small></span><span data-icon="lock"></span></div>
+</aside>
+<main>
+  <header class="topbar"><div class="breadcrumb">Benchmark <span>/</span> <strong>Human review</strong></div><div class="reviewer"><span class="avatar" id="avatar">N</span><label for="reviewer-name">Người duyệt</label><input id="reviewer-name" maxlength="60" value="Người duyệt 1" aria-label="Tên người duyệt"></div></header>
+  <div class="main-content">
+    <section class="page-heading"><div><div class="eyebrow">KIỂM CHỨNG TỪNG KẾT LUẬN</div><h1>Duyệt benchmark<span class="title-dot">.</span></h1><p>Đối chiếu hợp đồng, chấm cảnh báo và rà soát nhãn kỳ vọng.</p></div><div class="heading-actions"><label class="run-control"><span>Lượt chạy</span><select id="run-select" aria-label="Lượt chạy benchmark"><option>Đang tải…</option></select></label><button class="button export-button" data-action="export"><span data-icon="download"></span>Xuất phiếu</button></div></section>
+    <div id="stats" class="stats" aria-label="Tổng quan"><div class="loading-block">Đang đọc kết quả benchmark…</div></div>
+    <div class="workspace-top"><div><span class="status-dot purple"></span><strong>Phiên duyệt</strong><span class="draft-note">Nhãn đề xuất · cần người duyệt xác nhận</span></div><div id="save-status" class="save-status" role="status">Chưa có thay đổi</div></div>
+    <section class="workspace" id="workspace" aria-label="Không gian duyệt benchmark">
+      <aside class="queue panel"><div class="panel-heading"><h2>Danh sách ca</h2><span id="case-count" class="count-pill">—</span></div><div class="search-box"><span data-icon="search"></span><input id="search" placeholder="Tìm ca hoặc quy tắc…" aria-label="Tìm ca hoặc quy tắc"></div><div class="queue-filters" role="group" aria-label="Lọc trạng thái"><button class="selected" data-filter="all">Tất cả</button><button data-filter="pending">Chưa xong</button><button data-filter="done">Đã duyệt</button></div><label class="error-filter"><input type="checkbox" id="only-errors"> Chỉ ca có lỗi benchmark</label><div id="case-list" class="case-list"></div><div class="queue-footer"><kbd>←</kbd><kbd>→</kbd><span>Chuyển ca khi không nhập liệu</span></div></aside>
+      <section class="document-panel panel"><div id="document-header"></div><div id="document-body" class="document-body"><div class="empty-state">Chọn một ca để đọc hợp đồng.</div></div></section>
+      <section class="review-panel panel"><div id="review-header"></div><div id="review-body" class="review-body"><div class="empty-state">Cảnh báo và phiếu chấm sẽ xuất hiện ở đây.</div></div><div id="review-footer" class="review-footer"></div></section>
+    </section>
+    <footer class="page-footer"><span><span class="mini-dot"></span> Dữ liệu mô phỏng · Không phải đánh giá pháp lý</span><span id="run-caption">Không gọi API AI khi duyệt</span></footer>
+  </div>
+</main>
+<div id="toast" class="toast" role="status" hidden></div>
+<dialog id="modal"><div class="modal-heading"><h2 id="modal-title"></h2><button class="icon-button" data-action="close-modal" aria-label="Đóng"><span data-icon="close"></span></button></div><div id="modal-content" class="modal-content"></div></dialog>
+<script type="module" src="/app.js"></script>
+</body></html>

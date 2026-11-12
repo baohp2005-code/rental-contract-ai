@@ -1,0 +1,169 @@
+{
+  "status": "completed",
+  "mode": "openai-live-with-authored-ocr",
+  "sample_id": "hd01",
+  "model": "gpt-4.1-mini",
+  "ocr_source": "authored fixture, NOT Google OCR",
+  "elapsed_ms": 15221,
+  "input_tokens": 5014,
+  "output_tokens": 1522,
+  "key_terms": {
+    "rent_vnd": {
+      "value": 3500000,
+      "unit": "VND",
+      "raw_text": "3.500.000 đồng/tháng",
+      "line_ids": [
+        "p1-L02"
+      ],
+      "status": "found"
+    },
+    "deposit_vnd": {
+      "value": 7000000,
+      "unit": "VND",
+      "raw_text": "7.000.000 đồng",
+      "line_ids": [
+        "p1-L03"
+      ],
+      "status": "found"
+    },
+    "electricity_vnd_per_kwh": {
+      "value": 3800,
+      "unit": "VND/kWh",
+      "raw_text": "3.800 đồng/kWh",
+      "line_ids": [
+        "p1-L04"
+      ],
+      "status": "found"
+    },
+    "water": {
+      "value": "100.000 đồng/người/tháng",
+      "unit": "đồng/người/tháng",
+      "raw_text": "100.000 đồng/người/tháng",
+      "line_ids": [
+        "p1-L05"
+      ],
+      "status": "found"
+    },
+    "duration_months": {
+      "value": 12,
+      "unit": "tháng",
+      "raw_text": "12 tháng",
+      "line_ids": [
+        "p1-L06"
+      ],
+      "status": "found"
+    },
+    "notice_days": {
+      "value": 30,
+      "unit": "ngày",
+      "raw_text": "30 ngày",
+      "line_ids": [
+        "p1-L06"
+      ],
+      "status": "found"
+    }
+  },
+  "flags": [
+    {
+      "id": "F1",
+      "rule_id": "DEP-02",
+      "type": "risky",
+      "severity": "high",
+      "line_ids": [
+        "p1-L03"
+      ],
+      "quote": "Trả phòng trước hạn mất toàn bộ cọc, kể cả đã báo trước.",
+      "title": "\"Mất cọc trong mọi trường hợp\" khi trả phòng sớm, kể cả đã báo trước",
+      "explanation": "Điều khoản này làm bạn mất toàn bộ tiền cọc nếu phải chuyển phòng sớm dù đã thông báo trước, trong khi sinh viên thường có nhu cầu chuyển chỗ giữa chừng.",
+      "question_for_landlord": "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?",
+      "evidence_status": "verified",
+      "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+    },
+    {
+      "id": "F2",
+      "rule_id": "DEP-03",
+      "type": "risky",
+      "severity": "high",
+      "line_ids": [
+        "p1-L10",
+        "p1-L11"
+      ],
+      "quote": "cọc được hoàn trong 7 ngày, trừ hư hỏng có biên bản hai bên ký.",
+      "title": "Được trừ cọc vì \"hư hỏng\" nhưng không có biên bản bàn giao hiện trạng",
+      "explanation": "Dù có biên bản bàn giao, bạn nên chủ động lập biên bản và chụp ảnh hiện trạng khi nhận phòng để tránh tranh chấp về hư hỏng không phải do bạn gây ra.",
+      "question_for_landlord": "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?",
+      "evidence_status": "verified",
+      "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+    },
+    {
+      "id": "F3",
+      "rule_id": "UTL-01",
+      "type": "risky",
+      "severity": "high",
+      "line_ids": [
+        "p1-L04"
+      ],
+      "quote": "Tiền điện: 3.800 đồng/kWh, ghi chỉ số hàng tháng.",
+      "title": "Đơn giá điện mơ hồ, do chủ nhà tự quy định",
+      "explanation": "Giá điện có ghi rõ 3.800 đồng/kWh, nhưng bạn nên xác nhận là mức giá này cố định trong toàn hợp đồng hay có thể thay đổi tùy ý chủ nhà.",
+      "question_for_landlord": "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?",
+      "evidence_status": "verified",
+      "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+    },
+    {
+      "id": "F4",
+      "rule_id": "RNT-01",
+      "type": "risky",
+      "severity": "high",
+      "line_ids": [
+        "p1-L07"
+      ],
+      "quote": "Chủ nhà được tăng giá thuê bất kỳ lúc nào, không cần báo trước.",
+      "title": "Chủ nhà được tăng giá bất kỳ lúc nào, không báo trước",
+      "explanation": "Điều khoản này làm bạn không thể chắc chắn chi phí thuê nguyên tháng sẽ không bị tăng, gây khó khăn trong kế hoạch tài chính.",
+      "question_for_landlord": "Trong thời hạn hợp đồng giá thuê có giữ nguyên không, nếu tăng thì báo trước bao lâu ạ?",
+      "evidence_status": "verified",
+      "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+    },
+    {
+      "id": "F5",
+      "rule_id": "REP-01",
+      "type": "risky",
+      "severity": "high",
+      "line_ids": [
+        "p1-L08"
+      ],
+      "quote": "Người thuê chịu mọi chi phí sửa chữa, kể cả thiết bị cũ và hao mòn tự nhiên.",
+      "title": "Người thuê chịu mọi khoản sửa chữa, kể cả hư hỏng lớn hoặc hao mòn tự nhiên",
+      "explanation": "Bạn có thể phải trả tiền sửa điều hòa, bình nóng lạnh cũ dù không phải lỗi của bạn, điều này sẽ rất tốn kém.",
+      "question_for_landlord": "Những hư hỏng do thiết bị cũ hoặc hao mòn tự nhiên thì bên nào chịu chi phí sửa ạ?",
+      "evidence_status": "verified",
+      "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+    },
+    {
+      "id": "F6",
+      "rule_id": "TRM-01",
+      "type": "risky",
+      "severity": "high",
+      "line_ids": [
+        "p1-L09"
+      ],
+      "quote": "Chủ nhà được lấy lại phòng bất kỳ lúc nào, không cần báo trước; người thuê đi sớm mất cọc.",
+      "title": "Chủ nhà được tự ý chấm dứt không cần báo trước, còn người thuê thì mất cọc",
+      "explanation": "Chủ nhà có thể đuổi bạn bất ngờ mà không báo trước, trong khi bạn lại chịu thiệt mất cọc tiền, rất bất lợi và không công bằng.",
+      "question_for_landlord": "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?",
+      "evidence_status": "verified",
+      "evidence_reason": "Mã dòng và câu trích khớp OCR gốc; vẫn cần đọc lại trên ảnh."
+    }
+  ],
+  "warnings": [],
+  "schema_valid": true,
+  "quality_status": "needs_review",
+  "quality": {
+    "true_positive": 4,
+    "false_negative": 0,
+    "false_positive": 2,
+    "numeric_terms_correct": 5,
+    "numeric_terms_expected": 5
+  }
+}

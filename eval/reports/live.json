@@ -1,0 +1,62 @@
+{
+  "mode": "live",
+  "note": "Ba mẫu mô phỏng dùng để phát triển; chưa phải tập kiểm tra độc lập.",
+  "samples": [
+    {
+      "id": "hd01",
+      "true_positive": 4,
+      "false_negative": 0,
+      "false_positive": 2,
+      "high_found": 4,
+      "high_expected": 4,
+      "terms_correct": 5,
+      "terms_expected": 5,
+      "evidence_verified": 6,
+      "evidence_total": 6,
+      "elapsed_ms": 18844,
+      "input_tokens": 5106,
+      "output_tokens": 1672
+    },
+    {
+      "id": "hd02",
+      "true_positive": 0,
+      "false_negative": 0,
+      "false_positive": 8,
+      "high_found": 0,
+      "high_expected": 0,
+      "terms_correct": 5,
+      "terms_expected": 5,
+      "evidence_verified": 8,
+      "evidence_total": 8,
+      "elapsed_ms": 19530,
+      "input_tokens": 5095,
+      "output_tokens": 1888
+    },
+    {
+      "id": "hd03",
+      "true_positive": 0,
+      "false_negative": 3,
+      "false_positive": 0,
+      "high_found": 0,
+      "high_expected": 2,
+      "terms_correct": 5,
+      "terms_expected": 5,
+      "evidence_verified": 0,
+      "evidence_total": 0,
+      "elapsed_ms": 6494,
+      "input_tokens": 4881,
+      "output_tokens": 547
+    }
+  ],
+  "totals": {
+    "true_positive": 4,
+    "false_negative": 3,
+    "false_positive": 10,
+    "high_found": 4,
+    "high_expected": 6,
+    "terms_correct": 15,
+    "terms_expected": 15,
+    "evidence_verified": 14,
+    "evidence_total": 14
+  }
+}
