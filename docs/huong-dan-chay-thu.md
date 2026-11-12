@@ -2,7 +2,13 @@
 
 Dành cho cả nhóm. App đang chạy bằng **dữ liệu mẫu**: chụp ảnh gì thì kết quả vẫn là của hợp đồng mẫu, có dải màu vàng nhắc điều này.
 
-Có hai cách. **Cách 1** nhanh nhất nếu máy của bạn App đang bật app. **Cách 2** để tự chạy trên laptop của mình, không phụ thuộc ai.
+Có ba cách:
+
+- **Cách 1 (nên dùng, iPhone và Android):** mở bản đã phát hành ngay trong Expo Go. Không cần quét mã, không cần laptop của ai đang bật.
+- **Cách 2 (chỉ Android):** quét mã QR từ laptop đang chạy app, để thấy ngay thay đổi mới nhất.
+- **Cách 3:** tự chạy trên laptop của mình, dành cho người sửa code.
+
+> **Vì sao iPhone không quét mã QR của người khác được?** Từ Expo Go SDK 57, iPhone thật chỉ mở app từ máy chủ dev khi Expo Go đăng nhập **đúng tài khoản** đang chạy máy chủ trên laptop. Đã vào organization cũng không đủ. Bản đã phát hành (Cách 1) và điện thoại Android không bị giới hạn này.
 
 ---
 
@@ -18,35 +24,64 @@ App thuộc project `hop-dong-ai` của organization Expo **`pbao309s-team`**. M
 
 ---
 
-## Cách 1: Quét mã từ máy đang chạy app
-
-Cần máy của người làm App đang bật máy chủ Expo. Hỏi người đó lấy **mã QR** hoặc **đường link** bắt đầu bằng `exp://`.
+## Chuẩn bị Expo Go (mọi cách đều cần)
 
 1. **Cài Expo Go** bản mới nhất trên điện thoại:
    - Android: Google Play, tìm "Expo Go".
    - iPhone: App Store, tìm "Expo Go".
    - Đã cài rồi thì cập nhật lên bản mới nhất. App dùng Expo SDK 58; bản Expo Go cũ sẽ báo "not compatible".
-2. **Đăng nhập Expo Go** bằng tài khoản Expo đã được mời vào `pbao309s-team` (Bước 0). iPhone bắt buộc, Android nên làm.
-   - Mở Expo Go, vào mục tài khoản (Profile/Account), chọn đăng nhập. Chọn **Google** nếu bạn tạo tài khoản bằng Google.
-3. **Mở app của nhóm:**
-   - Android: trong Expo Go bấm **Scan QR code**, quét mã.
-   - iPhone: mở app **Camera** quét mã, bấm vào thông báo hiện ra.
-   - Không quét được thì sao chép đường link `exp://...` sang điện thoại, dán vào thanh địa chỉ của **Safari** (iPhone) hoặc **Chrome** (Android), chọn **Mở trong Expo Go**. Bấm thẳng vào link trong Zalo có thể không mở được.
-4. **Đợi lần tải đầu**, khoảng 30 giây đến 1 phút.
-5. **Thử trọn luồng:** tick đồng ý → ở màn chụp bấm **"Dùng hợp đồng mẫu"** → **Phân tích** → mở từng cảnh báo, bấm **Giữ** hoặc **Bỏ qua** → **Soạn tin nhắn**.
-
-> Đường link chỉ dùng được khi máy kia đang bật app, và **đổi mỗi lần máy chủ khởi động lại**. Máy đó tắt app hoặc tắt máy thì điện thoại sẽ báo lỗi kết nối. Nếu báo lỗi liên quan tới tài khoản, kiểm tra lại Bước 0, hoặc dùng Cách 2.
+2. **Đăng nhập Expo Go** bằng tài khoản Expo **của bạn**, tài khoản đã vào `pbao309s-team` (Bước 0).
+   - Mở Expo Go, bấm biểu tượng tài khoản ở góc trên bên phải, chọn đăng nhập. Chọn **Google** nếu bạn tạo tài khoản bằng Google.
+   - Đăng nhập đúng thì ở màn **Home**, mục **Projects** sẽ có **hop dong AI** (`@pbao309s-team/hop-dong-ai`).
 
 ---
 
-## Cách 2: Tự chạy trên laptop của mình
+## Cách 1: Mở bản đã phát hành (iPhone và Android)
+
+1. Trong Expo Go, màn **Home** → mục **Projects** → bấm **hop dong AI**.
+2. Chọn branch **preview**, rồi bấm vào bản cập nhật mới nhất (nằm trên cùng).
+3. **Đợi lần tải đầu**, khoảng 30 giây đến 1 phút.
+4. **Thử trọn luồng:** tick đồng ý → ở màn chụp bấm **"Dùng hợp đồng mẫu"** → **Phân tích** → mở từng cảnh báo, bấm **Giữ** hoặc **Bỏ qua** → **Soạn tin nhắn**.
+
+Không thấy branch hoặc bản cập nhật: mở trên trình duyệt trang https://expo.dev/accounts/pbao309s-team/projects/hop-dong-ai/updates, bấm vào bản mới nhất, rồi dùng nút **Preview** để lấy mã QR. Quét mã đó bằng Camera (iPhone) hoặc Expo Go (Android).
+
+Bản phát hành **không tự cập nhật theo code mới**. Khi người làm App phát hành bản mới, bạn mở lại Projects → **hop dong AI** để chọn bản mới nhất.
+
+### Dành cho người làm App: phát hành bản mới
+
+Trên laptop đã đăng nhập Expo bằng tài khoản có quyền Owner, Admin hoặc Developer trong `pbao309s-team`. Trên Windows, mở PowerShell bằng đường dẫn **viết hoa ổ đĩa**:
+
+```powershell
+cd D:\codex-hackathon\apps\mobile
+npx eas-cli@latest update --branch preview --message "Mô tả ngắn thay đổi" --environment preview
+```
+
+Lệnh chạy vài phút: build JS cho iOS và Android rồi tải lên Expo. Thấy chữ `Published!` là xong, báo nhóm mở lại app.
+
+---
+
+## Cách 2: Quét mã từ laptop đang chạy app (chỉ Android)
+
+Cần laptop của người làm App đang bật máy chủ Expo (`npx expo start --tunnel`). Hỏi người đó lấy **mã QR** hoặc **đường link** bắt đầu bằng `exp://`.
+
+- Trong Expo Go bấm **Scan QR code**, quét mã.
+- Không quét được thì sao chép đường link `exp://...`, dán vào thanh địa chỉ **Chrome** trên điện thoại, chọn **Mở trong Expo Go**. Bấm thẳng vào link trong Zalo có thể không mở được.
+- **Đừng mở đường link `http://...`** (dòng `Web:` trong terminal). Link đó mở bản web trong trình duyệt, chụp ảnh và chọn ảnh có thể không chạy đúng.
+
+> Máy chủ phải đang chạy thì mới mở được. Laptop đó tắt terminal, ngủ hoặc mất mạng thì điện thoại báo lỗi `502 Bad Gateway`.
+>
+> iPhone quét mã này sẽ báo `these accounts need to match`. iPhone dùng Cách 1.
+
+---
+
+## Cách 3: Tự chạy trên laptop của mình
 
 ### Chuẩn bị (làm một lần)
 
 - **Node.js 22 LTS:** https://nodejs.org. Kiểm tra bằng `node -v`.
 - **Git:** https://git-scm.com. Kiểm tra bằng `git -v`.
 - **Tài khoản Expo đã vào `pbao309s-team`** (Bước 0).
-- **Expo Go** trên điện thoại, đăng nhập **cùng tài khoản Expo đó** (xem Cách 1, bước 1–2).
+- **Expo Go** trên điện thoại, đăng nhập **cùng tài khoản Expo bạn đăng nhập trên laptop** (xem phần Chuẩn bị Expo Go). Với iPhone, hai bên phải trùng tài khoản.
 
 ### Lấy code về
 
@@ -93,7 +128,7 @@ Lệnh in ra tên tài khoản là xong.
 npx expo start --tunnel
 ```
 
-Đợi terminal hiện mã QR rồi quét như Cách 1, bước 3.
+Đợi terminal hiện mã QR rồi quét: Android quét trong Expo Go, iPhone quét bằng app **Camera**.
 
 `--tunnel` chạy qua máy chủ của Expo, nên dùng được cả khi Wi-Fi trường hoặc ký túc xá chặn các máy nói chuyện với nhau. Nếu điện thoại và laptop cùng Wi-Fi ở nhà, có thể bỏ `--tunnel` để tải nhanh hơn.
 
@@ -106,7 +141,10 @@ Một số phím trong terminal: `r` tải lại app, `Ctrl+C` tắt máy chủ.
 | Điện thoại hoặc terminal báo | Cách xử lý |
 | --- | --- |
 | `timed out` / không kết nối được | Dùng `npx expo start --tunnel`. Tắt VPN trên laptop (Cloudflare WARP, WireGuard...). Trên Windows, đổi mạng Wi-Fi sang **Private**: Settings → Network & internet → Wi-Fi → tên mạng → Network profile type |
-| `You need to be signed in to Expo Go and Expo CLI` | Đăng nhập Expo ở **cả** laptop (`npx expo login`) **và** app Expo Go, cùng một tài khoản |
+| `You need to be signed in to Expo Go and Expo CLI` hoặc `You're signed in to Expo CLI as "..." but not signed in to Expo Go` | Đăng nhập Expo Go. Đang quét mã của **người khác** bằng iPhone thì dùng **Cách 1**. Tự chạy trên laptop của mình thì đăng nhập Expo Go cùng tài khoản với laptop |
+| `You're signed in to Expo CLI as "A" and to Expo Go as "B" — these accounts need to match` (iPhone) | iPhone không mở được máy chủ của tài khoản khác. Dùng **Cách 1**. **Không** bấm "Sign in as ...", vì như vậy là dùng tài khoản của người khác |
+| `HTTP response error 502: Bad Gateway` / `No server is connected` | Máy chủ trên laptop kia chưa chạy hoặc đã tắt. Người chạy máy chủ kiểm tra terminal `npx expo start --tunnel` còn mở, laptop không ngủ; đợi hiện mã QR rồi bấm **Try again** |
+| `Web Bundling failed` / `Unable to resolve "react-native-web..."` | Bạn đang mở link `http://` (bản web) trong trình duyệt. Mở bằng Expo Go theo Cách 1. Nếu người chạy máy chủ thấy lỗi này: `git pull`, `npm install` rồi khởi động lại máy chủ |
 | `Couldn't create a signed tunnel URL ... not logged in` | Laptop chưa đăng nhập Expo: chạy `npx expo login --browser` |
 | `cmd.exe /c start ... exited with non-zero code: 1` (Windows, khi đăng nhập) | Chạy `$env:BROWSER = "none"` trước, rồi tự dán link vào trình duyệt (xem phần Đăng nhập) |
 | `Project is incompatible with this version of Expo Go` | Cập nhật Expo Go lên bản mới nhất |
