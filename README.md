@@ -7,7 +7,6 @@
 **Trạng thái (14/11/2026):** chạy được trọn luồng trên điện thoại thật. Bản phát hành mở bằng Expo Go (EAS Update), gọi backend chung trên Render. Còn thiếu: bộ kiểm thử có nhãn (`eval/`), che CCCD và số điện thoại, bản cho người ngoài nhóm. Xem [mục 9](#9-tiến-độ-và-việc-còn-lại).
 
 - Backend: `https://rental-contract-api.onrender.com` (gói miễn phí, lần gọi đầu sau 15 phút nghỉ mất khoảng 1 phút)
-- Bản kế hoạch cả nhóm cùng sửa và bình luận: [Claude Docs](https://claude.ai/artifact/K8m3iE7C2ruwwLZxEMVjci)
 
 ## Mục lục
 
