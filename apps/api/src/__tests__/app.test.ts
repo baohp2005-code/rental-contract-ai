@@ -276,6 +276,15 @@ describe('POST /message', () => {
 describe('prompt và tiện ích', () => {
   it('đọc đủ 4 prompt từ prompts/*.md và chèn checklist + market_norms vào prompt B4', () => {
     expect(prompts.reread).toContain('[không đọc được]');
+    // legal_basis không được làm AI bỏ qua quy tắc (lần trước số cảnh báo tụt từ 10–12 xuống 0–1).
+    expect(prompts.risk).toContain('KHÔNG phải lý do bỏ qua');
+    // Phần hướng dẫn phải còn nguyên: trước đây chỗ ghép checklist xóa mất từ "## Nhiệm vụ" tới hết.
+    for (const heading of ['## Nhiệm vụ', '## Trích dẫn (bắt buộc)', '## Mức độ', '## Cách viết', '## Dữ liệu']) {
+      expect(prompts.risk).toContain(heading);
+    }
+    expect(prompts.risk.split('id: DEP-01').length - 1).toBe(1);
+    expect(prompts.risk.indexOf('## Cách viết')).toBeLessThan(prompts.risk.indexOf('id: DEP-01'));
+    expect(prompts.risk).toContain('electricity_max: 2472');
     expect(prompts.extract).toContain('key_terms');
     expect(prompts.message).toContain('kept_flags');
     expect(prompts.risk).toContain('id: DEP-01');

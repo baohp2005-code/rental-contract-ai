@@ -54,10 +54,13 @@ export function loadPrompts(promptsDir: string, knowledge: Knowledge): Prompts {
     firstCodeBlock(readFileSync(path.join(promptsDir, name), 'utf8'), name);
 
   // Prompt B4 có chỗ trống <checklist>…</checklist> và <market_norms>…</market_norms>.
+  // Chỉ thay đúng chỗ trống (bên trong không có thẻ nào). Phần hướng dẫn phía trên cũng
+  // nhắc tên thẻ ("từng mục trong <checklist>"), nếu khớp từ đó thì cả phần hướng dẫn
+  // (trích dẫn, mức độ, cách viết) bị xóa mất khỏi prompt.
   const risk = read('02-risk.md')
-    .replace(/<checklist>[\s\S]*?<\/checklist>/, () => `<checklist>\n${knowledge.checklistYaml.trim()}\n</checklist>`)
+    .replace(/<checklist>[^<]*<\/checklist>/, () => `<checklist>\n${knowledge.checklistYaml.trim()}\n</checklist>`)
     .replace(
-      /<market_norms>[\s\S]*?<\/market_norms>/,
+      /<market_norms>[^<]*<\/market_norms>/,
       () => `<market_norms>\n${knowledge.normsYaml.trim()}\n</market_norms>`,
     );
 

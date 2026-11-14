@@ -42,6 +42,12 @@ export default function CaptureScreen() {
   const working = busy !== null;
   const hasUserPages = pages.some((p) => p.origin !== 'sample');
 
+  // Sắp chụp và gửi ảnh: đánh thức backend lần nữa nếu sinh viên ngồi ở màn giới thiệu lâu
+  // (client tự bỏ qua nếu vừa đánh thức trong vài phút trước).
+  useEffect(() => {
+    api.wake();
+  }, []);
+
   // Người dùng có thể bật quyền camera trong Cài đặt rồi quay lại app.
   useEffect(() => {
     if (!cameraBlocked) return;

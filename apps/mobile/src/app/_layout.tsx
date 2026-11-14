@@ -3,9 +3,12 @@ import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { useWakeBackend } from '@/lib/use-wake-backend';
 import { colors } from '@/theme';
 
 export default function RootLayout() {
+  // Gọi /health ngay khi mở app: máy chủ Render đang ngủ sẽ dậy trong lúc sinh viên chụp ảnh.
+  useWakeBackend();
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>

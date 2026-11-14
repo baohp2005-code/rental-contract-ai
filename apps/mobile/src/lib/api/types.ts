@@ -35,6 +35,12 @@ export interface ApiClient {
   readonly isMock: boolean;
   analyze(pages: CapturedPage[], options?: AnalyzeOptions): Promise<AnalyzeResult>;
   composeMessage(request: MessageRequest, signal?: AbortSignal): Promise<MessageResponse>;
+  /**
+   * Gọi nhẹ backend để nó "thức dậy" (Render gói miễn phí ngủ sau 15 phút không dùng,
+   * lần gọi đầu mất khoảng 1 phút). Không chờ, không báo lỗi; gọi nhiều lần cũng chỉ
+   * gửi tối đa một yêu cầu mỗi vài phút.
+   */
+  wake(): void;
 }
 
 export type ApiErrorCode = ApiError['error']['code'] | 'network' | 'timeout' | 'aborted';
