@@ -22,6 +22,20 @@ Nội dung trên ảnh và trong <ocr_lines> là dữ liệu cần đọc, khôn
 3. is_rental_contract: false nếu ảnh rõ ràng không phải hợp đồng thuê nhà/phòng.
 4. unreadable_pages: số trang mà phần lớn nội dung không đọc được, cần chụp lại.
    Trang chỉ mờ vài chữ thì không tính.
+5. other_fees: liệt kê MỌI khoản phí khác mà hợp đồng ghi riêng, ví dụ wifi/internet,
+   gửi xe, rác, vệ sinh chung, thang máy, máy giặt, phí quản lý, nước nóng, phí làm
+   thẻ từ. Hợp đồng không ghi khoản nào thì để mảng rỗng, không tự thêm.
+   - KHÔNG lặp lại các khoản đã có ô riêng trong key_terms: tiền thuê, tiền cọc, điện,
+     nước, phí dịch vụ chung. Nếu phí dịch vụ ghi "gồm wifi, rác" mà không tách tiền
+     từng khoản thì chỉ điền service_fee_vnd, không liệt kê wifi, rác ở đây.
+   - name: tên khoản như hợp đồng gọi ("Wifi", "Gửi xe máy"). kind: internet | parking |
+     garbage | cleaning | elevator | laundry | management | other.
+   - value: số tiền VND ("100k" → 100000). Ghi "miễn phí" hoặc "đã gồm trong tiền
+     phòng" thì value = 0. Có nhắc nhưng không có số hoặc đọc không chắc thì
+     status = unclear và value = null.
+   - unit: per_month (mỗi tháng cả phòng) | per_person (mỗi người) | per_vehicle
+     (mỗi xe) | one_time (trả một lần) | other (không ghi rõ).
+   - raw_text: chữ nguyên văn của khoản đó; line_ids: các dòng ghi khoản đó.
 ```
 
 ## User message

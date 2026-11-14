@@ -69,7 +69,15 @@ export async function analyzeContract(p: Pipeline, images: PageImage[]): Promise
 
   // B4 · LLM rủi ro + kiểm tra mã dòng, câu trích
   const risk = p.llm
-    ? await analyzeRisk(p.llm, p.prompts.risk, p.knowledge, extracted.lines, extracted.keyTerms, ruleResults)
+    ? await analyzeRisk(
+        p.llm,
+        p.prompts.risk,
+        p.knowledge,
+        extracted.lines,
+        extracted.keyTerms,
+        ruleResults,
+        extracted.otherFees,
+      )
     : finalizeFlags(
         { flags: keywordFlags(extracted.lines, p.knowledge) },
         p.knowledge,
@@ -85,6 +93,7 @@ export async function analyzeContract(p: Pipeline, images: PageImage[]): Promise
     pages: pages.map((pg) => pg.info),
     lines: extracted.lines,
     key_terms: extracted.keyTerms,
+    other_fees: extracted.otherFees,
     flags: risk.flags,
   });
 }

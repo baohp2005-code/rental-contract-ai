@@ -99,6 +99,42 @@ export type KeyTerm<T> = {
   status: TermStatus;
 };
 
+// ---------- Các khoản phí khác (B2) ----------
+// Danh sách mở: hợp đồng ghi khoản phí nào thì liệt kê khoản đó (wifi, gửi xe, rác...),
+// không cố định số trường như key_terms.
+
+export const FeeKindSchema = z.enum([
+  'internet',
+  'parking',
+  'garbage',
+  'cleaning',
+  'elevator',
+  'laundry',
+  'management',
+  'other',
+]);
+export type FeeKind = z.infer<typeof FeeKindSchema>;
+
+/** Cách tính: mỗi tháng (cả phòng), mỗi người/tháng, mỗi xe/tháng, một lần. */
+export const FeeUnitSchema = z.enum(['per_month', 'per_person', 'per_vehicle', 'one_time', 'other']);
+export type FeeUnit = z.infer<typeof FeeUnitSchema>;
+
+export const OtherFeeSchema = z.object({
+  kind: FeeKindSchema,
+  /** Tên khoản như hợp đồng gọi, ví dụ "Wifi", "Gửi xe máy". */
+  name: z.string(),
+  /** VND. 0 = miễn phí hoặc đã gồm trong tiền phòng. null khi status = "unclear". */
+  value: z.number().nullable(),
+  unit: FeeUnitSchema,
+  raw_text: z.string(),
+  line_ids: z.array(LineIdSchema),
+  status: z.enum(['found', 'unclear']),
+});
+export type OtherFee = z.infer<typeof OtherFeeSchema>;
+
+/** Tối đa số khoản phí khác trả về, để AI không liệt kê lan man. */
+export const MAX_OTHER_FEES = 12;
+
 // ---------- Cảnh báo (B3 + B4) ----------
 
 export const FlagSchema = z.object({
@@ -133,6 +169,8 @@ export const AnalyzeResponseSchema = z.object({
   pages: z.array(PageInfoSchema),
   lines: z.array(OcrLineSchema),
   key_terms: KeyTermsSchema,
+  /** Các khoản phí ngoài key_terms. Backend cũ không gửi thì coi như rỗng. */
+  other_fees: z.array(OtherFeeSchema).default([]),
   flags: z.array(FlagSchema),
 });
 export type AnalyzeResponse = z.infer<typeof AnalyzeResponseSchema>;

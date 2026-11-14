@@ -250,6 +250,8 @@ export const sampleAnalysis: AnalyzeResponse = {
     term_months: { value: 12, raw_text: '12 tháng', line_ids: ['p1-L08'], status: 'found' },
     notice_days: { value: null, raw_text: '', line_ids: [], status: 'not_found' },
   },
+  // Hợp đồng mẫu chỉ ghi phí dịch vụ chung, không tách wifi, gửi xe.
+  other_fees: [],
   flags,
 };
 

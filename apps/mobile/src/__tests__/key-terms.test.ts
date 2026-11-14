@@ -1,9 +1,10 @@
-import type { KeyTerm, KeyTerms } from '@rental/shared';
+import type { KeyTerm, KeyTerms, OtherFee } from '@rental/shared';
 
 import {
   NOT_FOUND_TEXT,
   UNCLEAR_TEXT,
   buildKeyTermRows,
+  buildOtherFeeRows,
   countTermsNeedingAttention,
   depositMultipleText,
   type KeyTermRow,
@@ -262,5 +263,50 @@ describe('depositMultipleText', () => {
     expect(depositMultipleText(0, 3_500_000)).toBeNull();
     expect(depositMultipleText(100_000, 3_500_000)).toBeNull();
     expect(depositMultipleText(Number.NaN, 3_500_000)).toBeNull();
+  });
+});
+
+describe('buildOtherFeeRows (wifi, gửi xe...)', () => {
+  const fee = (over: Partial<OtherFee>): OtherFee => ({
+    kind: 'other',
+    name: 'Phí',
+    value: 0,
+    unit: 'per_month',
+    raw_text: '',
+    line_ids: [],
+    status: 'found',
+    ...over,
+  });
+
+  it('mỗi khoản một dòng, ghi đúng cách tính', () => {
+    const rows = buildOtherFeeRows([
+      fee({ kind: 'internet', name: 'Wifi', value: 100_000 }),
+      fee({ kind: 'parking', name: 'Gửi xe máy', value: 50_000, unit: 'per_vehicle' }),
+      fee({ kind: 'garbage', name: 'Rác', value: 20_000, unit: 'per_person' }),
+      fee({ name: 'Thẻ từ', value: 200_000, unit: 'one_time' }),
+      fee({ kind: 'laundry', name: 'Máy giặt', value: 0 }),
+    ]);
+    expect(rows.map((r) => [r.key, r.label, r.value, r.status])).toEqual([
+      ['fee-0', 'Wifi', '100.000đ/tháng', 'found'],
+      ['fee-1', 'Gửi xe máy', '50.000đ/xe', 'found'],
+      ['fee-2', 'Rác', '20.000đ/người', 'found'],
+      ['fee-3', 'Thẻ từ', '200.000đ (một lần)', 'found'],
+      ['fee-4', 'Máy giặt', 'Miễn phí', 'found'],
+    ]);
+  });
+
+  it('không rõ số tiền hoặc cách tính thì báo để sinh viên hỏi lại', () => {
+    const [unclear, noUnit] = buildOtherFeeRows([
+      fee({ name: 'Thang máy', value: null, status: 'unclear', raw_text: 'thang máy theo thỏa thuận' }),
+      fee({ name: 'Vệ sinh', value: 30_000, unit: 'other' }),
+    ]);
+    expect(unclear).toMatchObject({ status: 'unclear', value: UNCLEAR_TEXT, rawText: 'thang máy theo thỏa thuận' });
+    expect(noUnit).toMatchObject({ status: 'found', value: '30.000đ', note: 'Không ghi rõ cách tính' });
+    expect(countTermsNeedingAttention([unclear, noUnit])).toBe(1);
+  });
+
+  it('backend cũ không gửi other_fees → không có dòng nào', () => {
+    expect(buildOtherFeeRows(undefined)).toEqual([]);
+    expect(buildOtherFeeRows(sampleAnalysis.other_fees)).toEqual([]);
   });
 });

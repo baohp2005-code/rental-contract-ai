@@ -4,7 +4,7 @@ Hợp đồng dữ liệu giữa app và backend, viết bằng Zod. Cả hai b�
 
 | Schema | Dùng cho |
 | --- | --- |
-| `AnalyzeResponseSchema` | Kết quả `POST /analyze`: trang, dòng OCR (kèm `bbox` chuẩn hóa 0..1), `key_terms`, `flags` |
+| `AnalyzeResponseSchema` | Kết quả `POST /analyze`: trang, dòng OCR (kèm `bbox` chuẩn hóa 0..1), `key_terms`, `other_fees` (wifi, gửi xe... danh sách mở), `flags` |
 | `MessageRequestSchema` / `MessageResponseSchema` | `POST /message`: soạn tin nhắn từ các cảnh báo sinh viên đã giữ |
 | `FlagSchema`, `KeyTermsSchema`, `OcrLineSchema` | Các phần bên trong |
 | `ApiErrorSchema` | Lỗi trả về (ảnh mờ, không phải hợp đồng...) |

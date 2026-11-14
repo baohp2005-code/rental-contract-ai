@@ -80,6 +80,7 @@ describe('B2b · đọc lại trang khó đọc', () => {
   const b2 = {
     is_rental_contract: true,
     unreadable_pages: [],
+    other_fees: [],
     corrections: p1.truth.slice(0, 6).map((text, i) => ({ id: p1.ocr[i].id, text })),
     key_terms: keyTerms({ rent_vnd: found(1_000_000, ['p1-L01']) }),
   };

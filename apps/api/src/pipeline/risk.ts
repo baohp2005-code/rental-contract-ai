@@ -6,6 +6,7 @@ import {
   type Flag,
   type KeyTerms,
   type OcrLine,
+  type OtherFee,
   type Severity,
 } from '@rental/shared';
 import type { RuleResult } from '@rental/shared/src/rules';
@@ -25,10 +26,12 @@ export async function analyzeRisk(
   lines: OcrLine[],
   keyTerms: KeyTerms,
   ruleResults: RuleResult[],
+  otherFees: OtherFee[] = [],
 ): Promise<RiskResult> {
   const text = [
     `<contract>\n${formatLines(lines)}\n</contract>`,
     `<key_terms>${JSON.stringify(keyTerms)}</key_terms>`,
+    `<other_fees>${JSON.stringify(otherFees)}</other_fees>`,
     `<rule_results>${JSON.stringify(ruleResults.filter((r) => r.checked))}</rule_results>`,
   ].join('\n');
 

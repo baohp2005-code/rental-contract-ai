@@ -1,7 +1,7 @@
 /**
  * B2 · LLM đọc ảnh + dòng OCR: sửa lỗi OCR và trích key_terms.
  */
-import { KeyTermsSchema, type KeyTerms, type OcrLine } from '@rental/shared';
+import { KeyTermsSchema, MAX_OTHER_FEES, OtherFeeSchema, type KeyTerms, type OcrLine, type OtherFee } from '@rental/shared';
 
 import type { Llm, UserContent } from '../llm/types';
 import { findMoney, sameDigits } from './numbers';
@@ -18,6 +18,8 @@ export type ExtractResult = {
   /** Dòng OCR sau khi sửa, giữ nguyên id, thứ tự và bbox. */
   lines: OcrLine[];
   keyTerms: KeyTerms;
+  /** Các khoản phí khác (wifi, gửi xe...), đã kiểm tra số tiền với dòng trích dẫn. */
+  otherFees: OtherFee[];
 };
 
 export function formatLines(lines: OcrLine[]): string {
@@ -174,9 +176,62 @@ export function hardToReadPages(ocrLines: OcrLine[], rejectedIds: string[]): num
 
 const formatVnd = (n: number) => `${n.toLocaleString('vi-VN')}đ`;
 
+/** Chữ thường, bỏ dấu (giống offline.ts) để so từ khóa. */
+const foldText = (s: string) =>
+  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').toLowerCase();
+
+/** Các khoản đã có ô riêng trong key_terms: không liệt kê lại ở other_fees. */
+const CORE_FEE_NAME = /^(tien |gia |phi )?(dien|nuoc|thue( phong| nha)?|phong|nha|coc|dat coc|dich vu)$/;
+/** Câu ghi khoản này không mất tiền. */
+const FREE_TEXT = /(mien phi|free|khong (thu|mat|tinh)|da (bao )?gom|bao gom trong|(?<![\d.,])0 ?(d|dong)\b)/;
+
+/**
+ * Kiểm tra từng khoản phí AI liệt kê: phải trích dẫn dòng có thật, số tiền phải
+ * đọc được từ chính các dòng đó (như key_terms), "miễn phí" phải có chữ nói vậy.
+ * Sai thì chuyển "unclear" kèm con số AI đọc, để sinh viên tự kiểm tra.
+ */
+export function reviewOtherFees(
+  fees: ExtractOut['other_fees'],
+  textById: Map<string, string>,
+): OtherFee[] {
+  const seen = new Set<string>();
+  const out: OtherFee[] = [];
+  let dropped = 0;
+  for (const f of fees) {
+    const name = f.name.replace(/\s+/g, ' ').trim();
+    const lineIds = [...new Set(f.line_ids.filter((id) => textById.has(id)))];
+    const key = `${foldText(name)}|${f.value ?? ''}|${f.unit}`;
+    if (!name || lineIds.length === 0 || CORE_FEE_NAME.test(foldText(name)) || seen.has(key)) {
+      dropped++;
+      continue;
+    }
+    seen.add(key);
+    const cited = lineIds.map((id) => textById.get(id) ?? '').join(' ');
+    let value = f.status === 'found' ? f.value : null;
+    let status: OtherFee['status'] = f.status;
+    let rawText = f.raw_text.replace(/\s+/g, ' ').trim();
+    if (status === 'found' && (value == null || !Number.isFinite(value) || value < 0)) {
+      value = null;
+      status = 'unclear';
+    } else if (status === 'found' && value === 0 && !FREE_TEXT.test(foldText(cited))) {
+      value = null;
+      status = 'unclear';
+    } else if (status === 'found' && value! > 0 && !findMoney(cited).some((m) => m.value === value)) {
+      rawText = `${formatVnd(value!)} (AI đọc từ ảnh nhưng chữ trên ảnh khó đọc, hãy kiểm tra lại)`;
+      value = null;
+      status = 'unclear';
+    }
+    out.push(OtherFeeSchema.parse({ kind: f.kind, name, value, unit: f.unit, raw_text: rawText, line_ids: lineIds, status }));
+    if (out.length >= MAX_OTHER_FEES) break;
+  }
+  // Chỉ ghi số lượng, không ghi tên hay số tiền.
+  if (dropped > 0) console.warn(`[B2] bỏ ${dropped} khoản phí khác (trùng, thiếu dòng trích dẫn hoặc đã có ô riêng)`);
+  return out;
+}
+
 /** Phần xử lý thuần sau khi LLM trả lời (tách riêng để test). */
 export function applyExtract(
-  out: ExtractOut,
+  out: Omit<ExtractOut, 'other_fees'> & Partial<Pick<ExtractOut, 'other_fees'>>,
   ocrLines: OcrLine[],
   pageCount: number,
   reread?: Map<string, string>,
@@ -233,5 +288,6 @@ export function applyExtract(
       .sort((a, b) => a - b),
     lines,
     keyTerms: KeyTermsSchema.parse(terms),
+    otherFees: reviewOtherFees(out.other_fees ?? [], textById),
   };
 }

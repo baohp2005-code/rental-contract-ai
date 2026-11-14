@@ -21,6 +21,7 @@ const PAGE1: OcrLine[] = [
   line('p1-L03', 'Bên B đặt cọc 7.000.000 đồng.'),
   line('p1-L04', 'Nếu bên B chuyển đi trước hạn thì không được hoàn lại tiền cọc.'),
   line('p1-L05', 'Tiền điện: theo giá chủ nhà quy định.'),
+  line('p1-L06', 'Wifi 100.000đ/tháng, gửi xe 50.000đ/xe.'),
 ];
 
 function fakeOcr(pages: OcrLine[][]): OcrProvider {
@@ -52,6 +53,14 @@ const extractAnswer = {
     term_months: notFound(),
     notice_days: notFound(),
   },
+  other_fees: [
+    { kind: 'internet', name: 'Wifi', value: 100_000, unit: 'per_month', raw_text: 'Wifi 100.000đ/tháng', line_ids: ['p1-L06'], status: 'found' },
+    { kind: 'parking', name: 'Gửi xe', value: 50_000, unit: 'per_vehicle', raw_text: 'gửi xe 50.000đ/xe', line_ids: ['p1-L06', 'p9-L01'], status: 'found' },
+    // Bịa số không có trên dòng → unclear; khoản đã có ô riêng và dòng bịa → bỏ.
+    { kind: 'elevator', name: 'Thang máy', value: 30_000, unit: 'per_month', raw_text: 'thang máy', line_ids: ['p1-L06'], status: 'found' },
+    { kind: 'other', name: 'Tiền điện', value: 3_800, unit: 'other', raw_text: '', line_ids: ['p1-L05'], status: 'found' },
+    { kind: 'laundry', name: 'Máy giặt', value: 20_000, unit: 'per_month', raw_text: '', line_ids: ['p9-L09'], status: 'found' },
+  ],
 };
 
 const riskFlag = {
@@ -124,9 +133,17 @@ describe('POST /analyze', () => {
 
     // B2: sửa dòng có thật, bỏ dòng bịa, bỏ line_id bịa.
     expect(body.lines.map((l) => l.text)[0]).toBe('HỢP ĐỒNG THUÊ PHÒNG TRỌ');
-    expect(body.lines).toHaveLength(5);
+    expect(body.lines).toHaveLength(6);
     expect(body.key_terms.deposit_vnd.line_ids).toEqual(['p1-L03']);
     expect(body.pages).toEqual([{ page: 1, width: 1240, height: 1754 }]);
+
+    // B2: các khoản phí khác, số tiền phải có trên dòng trích dẫn.
+    expect(body.other_fees.map((f) => [f.name, f.value, f.unit, f.status])).toEqual([
+      ['Wifi', 100_000, 'per_month', 'found'],
+      ['Gửi xe', 50_000, 'per_vehicle', 'found'],
+      ['Thang máy', null, 'per_month', 'unclear'],
+    ]);
+    expect(body.other_fees[1].line_ids).toEqual(['p1-L06']);
 
     // B4: cảnh báo bịa bị bỏ; TRM-02 do B3 bắt được nên được thêm dù LLM quên.
     const rules = body.flags.map((f) => f.rule_id);
@@ -147,6 +164,7 @@ describe('POST /analyze', () => {
     const b4 = calls[1].content[0];
     expect(b4.type === 'text' && b4.text).toContain('[p1-L01] HỢP ĐỒNG THUÊ PHÒNG TRỌ');
     expect(b4.type === 'text' && b4.text).toContain('"rule_id":"UTL-01"');
+    expect(b4.type === 'text' && b4.text).toContain('<other_fees>[{"kind":"internet"');
     expect(calls[1].system).toContain('DEP-01');
   });
 

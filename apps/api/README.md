@@ -68,7 +68,7 @@ src/llm/types.ts          Interface Llm chung cho mọi nhà cung cấp
 src/llm/claude.ts         Gọi Claude: structured outputs + prompt caching
 src/llm/openai.ts         Gọi OpenAI Responses API: Structured Outputs, store:false
 src/pipeline/schemas.ts   Khuôn JSON ép cho LLM ở B2, B4, B5
-src/pipeline/extract.ts   B2 · Sửa lỗi OCR, trích key_terms; B2b · đọc lại trang khó đọc
+src/pipeline/extract.ts   B2 · Sửa lỗi OCR, trích key_terms và other_fees; B2b · đọc lại trang khó đọc
 src/pipeline/risk.ts      B4 · Phân tích rủi ro, rồi kiểm tra lại từng cảnh báo
 src/pipeline/message.ts   B5 · Soạn tin nhắn
 src/pipeline/numbers.ts   Đọc số tiền, so chữ số giữa OCR và bản AI sửa
@@ -110,7 +110,8 @@ Trên hợp đồng mẫu của app, chế độ này bắt được 10/11 cản
 Đọc sai số tiền là lỗi nặng nhất của app, nên backend không tin con số của AI:
 
 - Bản sửa OCR của AI chỉ được nhận khi **các con số giữ nguyên** so với chữ OCR gốc (có tính lỗi O/0, l/1 của OCR). Đổi `3.500.000` thành `5.500.000` thì bản sửa bị bỏ, giữ chữ OCR.
-- Số tiền AI trích vào `key_terms` phải **đọc được từ chính dòng nó trích dẫn**. Không có thì chuyển thành `unclear`.
+- Số tiền AI trích vào `key_terms` và `other_fees` phải **đọc được từ chính dòng nó trích dẫn**. Không có thì chuyển thành `unclear`.
+- `other_fees` là danh sách mở các khoản phí khác (wifi, gửi xe, rác, vệ sinh, thang máy, máy giặt, phí quản lý...), tối đa 12 khoản. Mỗi khoản có `name`, `kind`, `value` (0 = miễn phí), `unit` (`per_month` / `per_person` / `per_vehicle` / `one_time` / `other`). Backend bỏ khoản trùng, khoản không có dòng trích dẫn thật, và khoản đã có ô riêng (điện, nước, tiền thuê, cọc, phí dịch vụ). Ghi "miễn phí" mà dòng trích dẫn không có chữ nói vậy thì chuyển `unclear`.
 
 Cả hai trường hợp đều in cảnh báo `[B2]` ra terminal (chỉ mã dòng, không in chữ hợp đồng).
 

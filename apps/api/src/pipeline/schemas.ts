@@ -26,6 +26,17 @@ export const KeyTermsOutSchema = z.object({
   notice_days: termOut(z.number()),
 });
 
+/** Khoản phí khác (wifi, gửi xe...). Khuôn lỏng; backend kiểm tra lại bằng schema chung. */
+export const OtherFeeOutSchema = z.object({
+  kind: z.enum(['internet', 'parking', 'garbage', 'cleaning', 'elevator', 'laundry', 'management', 'other']),
+  name: z.string(),
+  value: z.number().nullable(),
+  unit: z.enum(['per_month', 'per_person', 'per_vehicle', 'one_time', 'other']),
+  raw_text: z.string(),
+  line_ids: z.array(z.string()),
+  status: z.enum(['found', 'unclear']),
+});
+
 /** B2 · Đọc & trích xuất. */
 export const ExtractOutSchema = z.object({
   is_rental_contract: z.boolean(),
@@ -34,6 +45,8 @@ export const ExtractOutSchema = z.object({
   /** Chỉ những dòng cần sửa so với OCR. */
   corrections: z.array(z.object({ id: z.string(), text: z.string() })),
   key_terms: KeyTermsOutSchema,
+  /** Các khoản phí khác ngoài key_terms, hợp đồng ghi khoản nào thì liệt kê khoản đó. */
+  other_fees: z.array(OtherFeeOutSchema),
 });
 export type ExtractOut = z.infer<typeof ExtractOutSchema>;
 

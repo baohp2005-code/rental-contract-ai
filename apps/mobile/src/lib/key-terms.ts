@@ -2,7 +2,7 @@
  * Chuyển `key_terms` của kết quả phân tích thành các dòng hiển thị ở màn "Kết quả".
  * Toàn hàm thuần, không đụng tới React, để test được bằng jest.
  */
-import type { KeyTerm, KeyTermKey, KeyTerms, TermStatus } from '@rental/shared';
+import type { FeeUnit, KeyTerm, KeyTermKey, KeyTerms, OtherFee, TermStatus } from '@rental/shared';
 
 import { formatVnd, keyTermLabel } from '@/lib/format';
 
@@ -13,7 +13,8 @@ export const UNCLEAR_TEXT = 'Ghi không rõ';
 export type KeyTermRowKey = Exclude<KeyTermKey, 'water_unit'>;
 
 export type KeyTermRow = {
-  key: KeyTermRowKey;
+  /** Mục cố định (tiền thuê, cọc...) hoặc "fee-<số thứ tự>" cho khoản phí khác. */
+  key: KeyTermRowKey | `fee-${number}`;
   label: string;
   /**
    * Trạng thái sau khi suy ra, có thể khác trạng thái backend trả về
@@ -161,6 +162,33 @@ export function buildKeyTermRows(terms: KeyTerms): KeyTermRow[] {
     numberRow('term_months', terms.term_months, (v) => `${formatCount(v)} tháng`),
     numberRow('notice_days', terms.notice_days, (v) => `${formatCount(v)} ngày`),
   ];
+}
+
+const feeUnitSuffix: Record<FeeUnit, string> = {
+  per_month: '/tháng',
+  per_person: '/người',
+  per_vehicle: '/xe',
+  one_time: ' (một lần)',
+  other: '',
+};
+
+/**
+ * Các khoản phí khác (wifi, gửi xe...) mà hợp đồng có ghi, mỗi khoản một dòng,
+ * đặt sau các khoản chính. Hợp đồng không ghi khoản nào thì không có dòng nào.
+ */
+export function buildOtherFeeRows(fees: OtherFee[] | undefined): KeyTermRow[] {
+  return (fees ?? []).map((fee, index) => {
+    const key = `fee-${index}` as const;
+    const label = fee.name.trim() || 'Phí khác';
+    const rawText = fee.raw_text.trim();
+    if (fee.status !== 'found' || fee.value === null || !Number.isFinite(fee.value) || fee.value < 0) {
+      return { key, label, status: 'unclear', value: UNCLEAR_TEXT, ...(rawText ? { rawText } : {}) };
+    }
+    if (fee.value === 0) return { key, label, status: 'found', value: 'Miễn phí' };
+    const row: KeyTermRow = { key, label, status: 'found', value: `${formatVnd(fee.value)}${feeUnitSuffix[fee.unit]}` };
+    // Không ghi tính theo tháng, theo người hay theo xe thì chưa biết mỗi tháng phải trả bao nhiêu.
+    return fee.unit === 'other' ? { ...row, note: 'Không ghi rõ cách tính' } : row;
+  });
 }
 
 /** Số mục hợp đồng không ghi hoặc ghi không rõ. */

@@ -8,9 +8,9 @@ import { createApp } from '../app';
 import { REPO_ROOT } from '../config';
 import { loadKnowledge, loadPrompts } from '../knowledge';
 import type { OcrProvider } from '../ocr/vision';
-import { applyExtract, hardToReadPages } from '../pipeline/extract';
+import { applyExtract, hardToReadPages, reviewOtherFees } from '../pipeline/extract';
 import { digitSignature, findMoney, sameDigits } from '../pipeline/numbers';
-import { extractOffline } from '../pipeline/offline';
+import { extractOffline, otherFeesOffline } from '../pipeline/offline';
 import { found, line, notFound } from './helpers';
 
 const knowledge = loadKnowledge(path.join(REPO_ROOT, 'data'));
@@ -197,5 +197,71 @@ describe('chế độ không AI trên hợp đồng mẫu của app', () => {
     expect(m.message.startsWith('Cháu chào cô/chú ạ.')).toBe(true);
     expect(m.message).toContain('1. ');
     expect(m.questions).toHaveLength(2);
+  });
+});
+
+describe('các khoản phí khác (wifi, gửi xe...)', () => {
+  const text = new Map([
+    ['p1-L01', 'Wifi: miễn phí. Gửi xe 50k/xe/tháng'],
+    ['p1-L02', 'Rác 20.000đ/người, thang máy theo thỏa thuận'],
+    ['p1-L03', 'Phí quản lý 100.000đ'],
+  ]);
+  const fee = (over: object) => ({
+    kind: 'other' as const,
+    name: 'Phí',
+    value: 0,
+    unit: 'per_month' as const,
+    raw_text: '',
+    line_ids: ['p1-L01'],
+    status: 'found' as const,
+    ...over,
+  });
+
+  it('giữ khoản đúng, "miễn phí" phải có chữ nói vậy, số bịa → unclear, trùng/ô riêng/dòng bịa → bỏ', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const r = reviewOtherFees(
+      [
+        fee({ kind: 'internet', name: 'Wifi', value: 0 }),
+        fee({ kind: 'parking', name: 'Gửi xe', value: 50_000, unit: 'per_vehicle' }),
+        fee({ kind: 'parking', name: 'gửi  xe', value: 50_000, unit: 'per_vehicle' }),
+        fee({ kind: 'garbage', name: 'Rác', value: 0, line_ids: ['p1-L02'] }),
+        fee({ kind: 'management', name: 'Phí quản lý', value: 150_000, line_ids: ['p1-L03'] }),
+        fee({ kind: 'elevator', name: 'Thang máy', value: null, status: 'unclear', line_ids: ['p1-L02'] }),
+        fee({ name: 'Tiền nước', value: 100_000 }),
+        fee({ name: 'Máy giặt', value: 20_000, line_ids: ['p5-L01'] }),
+      ],
+      text,
+    );
+    const logged = warn.mock.calls.flat().join(' ');
+    warn.mockRestore();
+    expect(r.map((f) => [f.name, f.value, f.status])).toEqual([
+      ['Wifi', 0, 'found'],
+      ['Gửi xe', 50_000, 'found'],
+      ['Rác', null, 'unclear'],
+      ['Phí quản lý', null, 'unclear'],
+      ['Thang máy', null, 'unclear'],
+    ]);
+    expect(r[3].raw_text).toContain('150.000');
+    expect(logged).toContain('bỏ 3 khoản');
+    expect(logged).not.toContain('Máy giặt');
+  });
+
+  it('chế độ không AI đọc được wifi, gửi xe, rác kèm cách tính', () => {
+    const lines = [
+      line('p1-L01', 'Tiền điện 3.800đ/số, wifi 100.000đ/tháng, gửi xe 50.000đ/xe/tháng.'),
+      line('p1-L02', 'Rác 20.000 đồng/người. Thang máy miễn phí.'),
+    ];
+    const fees = extractOffline(lines).otherFees;
+    expect(fees.map((f) => [f.kind, f.value, f.unit])).toEqual([
+      ['internet', 100_000, 'per_month'],
+      ['parking', 50_000, 'per_vehicle'],
+      ['garbage', 20_000, 'per_person'],
+      ['elevator', 0, 'other'],
+    ]);
+    expect(otherFeesOffline([])).toEqual([]);
+  });
+
+  it('hợp đồng mẫu của app chỉ có phí dịch vụ chung → không có phí khác', () => {
+    expect(extractOffline(SAMPLE).otherFees).toEqual([]);
   });
 });

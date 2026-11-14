@@ -5,7 +5,18 @@
  * Google Vision thật. Chỉ bắt được cách viết quen thuộc, nên mọi cảnh báo ở
  * đây ghi rõ "phát hiện bằng từ khóa" để sinh viên biết mà kiểm tra lại.
  */
-import type { Flag, KeyTerm, KeyTerms, MessageRequest, MessageResponse, OcrLine } from '@rental/shared';
+import {
+  MAX_OTHER_FEES,
+  type FeeKind,
+  type FeeUnit,
+  type Flag,
+  type KeyTerm,
+  type KeyTerms,
+  type MessageRequest,
+  type MessageResponse,
+  type OcrLine,
+  type OtherFee,
+} from '@rental/shared';
 
 import type { Knowledge } from '../knowledge';
 import type { ExtractResult } from './extract';
@@ -100,7 +111,53 @@ export function extractOffline(lines: OcrLine[]): ExtractResult {
     unreadablePages: [],
     lines,
     keyTerms,
+    otherFees: otherFeesOffline(segs),
   };
+}
+
+/** Từ khóa cho từng loại phí khác. Tên hiển thị là tên chuẩn, không chép chữ hợp đồng. */
+const FEE_KEYWORDS: { kind: FeeKind; name: string; re: RegExp }[] = [
+  { kind: 'internet', name: 'Internet/wifi', re: /(wifi|wi-fi|internet|tien mang|cap quang)/ },
+  { kind: 'parking', name: 'Gửi xe', re: /(gui xe|de xe|giu xe|trong xe|bai xe)/ },
+  { kind: 'garbage', name: 'Rác', re: /(\brac\b|thu gom)/ },
+  { kind: 'cleaning', name: 'Vệ sinh chung', re: /(ve sinh chung|phi ve sinh|don dep)/ },
+  { kind: 'elevator', name: 'Thang máy', re: /thang may/ },
+  { kind: 'laundry', name: 'Máy giặt', re: /may giat/ },
+  { kind: 'management', name: 'Phí quản lý', re: /phi quan ly/ },
+];
+
+function feeUnit(folded: string, kind: FeeKind): FeeUnit {
+  if (/\/\s*(nguoi|ng\b)|moi nguoi|mot nguoi/.test(folded)) return 'per_person';
+  if (kind === 'parking' && /\/\s*(xe|chiec)|moi xe|mot xe/.test(folded)) return 'per_vehicle';
+  if (/(mot lan|1 lan)/.test(folded)) return 'one_time';
+  if (/(thang|\/th\b)/.test(folded)) return 'per_month';
+  return 'other';
+}
+
+/** B2 không AI: các khoản phí khác (wifi, gửi xe...), mỗi loại lấy câu đầu tiên có số tiền. */
+export function otherFeesOffline(segs: Segment[]): OtherFee[] {
+  const fees: OtherFee[] = [];
+  for (const { kind, name, re } of FEE_KEYWORDS) {
+    // Tách thêm theo dấu phẩy: "điện 3.800đ, wifi 100.000đ, gửi xe 50.000đ".
+    const parts = segs.flatMap((s) =>
+      s.text.split(/,\s*/).map((text) => ({ lineId: s.lineId, text: text.trim(), folded: fold(text) })),
+    );
+    const hit = parts.find((p) => re.test(p.folded) && (findMoney(p.text).length > 0 || /mien phi/.test(p.folded)));
+    if (!hit) continue;
+    const free = /mien phi/.test(hit.folded);
+    const money = findMoney(hit.text)[0];
+    fees.push({
+      kind,
+      name,
+      value: free ? 0 : money!.value,
+      unit: free ? 'other' : feeUnit(hit.folded, kind),
+      raw_text: hit.text,
+      line_ids: [hit.lineId],
+      status: 'found',
+    });
+    if (fees.length >= MAX_OTHER_FEES) break;
+  }
+  return fees;
 }
 
 /**

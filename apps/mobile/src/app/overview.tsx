@@ -17,7 +17,7 @@ import { NumberedFlagList } from '@/components/overview/NumberedFlagList';
 import { PageMap } from '@/components/overview/PageMap';
 import { AppText, Button, Disclaimer, MockBanner, Screen } from '@/components/ui';
 import { api } from '@/lib/api';
-import { buildKeyTermRows } from '@/lib/key-terms';
+import { buildKeyTermRows, buildOtherFeeRows } from '@/lib/key-terms';
 import {
   selectNextPendingFlag,
   selectReviewProgress,
@@ -55,7 +55,10 @@ export default function OverviewScreen() {
     [analysis, decisions],
   );
   const termRows = useMemo(
-    () => (analysis ? buildKeyTermRows(analysis.key_terms) : []),
+    () =>
+      analysis
+        ? [...buildKeyTermRows(analysis.key_terms), ...buildOtherFeeRows(analysis.other_fees)]
+        : [],
     [analysis],
   );
 
