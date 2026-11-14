@@ -130,3 +130,67 @@ describe('mergeRows', () => {
     expect(out[1].bbox).toEqual({ x: 0.0887, y: 0.2127, w: 0.6379, h: 0.02 });
   });
 });
+
+describe('mergeRows trên ảnh chụp thật (lỗi gặp ngày 14/11)', () => {
+  const l = (id: string, text: string, x: number, y: number, w: number, h = 0.02) => ({
+    id,
+    page: 1,
+    text,
+    bbox: { x, y, w, h },
+  });
+
+  it('ảnh nghiêng: các dòng gối lên nhau không bị gộp dây chuyền thành một hàng', async () => {
+    const { mergeRows } = await import('../ocr/lines');
+    // Mỗi dòng thấp hơn dòng trước 0,013 (gối lên nhau 35% chiều cao) do ảnh nghiêng.
+    const input = [0, 1, 2, 3, 4].map((i) => l(`l${i}`, `dòng ${i + 1}`, 0.1, 0.3 + i * 0.013, 0.7));
+    const out = mergeRows(1, input);
+    expect(out.map((x) => x.text)).toEqual(['dòng 1', 'dòng 2', 'dòng 3', 'dòng 4', 'dòng 5']);
+  });
+
+  it('hai mảnh cùng hàng nhưng chồng lên nhau theo chiều ngang thì không nối', async () => {
+    const { mergeRows } = await import('../ocr/lines');
+    const out = mergeRows(1, [
+      l('a', 'b) Bảo đảm quyền sử dụng', 0.1, 0.5, 0.6),
+      l('b', 'c) Hướng dẫn, đôn đốc', 0.12, 0.505, 0.5),
+    ]);
+    expect(out.map((x) => x.text)).toEqual(['b) Bảo đảm quyền sử dụng', 'c) Hướng dẫn, đôn đốc']);
+  });
+
+  it('khối nhiều dòng (cao gấp nhiều lần) không bị nối với dòng thường bên cạnh', async () => {
+    const { mergeRows } = await import('../ocr/lines');
+    const out = mergeRows(1, [
+      l('a', 'ĐIỀU 6', 0.05, 0.5, 0.1),
+      l('b', 'khối ba dòng', 0.16, 0.48, 0.6, 0.07),
+    ]);
+    expect(out).toHaveLength(2);
+  });
+});
+
+describe('annotationToLines khi Vision không đánh dấu xuống dòng', () => {
+  it('tách dòng khi từ tiếp theo nằm hẳn bên dưới từ trước', () => {
+    const result = annotationToLines(1, {
+      pages: [
+        {
+          width: 1000,
+          height: 1000,
+          blocks: [
+            {
+              paragraphs: [
+                {
+                  // Không có EOL/LINE_BREAK giữa hai dòng thật.
+                  words: [
+                    word('Dòng', 100, 100, SPACE),
+                    word('một', 160, 100, SPACE),
+                    word('Dòng', 100, 140, SPACE),
+                    word('hai', 160, 140),
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+    expect(result.lines.map((x) => x.text)).toEqual(['Dòng một', 'Dòng hai']);
+  });
+});

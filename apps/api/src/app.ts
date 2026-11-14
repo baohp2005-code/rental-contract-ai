@@ -6,6 +6,7 @@ import { MAX_PAGES, MessageRequestSchema } from '@rental/shared';
 import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
 import { cors } from 'hono/cors';
+import { ZodError } from 'zod';
 
 import { analyzeContract, type Pipeline } from './pipeline/analyze';
 import { ApiFailure } from './pipeline/errors';
@@ -32,6 +33,19 @@ export type AppOptions = {
   /** Số lượt /message tối đa mỗi giờ cho một IP. */
   messagePerHour?: number;
 };
+
+/** Mô tả lỗi ngắn gọn, không kèm dữ liệu người dùng. */
+export function describeError(err: unknown): string {
+  if (err instanceof ZodError) {
+    const paths = err.issues.slice(0, 5).map((i) => i.path.join('.') || '(gốc)');
+    return `ZodError · ${err.issues.length} lỗi khuôn dữ liệu tại ${paths.join(', ')}`;
+  }
+  if (err instanceof Error) {
+    const where = err.stack?.split('\n')[1]?.trim() ?? '';
+    return `${err.name}: ${err.message.slice(0, 200)}${where ? ` (${where})` : ''}`;
+  }
+  return String(err).slice(0, 200);
+}
 
 export function createApp(pipeline: Pipeline, options: AppOptions = {}) {
   const app = new Hono();
@@ -99,7 +113,8 @@ export function createApp(pipeline: Pipeline, options: AppOptions = {}) {
     if (err instanceof ApiFailure) {
       return c.json(err.toBody(), err.status);
     }
-    console.error(err);
+    // Không in cả đối tượng lỗi: lỗi kiểm tra dữ liệu có thể chứa chữ trong hợp đồng.
+    console.error(`[lỗi] ${c.req.method} ${c.req.path}: ${describeError(err)}`);
     return c.json(new ApiFailure('internal', 'Máy chủ gặp sự cố khi phân tích.', 500).toBody(), 500);
   });
 

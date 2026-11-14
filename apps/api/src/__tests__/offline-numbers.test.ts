@@ -8,7 +8,7 @@ import { createApp } from '../app';
 import { REPO_ROOT } from '../config';
 import { loadKnowledge, loadPrompts } from '../knowledge';
 import type { OcrProvider } from '../ocr/vision';
-import { applyExtract } from '../pipeline/extract';
+import { applyExtract, hardToReadPages } from '../pipeline/extract';
 import { digitSignature, findMoney, sameDigits } from '../pipeline/numbers';
 import { extractOffline } from '../pipeline/offline';
 import { found, line, notFound } from './helpers';
@@ -67,8 +67,13 @@ describe('B2 · chặn AI sửa sai con số', () => {
       ocr,
       1,
     );
+    const logged = warn.mock.calls.flat().join(' ');
     warn.mockRestore();
     expect(r.lines.map((l) => l.text)).toEqual(['Gia thue: 3.500.000 dong/thang', 'Cọc: 7.000.000 đồng']);
+    // Log chỉ có mã dòng, không có chữ trong hợp đồng (tên, số điện thoại, CCCD...).
+    expect(logged).toContain('p1-L01');
+    expect(logged).not.toContain('3.500.000');
+    expect(logged).not.toContain('Giá thuê');
   });
 
   it('số tiền không có trên dòng trích dẫn → unclear', () => {
@@ -78,9 +83,55 @@ describe('B2 · chặn AI sửa sai con số', () => {
       ocr,
       1,
     );
+    const logged = warn.mock.calls.flat().join(' ');
     warn.mockRestore();
     expect(r.keyTerms.deposit_vnd).toMatchObject({ value: null, status: 'unclear' });
+    // Giữ con số AI đọc để sinh viên tự kiểm tra, nhưng không ghi ra log.
+    expect(r.keyTerms.deposit_vnd.raw_text).toContain('9.000.000');
+    expect(r.keyTerms.deposit_vnd.raw_text).toContain('hãy kiểm tra lại');
+    expect(logged).not.toContain('9000000');
     expect(r.keyTerms.rent_vnd).toMatchObject({ value: 3_500_000, status: 'found' });
+  });
+});
+
+describe('trang khó đọc (chữ viết tay, ảnh mờ)', () => {
+  const pageLines = (page: number, n: number) =>
+    Array.from({ length: n }, (_, i) => line(`p${page}-L${String(i + 1).padStart(2, '0')}`, `dòng ${i + 1}`));
+
+  it('AI phải sửa con số ở nhiều dòng của một trang → báo trang đó cần chụp lại', () => {
+    const lines = [...pageLines(1, 30), ...pageLines(2, 30)];
+    // Số liệu thật từ lần thử hợp đồng viết tay: 13 dòng trang 1, 4 dòng trang 2.
+    const rejected = [...lines.slice(0, 13), ...lines.slice(30, 34)].map((l) => l.id);
+    expect(hardToReadPages(lines, rejected)).toEqual([1]);
+  });
+
+  it('hợp đồng in chỉ vài dòng bị chặn → không báo', () => {
+    const lines = [...pageLines(1, 45), ...pageLines(2, 43)];
+    expect(hardToReadPages(lines, ['p1-L10', 'p1-L22', 'p2-L02', 'p2-L06'])).toEqual([]);
+  });
+
+  it('applyExtract gộp trang khó đọc vào unreadablePages để backend trả image_unreadable', () => {
+    const lines = pageLines(1, 10).map((l, i) => ({ ...l, text: `Số ${i}1.2.3` }));
+    const r = applyExtract(
+      {
+        is_rental_contract: true,
+        unreadable_pages: [],
+        corrections: lines.slice(0, 5).map((l) => ({ id: l.id, text: 'Số 999' })),
+        key_terms: {
+          rent_vnd: notFound(),
+          deposit_vnd: notFound(),
+          electricity_vnd_per_kwh: notFound(),
+          water_vnd: notFound(),
+          water_unit: notFound(),
+          service_fee_vnd: notFound(),
+          term_months: notFound(),
+          notice_days: notFound(),
+        },
+      },
+      lines,
+      1,
+    );
+    expect(r.unreadablePages).toEqual([1]);
   });
 });
 

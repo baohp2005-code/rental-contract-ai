@@ -55,7 +55,8 @@ export class ApiRequestError extends Error {
 
 /** Thông báo tiếng Việt cho người dùng, theo mã lỗi. */
 export const errorMessage: Record<ApiErrorCode, string> = {
-  image_unreadable: 'Ảnh quá mờ hoặc thiếu sáng nên không đọc được. Bạn chụp lại giúp nhé.',
+  image_unreadable:
+    'App chưa đọc chắc được chữ (ảnh mờ, thiếu sáng hoặc chữ viết tay khó đọc). Bạn chụp lại gần hơn, đủ sáng nhé. Nếu vẫn lỗi, đừng coi hợp đồng là không có vấn đề: hãy tự đọc kỹ hoặc nhờ người khác xem.',
   not_a_contract: 'Ảnh này có vẻ không phải hợp đồng thuê trọ. Bạn kiểm tra lại ảnh nhé.',
   too_many_pages: 'Hợp đồng có quá nhiều trang. Hãy bỏ bớt trang không cần thiết.',
   internal: 'Máy chủ đang gặp sự cố. Bạn thử lại sau ít phút.',

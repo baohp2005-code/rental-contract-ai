@@ -122,7 +122,8 @@ export function finalizeFlags(
   const withTempIds: Flag[] = drafts.map((d, i) => ({ ...d, id: `tmp${i}` }));
   const { kept, dropped } = verifyFlags(withTempIds, lines);
   for (const d of dropped) {
-    console.warn(`[B4] bỏ cảnh báo ${d.flag.rule_id} "${d.flag.title}": ${d.reason}`);
+    // Chỉ ghi mã quy tắc và lý do; tiêu đề/câu trích có thể chứa thông tin cá nhân.
+    console.warn(`[B4] bỏ cảnh báo ${d.flag.rule_id}: ${d.reason}`);
   }
 
   const flags = kept

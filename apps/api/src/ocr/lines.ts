@@ -108,6 +108,8 @@ export function annotationToLines(
 
   let text = '';
   let box: Box | null = null;
+  /** Khung của từ vừa đọc, để nhận ra chỗ xuống dòng mà Vision không đánh dấu. */
+  let lastWord: Box | null = null;
 
   const flush = () => {
     const clean = text.replace(/\s+/g, ' ').trim();
@@ -121,6 +123,7 @@ export function annotationToLines(
     }
     text = '';
     box = null;
+    lastWord = null;
   };
 
   for (const block of vPage?.blocks ?? []) {
@@ -128,6 +131,13 @@ export function annotationToLines(
       for (const word of paragraph.words ?? []) {
         const symbols = word.symbols ?? [];
         if (symbols.length === 0) continue;
+        const wordBox = symbols.reduce<Box | null>(
+          (b, sym) => extend(b, sym.boundingBox?.vertices),
+          extend(null, word.boundingBox?.vertices),
+        );
+        // Vision đôi khi không đánh dấu xuống dòng trong một đoạn: nếu từ này nằm hẳn
+        // bên dưới từ trước (tâm thấp hơn đáy từ trước) thì là dòng mới.
+        if (wordBox && lastWord && (wordBox.minY + wordBox.maxY) / 2 > lastWord.maxY) flush();
         for (const symbol of symbols) {
           text += symbol.text ?? '';
           box = extend(box, symbol.boundingBox?.vertices ?? word.boundingBox?.vertices);
@@ -138,6 +148,8 @@ export function annotationToLines(
             flush();
           } else if (br === 'EOL_SURE_SPACE' || br === 'LINE_BREAK') flush();
         }
+        // flush() ở trên đặt lastWord = null; chỉ nhớ từ khi dòng còn đang mở.
+        if (text) lastWord = wordBox;
       }
       // Hết đoạn thì luôn chốt dòng, kể cả khi Vision không đánh dấu.
       flush();
@@ -150,31 +162,46 @@ export function annotationToLines(
 
 /** Khoảng trống ngang tối đa (theo bề rộng trang) để coi hai mảnh là cùng một dòng. */
 const MAX_GAP = 0.03;
+/** Hai mảnh được phép chồng lên nhau theo chiều ngang tối đa chừng này (do khung chữ hơi rộng). */
+const MAX_OVERLAP = 0.005;
+/** Hai mảnh cùng dòng thì chiều cao không chênh quá mức này ("cọc." thấp hơn chữ hoa ~2 lần). */
+const MAX_HEIGHT_RATIO = 2.5;
+
+const centerY = (b: BBox) => b.y + b.h / 2;
 
 /**
  * Vision đôi khi cắt một dòng thành hai khối ("Hôm nay," | "ngày 01 tháng…",
  * hoặc "…không được hoàn lại tiền" | "cọc.") và trả sai thứ tự đọc. Xếp lại
- * theo hàng từ trên xuống, rồi nối các mảnh nằm cùng hàng và sát nhau.
- * Hai cột cách xa nhau (vd hai ô chữ ký) không bị nối.
+ * theo hàng từ trên xuống, rồi nối các mảnh nằm cùng hàng, mảnh sau ở bên phải
+ * và sát mảnh trước.
+ *
+ * Không nối khi: hai mảnh lệch tâm quá nửa chiều cao (dòng trên/dưới, kể cả
+ * ảnh chụp nghiêng), chiều cao chênh nhiều (một khối nhiều dòng), chồng lên
+ * nhau theo chiều ngang (hai dòng xếp chồng), hoặc cách xa (hai cột, hai ô ký).
  */
 export function mergeRows(page: number, lines: OcrLine[]): OcrLine[] {
   const sameRow = (a: BBox, b: BBox) => {
-    const overlap = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
-    return overlap >= 0.5 * Math.min(a.h, b.h);
+    const minH = Math.min(a.h, b.h);
+    const maxH = Math.max(a.h, b.h);
+    if (minH <= 0 || maxH / minH > MAX_HEIGHT_RATIO) return false;
+    return Math.abs(centerY(a) - centerY(b)) <= 0.5 * minH;
   };
 
+  // So với mảnh đầu tiên của hàng, không so dây chuyền: ảnh nghiêng làm các
+  // dòng gối lên nhau, so dây chuyền sẽ gộp cả trang thành một hàng.
   const rows: OcrLine[][] = [];
-  for (const l of [...lines].sort((a, b) => a.bbox.y + a.bbox.h / 2 - (b.bbox.y + b.bbox.h / 2))) {
-    const row = rows.find((r) => r.some((x) => sameRow(x.bbox, l.bbox)));
+  for (const l of [...lines].sort((a, b) => centerY(a.bbox) - centerY(b.bbox))) {
+    const row = rows.find((r) => sameRow(r[0].bbox, l.bbox));
     if (row) row.push(l);
     else rows.push([l]);
   }
 
   const out: OcrLine[] = [];
-  for (const row of rows.sort((a, b) => Math.min(...a.map((l) => l.bbox.y)) - Math.min(...b.map((l) => l.bbox.y)))) {
+  for (const row of rows.sort((a, b) => centerY(a[0].bbox) - centerY(b[0].bbox))) {
     let current = null as OcrLine | null;
     for (const l of row.sort((a, b) => a.bbox.x - b.bbox.x)) {
-      if (current && l.bbox.x - (current.bbox.x + current.bbox.w) <= MAX_GAP) {
+      const gap = current ? l.bbox.x - (current.bbox.x + current.bbox.w) : Infinity;
+      if (current && gap >= -MAX_OVERLAP && gap <= MAX_GAP) {
         const x = Math.min(current.bbox.x, l.bbox.x);
         const y = Math.min(current.bbox.y, l.bbox.y);
         const x2 = Math.max(current.bbox.x + current.bbox.w, l.bbox.x + l.bbox.w);

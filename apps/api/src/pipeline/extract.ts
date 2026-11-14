@@ -48,6 +48,29 @@ export async function extract(
   return applyExtract(out, ocrLines, images.length);
 }
 
+/**
+ * Trang mà AI phải "sửa con số" ở quá nhiều dòng: OCR đọc sai số liệu (thường
+ * là chữ viết tay hoặc ảnh mờ). Phân tích tiếp trên trang đó dễ ra kết quả sai
+ * hoặc "0 cảnh báo" khiến sinh viên tưởng hợp đồng an toàn, nên báo chụp lại.
+ */
+export const HARD_TO_READ = { minRejected: 4, minRatio: 0.2 };
+
+export function hardToReadPages(ocrLines: OcrLine[], rejectedIds: string[]): number[] {
+  const linesPerPage = new Map<number, number>();
+  for (const l of ocrLines) linesPerPage.set(l.page, (linesPerPage.get(l.page) ?? 0) + 1);
+  const pageOf = new Map(ocrLines.map((l) => [l.id, l.page]));
+  const rejectedPerPage = new Map<number, number>();
+  for (const id of rejectedIds) {
+    const page = pageOf.get(id);
+    if (page != null) rejectedPerPage.set(page, (rejectedPerPage.get(page) ?? 0) + 1);
+  }
+  return [...rejectedPerPage]
+    .filter(([page, n]) => n >= HARD_TO_READ.minRejected && n / (linesPerPage.get(page) ?? 1) >= HARD_TO_READ.minRatio)
+    .map(([page]) => page);
+}
+
+const formatVnd = (n: number) => `${n.toLocaleString('vi-VN')}đ`;
+
 /** Phần xử lý thuần sau khi LLM trả lời (tách riêng để test). */
 export function applyExtract(
   out: import('./schemas').ExtractOut,
@@ -57,6 +80,7 @@ export function applyExtract(
   const ocrById = new Map(ocrLines.map((l) => [l.id, l.text]));
   const known = new Set(ocrById.keys());
   const fixes = new Map<string, string>();
+  const rejected: string[] = [];
   for (const c of out.corrections) {
     const text = c.text.replace(/\s+/g, ' ').trim();
     // Bỏ sửa cho id không có thật: model không được thêm hay gộp dòng.
@@ -64,10 +88,14 @@ export function applyExtract(
     // Không cho AI đổi con số: "3.500.000" thành "5.500.000" là lỗi nặng nhất của app.
     // Chỉ nhận bản sửa khi các con số giữ nguyên (đã tính lỗi O/0, l/1 của OCR).
     if (!sameDigits(ocrById.get(c.id)!, text)) {
-      console.warn(`[B2] bỏ bản sửa ${c.id} vì đổi con số: "${ocrById.get(c.id)}" → "${text}"`);
+      // Không ghi nội dung dòng ra log: hợp đồng có tên, số điện thoại, CCCD.
+      rejected.push(c.id);
       continue;
     }
     fixes.set(c.id, text);
+  }
+  if (rejected.length > 0) {
+    console.warn(`[B2] bỏ ${rejected.length} bản sửa làm đổi con số: ${rejected.join(', ')}`);
   }
   const lines = ocrLines.map((l) => (fixes.has(l.id) ? { ...l, text: fixes.get(l.id)! } : l));
   const textById = new Map(lines.map((l) => [l.id, l.text]));
@@ -77,6 +105,7 @@ export function applyExtract(
     Object.entries(out.key_terms).map(([key, t]) => {
       const lineIds = t.line_ids.filter((id) => known.has(id));
       let { value, status } = t;
+      let rawText = t.raw_text;
       if (status !== 'found') value = null;
       if (status === 'found' && value == null) status = 'unclear';
       if (typeof value === 'number' && (!Number.isFinite(value) || value < 0)) {
@@ -87,18 +116,20 @@ export function applyExtract(
       if (status === 'found' && MONEY_TERMS.has(key) && typeof value === 'number') {
         const amounts = lineIds.flatMap((id) => findMoney(textById.get(id) ?? '').map((m) => m.value));
         if (!amounts.includes(value)) {
-          console.warn(`[B2] ${key} = ${value} không có trên dòng ${lineIds.join(', ') || '(trống)'}, chuyển thành unclear`);
+          console.warn(`[B2] ${key}: số AI đọc không có trên dòng ${lineIds.join(', ') || '(trống)'}, chuyển thành unclear`);
+          // Giữ lại con số AI đọc từ ảnh để sinh viên tự kiểm tra, thay vì bỏ hẳn.
+          rawText = `${formatVnd(value)} (AI đọc từ ảnh nhưng chữ trên ảnh khó đọc, hãy kiểm tra lại)`;
           value = null;
           status = 'unclear';
         }
       }
-      return [key, { value, raw_text: t.raw_text, line_ids: lineIds, status }];
+      return [key, { value, raw_text: rawText, line_ids: lineIds, status }];
     }),
   );
 
   return {
     isRentalContract: out.is_rental_contract,
-    unreadablePages: [...new Set(out.unreadable_pages)]
+    unreadablePages: [...new Set([...out.unreadable_pages, ...hardToReadPages(ocrLines, rejected)])]
       .filter((p) => Number.isInteger(p) && p >= 1 && p <= pageCount)
       .sort((a, b) => a - b),
     lines,

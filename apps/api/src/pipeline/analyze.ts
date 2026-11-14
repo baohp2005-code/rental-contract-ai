@@ -56,7 +56,7 @@ export async function analyzeContract(p: Pipeline, images: PageImage[]): Promise
   if (extracted.unreadablePages.length > 0) {
     throw new ApiFailure(
       'image_unreadable',
-      'Một số trang quá mờ, không đọc được phần lớn nội dung.',
+      'Một số trang khó đọc (ảnh mờ hoặc chữ viết tay), kết quả có thể sai nên cần chụp lại.',
       422,
       extracted.unreadablePages,
     );
