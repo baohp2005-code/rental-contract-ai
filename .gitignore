@@ -9,3 +9,6 @@ build/
 .DS_Store
 # Ảnh hợp đồng gốc chưa che thông tin cá nhân: KHÔNG commit
 data/samples/raw/
+# Khóa Google Cloud: KHÔNG commit
+gcp-service-account.json
+*service-account*.json
