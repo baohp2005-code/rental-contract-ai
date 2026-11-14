@@ -1,4 +1,4 @@
-# Soi Hợp Đồng Trọ: app đọc hợp đồng thuê trọ cho sinh viên
+# Phân Tích Hợp Đồng Trọ: app đọc hợp đồng thuê trọ cho sinh viên
 
 > Sinh viên chụp hợp đồng thuê trọ (in hoặc viết tay). Trong vài phút, app chỉ ra điều khoản rủi ro hoặc còn thiếu, tô đúng dòng trên ảnh, giải thích bằng tiếng Việt dễ hiểu và soạn sẵn câu hỏi gửi chủ nhà.
 >
