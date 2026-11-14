@@ -28,36 +28,27 @@ Mục tiêu: một người deploy backend lên Render, cả nhóm chỉ cần �
 
 Trang dịch vụ trên Render → **Environment** → sửa `LLM_PROVIDER` thành `openai` (và điền `OPENAI_API_KEY` nếu chưa có) → **Save**. Render tự khởi động lại.
 
-### 4. Gửi địa chỉ cho nhóm
+### 4. Báo cho nhóm
 
-Gửi địa chỉ `https://...onrender.com` cho cả nhóm. **Không gửi key.**
+App đã đặt sẵn địa chỉ `https://rental-contract-api.onrender.com`, nên nhóm chỉ cần pull code về. Nếu địa chỉ Render của bạn khác, sửa `DEFAULT_API_URL` trong `apps/mobile/src/lib/api/index.ts`. **Không gửi key cho ai.**
 
 ## B. Thành viên mới (pull repo về và chạy app)
+
+App mặc định gọi backend chung `https://rental-contract-api.onrender.com` (đặt ở `apps/mobile/src/lib/api/index.ts`), nên **không cần tài khoản Render, key hay file `.env`**:
 
 ```powershell
 git clone https://github.com/baohp2005-code/rental-contract-ai.git
 cd rental-contract-ai
 npm install
-Copy-Item apps\mobile\.env.example apps\mobile\.env
-notepad apps\mobile\.env
-```
-
-Điền địa chỉ backend chung của nhóm rồi lưu:
-
-```
-EXPO_PUBLIC_API_URL=https://rental-contract-api.onrender.com
-```
-
-Chạy app:
-
-```powershell
 cd apps\mobile
 npx expo start --clear
 ```
 
 Quét mã QR bằng **Expo Go**. Nếu Expo Go báo *"signed in to Expo Go but not signed in to Expo CLI"*: hoặc đăng xuất Expo Go trên điện thoại, hoặc chạy `npx expo login` bằng **tài khoản Expo của chính mình** (đăng ký bằng Google thì dùng access token: `$env:EXPO_TOKEN="..."` trước `npx expo start`). Không dùng chung token của người khác.
 
-Không tạo `apps/mobile/.env` thì app chạy bằng dữ liệu mẫu, vẫn làm UI được.
+Muốn dùng dữ liệu mẫu (không cần mạng) hoặc backend chạy trên máy mình: tạo `apps/mobile/.env` từ `apps/mobile/.env.example`, đặt `EXPO_PUBLIC_API_URL=mock` hoặc `http://<IP>:8787`, rồi chạy lại `npx expo start --clear`.
+
+**Nếu địa chỉ Render đổi** (tạo lại dịch vụ với tên khác): sửa `DEFAULT_API_URL` trong `apps/mobile/src/lib/api/index.ts`, commit và push.
 
 ## Lưu ý khi demo
 

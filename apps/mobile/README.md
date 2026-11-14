@@ -18,15 +18,12 @@ Nếu mạng chặn kết nối giữa hai máy (Wi-Fi trường, ký túc xá),
 
 ## Dữ liệu mẫu và backend thật
 
-Mặc định app chạy bằng **dữ liệu mẫu**: chụp ảnh gì thì kết quả vẫn là của hợp đồng mẫu trong `assets/samples/`. Trên màn hình có dải thông báo màu vàng để nhắc điều này.
+Mặc định app gọi **backend chung của nhóm** trên Render: `https://rental-contract-api.onrender.com` (đặt ở `src/lib/api/index.ts`). Pull code về, `npm install`, `npx expo start` là chạy được, không cần file `.env` hay key nào. Server miễn phí ngủ sau 15 phút không ai gọi; lần phân tích đầu sau đó có thể mất thêm khoảng 1 phút.
 
-Khi backend chạy được, tạo file `apps/mobile/.env`:
+Muốn đổi thì tạo `apps/mobile/.env` (xem `.env.example`) rồi chạy lại `npx expo start --clear`:
 
-```
-EXPO_PUBLIC_API_URL=http://<địa-chỉ-backend>:8787
-```
-
-rồi chạy lại `expo start`. Dùng địa chỉ IP của máy chạy backend trong mạng Wi-Fi, không dùng `localhost` (trên điện thoại, `localhost` là chính điện thoại).
+- `EXPO_PUBLIC_API_URL=mock`: **dữ liệu mẫu**, không cần mạng. Chụp ảnh gì thì kết quả vẫn là của hợp đồng mẫu trong `assets/samples/`, trên màn hình có dải thông báo màu vàng.
+- `EXPO_PUBLIC_API_URL=http://<IP máy chạy backend>:8787`: backend chạy trên máy mình. Dùng IP trong mạng Wi-Fi (dòng "Cho điện thoại" khi chạy server), không dùng `localhost` (trên điện thoại, `localhost` là chính điện thoại).
 
 ## Cấu trúc
 
