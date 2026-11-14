@@ -36,15 +36,33 @@ App đã đặt sẵn địa chỉ `https://rental-contract-api.onrender.com`, n
 
 App mặc định gọi backend chung `https://rental-contract-api.onrender.com` (đặt ở `apps/mobile/src/lib/api/index.ts`), nên **không cần tài khoản Render, key hay file `.env`**:
 
+Code backend và bản app đã nối backend đang ở nhánh **`api/backend`** (khi đã gộp vào nhánh chung thì dùng nhánh đó thay cho `api/backend`).
+
+**Chưa có repo trên máy:**
+
 ```powershell
-git clone https://github.com/baohp2005-code/rental-contract-ai.git
+git clone -b api/backend https://github.com/baohp2005-code/rental-contract-ai.git
 cd rental-contract-ai
 npm install
 cd apps\mobile
 npx expo start --clear
 ```
 
-Quét mã QR bằng **Expo Go**. Nếu Expo Go báo *"signed in to Expo Go but not signed in to Expo CLI"*: hoặc đăng xuất Expo Go trên điện thoại, hoặc chạy `npx expo login` bằng **tài khoản Expo của chính mình** (đăng ký bằng Google thì dùng access token: `$env:EXPO_TOKEN="..."` trước `npx expo start`). Không dùng chung token của người khác.
+**Đã có repo trên máy** (đang ở nhánh khác):
+
+```powershell
+cd rental-contract-ai
+git fetch origin
+git checkout api/backend
+git pull
+npm install
+cd apps\mobile
+npx expo start --clear
+```
+
+Phải chạy lại `npm install` sau khi đổi nhánh, vì nhánh này có thêm thư viện. Nếu `npm install` báo `Cannot read properties of null (reading 'edgesOut')`, chạy `npm ci` trước rồi chạy lại `npm install`.
+
+Điện thoại và máy tính phải cùng mạng Wi-Fi (Expo Go tải app từ máy tính). Quét mã QR bằng **Expo Go**. Nếu Expo Go báo *"signed in to Expo Go but not signed in to Expo CLI"*: hoặc đăng xuất Expo Go trên điện thoại, hoặc chạy `npx expo login` bằng **tài khoản Expo của chính mình** (đăng ký bằng Google thì không có mật khẩu: vào **expo.dev** → cài đặt tài khoản → **Access tokens** → tạo token, rồi chạy `$env:EXPO_TOKEN="<token>"` trong cùng terminal trước `npx expo start`; muốn khỏi đặt lại mỗi lần thì chạy `setx EXPO_TOKEN "<token>"` một lần rồi mở lại VS Code). Không dùng chung token của người khác.
 
 Muốn dùng dữ liệu mẫu (không cần mạng) hoặc backend chạy trên máy mình: tạo `apps/mobile/.env` từ `apps/mobile/.env.example`, đặt `EXPO_PUBLIC_API_URL=mock` hoặc `http://<IP>:8787`, rồi chạy lại `npx expo start --clear`.
 
