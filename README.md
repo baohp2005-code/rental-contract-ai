@@ -1,24 +1,25 @@
-# App đọc hợp đồng thuê trọ cho sinh viên
+# Soi Hợp Đồng Trọ: app đọc hợp đồng thuê trọ cho sinh viên
 
 > Sinh viên chụp hợp đồng thuê trọ (in hoặc viết tay). Trong vài phút, app chỉ ra điều khoản rủi ro hoặc còn thiếu, tô đúng dòng trên ảnh, giải thích bằng tiếng Việt dễ hiểu và soạn sẵn câu hỏi gửi chủ nhà.
 >
 > **App không phải tư vấn pháp lý.** Sinh viên duyệt từng cảnh báo trước khi gửi bất cứ điều gì.
 
-**Trạng thái:** đang chuẩn bị, 1 tuần trước ngày thi (bắt đầu 9/11/2026). README này là bản kế hoạch; sẽ cập nhật thành tài liệu sản phẩm sau khi triển khai xong.
+**Trạng thái (14/11/2026):** chạy được trọn luồng trên điện thoại thật qua Expo Go, gọi backend chung trên Render. Còn thiếu: bộ kiểm thử có nhãn (`eval/`), che CCCD và số điện thoại, bản phát hành cho người ngoài nhóm. Xem [mục 9](#9-tiến-độ-và-việc-còn-lại).
 
-Bản kế hoạch cả nhóm cùng sửa và bình luận: [Claude Docs](https://claude.ai/artifact/K8m3iE7C2ruwwLZxEMVjci).
+- Backend: `https://rental-contract-api.onrender.com` (gói miễn phí, lần gọi đầu sau 15 phút nghỉ mất khoảng 1 phút)
+- Bản kế hoạch cả nhóm cùng sửa và bình luận: [Claude Docs](https://claude.ai/artifact/K8m3iE7C2ruwwLZxEMVjci)
 
 ## Mục lục
 
 1. [Bài toán và giá trị của AI](#1-bài-toán-và-giá-trị-của-ai)
 2. [Quyết định kiến trúc: tô đúng dòng trên ảnh](#2-quyết-định-kiến-trúc-tô-đúng-dòng-trên-ảnh)
 3. [Luồng xử lý](#3-luồng-xử-lý)
-4. [Công nghệ và cấu trúc repo](#4-công-nghệ-và-cấu-trúc-repo)
-5. [Bộ kiến thức](#5-bộ-kiến-thức-làm-trước-khi-viết-code)
-6. [Triển khai](#6-triển-khai)
-7. [Hướng dẫn viết prompt](#7-hướng-dẫn-viết-prompt)
-8. [Đánh giá và AI có trách nhiệm](#8-đánh-giá-và-ai-có-trách-nhiệm)
-9. [Quyết định và câu hỏi mở](#9-quyết-định-và-câu-hỏi-mở)
+4. [Các màn hình](#4-các-màn-hình)
+5. [Công nghệ và cấu trúc repo](#5-công-nghệ-và-cấu-trúc-repo)
+6. [Bộ kiến thức: checklist và căn cứ pháp lý](#6-bộ-kiến-thức-checklist-và-căn-cứ-pháp-lý)
+7. [Chống AI đọc sai và bịa](#7-chống-ai-đọc-sai-và-bịa)
+8. [Quyền riêng tư và AI có trách nhiệm](#8-quyền-riêng-tư-và-ai-có-trách-nhiệm)
+9. [Tiến độ và việc còn lại](#9-tiến-độ-và-việc-còn-lại)
 10. [Bắt đầu làm việc với repo](#10-bắt-đầu-làm-việc-với-repo)
 
 ## 1. Bài toán và giá trị của AI
@@ -32,10 +33,10 @@ Bản kế hoạch cả nhóm cùng sửa và bình luận: [Claude Docs](https:
 
 Model AI đọc ảnh rất tốt nhưng không trả về vị trí trên ảnh đủ chính xác. Vì vậy ta chia việc cho OCR và LLM:
 
-1. **OCR** đọc ảnh, trả về từng dòng chữ kèm vị trí. Mỗi dòng có một mã, ví dụ `p1-L12` (trang 1, dòng 12).
+1. **OCR** (Google Cloud Vision) đọc ảnh, trả về từng dòng chữ kèm vị trí. Mỗi dòng có một mã, ví dụ `p1-L12` (trang 1, dòng 12).
 2. **LLM** nhận ảnh cùng danh sách dòng có mã, và chỉ trả lời bằng **mã dòng** cộng **câu trích nguyên văn**.
-3. **App** dùng vị trí OCR đã lưu để tô sáng dòng đó trên ảnh.
-4. **Code tự kiểm tra lại:** mã dòng có tồn tại không, câu trích có khớp với chữ trên dòng không. Không khớp thì hạ độ tin cậy hoặc bỏ cảnh báo. Đây là cách chặn AI bịa nội dung.
+3. **App** dùng vị trí OCR để tô sáng dòng đó trên ảnh.
+4. **Code tự kiểm tra lại:** mã dòng có tồn tại không, câu trích có khớp với chữ trên dòng không. Không khớp thì hạ độ tin cậy hoặc bỏ cảnh báo.
 
 Cảnh báo loại "thiếu điều khoản" không có dòng để tô, nên hiển thị thành thẻ riêng kèm đề xuất câu nên bổ sung.
 
@@ -43,188 +44,199 @@ Cảnh báo loại "thiếu điều khoản" không có dòng để tô, nên hi
 
 ```mermaid
 flowchart LR
-    A[Chụp ảnh<br/>cắt viền, báo ảnh mờ] --> B1[B1 · OCR<br/>dòng chữ + vị trí]
-    B1 --> B2[B2 · LLM đọc<br/>sửa OCR, trích số]
+    A[Chụp ảnh<br/>tối đa 8 trang] --> B1[B1 · OCR<br/>dòng chữ + vị trí]
+    B1 --> B2[B2 · LLM đọc<br/>sửa OCR, trích số, phí khác]
+    B2 -->|trang khó đọc| B2b[B2b · LLM đọc lại<br/>từng trang từ ảnh]
+    B2b --> B3
     B2 --> B3[B3 · Quy tắc<br/>code kiểm tra]
     B3 --> B4[B4 · LLM rủi ro<br/>cảnh báo + mã dòng]
-    B4 --> R[Duyệt cảnh báo<br/>Giữ / Bỏ / Sửa]
+    B4 --> R[Duyệt cảnh báo<br/>Giữ / Bỏ qua / Sửa câu hỏi]
     R --> B5[B5 · LLM soạn tin<br/>chỉ cảnh báo đã giữ]
-    B5 --> Z[Gửi Zalo<br/>sinh viên tự gửi]
+    B5 --> Z[Sao chép hoặc chia sẻ<br/>sinh viên tự gửi]
 
     classDef llm fill:#e3eefc,stroke:#2f6fd6
-    class B2,B4,B5 llm
+    class B2,B2b,B4,B5 llm
 ```
 
-Ô màu xanh là bước gọi LLM (3 lần). B1–B4 chạy ở backend ngay sau khi chụp. B5 chỉ chạy sau khi sinh viên duyệt xong, nên tin nhắn chỉ chứa những gì họ đã giữ. B3 là code thuần: việc tính được (số tháng cọc, giá điện vượt ngưỡng) thì để code làm cho ổn định và dễ giải thích.
+- **B1 · OCR:** Google Vision `DOCUMENT_TEXT_DETECTION`. Backend tự ghép từ thành dòng và gộp các mảnh cùng hàng.
+- **B2 · Đọc và trích xuất:** sửa lỗi OCR dựa vào ảnh, trích 8 khoản chính (tiền thuê, cọc, giá điện, giá nước và cách tính, phí dịch vụ, thời hạn, số ngày báo trước). B2 còn trích danh sách mở **các khoản phí khác** như wifi, gửi xe, rác, vệ sinh, thang máy, máy giặt, phí quản lý.
+- **B2b · Đọc lại trang khó đọc:** chỉ chạy khi một trang có nhiều dòng OCR đọc sai số (thường là chữ viết tay). Ảnh trang đó được gửi riêng cho LLM đọc lại. Mỗi con số phải được 2 trong 3 lần đọc (OCR, B2, đọc lại) đồng ý. Vẫn khó đọc thì app báo chụp lại, không trả "0 cảnh báo".
+- **B3 · Quy tắc bằng code:** cọc vượt mức tham khảo, giá điện vượt mức quy định, không ghi thời hạn báo trước.
+- **B4 · Phân tích rủi ro:** LLM đối chiếu hợp đồng với checklist, giải thích bằng số tiền thật của sinh viên.
+- **B5 · Soạn tin:** chỉ chạy sau khi sinh viên duyệt, theo xưng hô (em – anh/chị, cháu – cô/chú) và giọng (nhẹ nhàng, thẳng thắn) đã chọn.
 
-## 4. Công nghệ và cấu trúc repo
+Có ba chế độ LLM, chọn bằng `LLM_PROVIDER`: `openai` (đang dùng trên Render, `gpt-4.1-mini`), `claude`, và `none` (không AI: đọc khoản chính, phí khác và cảnh báo bằng từ khóa, dùng làm phương án dự phòng khi demo).
+
+Trên hợp đồng in thật, một lượt phân tích mất khoảng 20–40 giây và ra 5–14 cảnh báo. Trang viết tay có thêm bước B2b, tốn thêm khoảng 5–10 giây mỗi trang.
+
+## 4. Các màn hình
+
+| Màn | File | Nội dung |
+| --- | --- | --- |
+| Giới thiệu | `app/index.tsx` | Câu "không phải tư vấn pháp lý", cách xử lý ảnh, ô đồng ý |
+| Chụp | `app/capture.tsx` | Chụp bằng camera hoặc chọn từ thư viện, nhiều trang, xem lại và xóa từng trang |
+| Đang phân tích | `app/analyzing.tsx` | Các bước "Đọc chữ → Trích điều khoản → Kiểm tra rủi ro", báo lỗi rõ (ảnh khó đọc, không phải hợp đồng, quá nhiều trang, mất mạng, quá thời gian) |
+| Tổng quan | `app/overview.tsx` | Số điểm và tiến độ duyệt, dải chip các khoản chính và phí khác (chạm để mở bảng đầy đủ), ảnh thu nhỏ các trang có đánh số từng điểm |
+| Chi tiết cảnh báo | `app/flag/[id].tsx` | Ảnh trang tự phóng vào dòng được tô, câu hỏi cho chủ nhà (sửa được), nút Giữ / Bỏ qua, giải thích và câu đề nghị ghi vào hợp đồng |
+| Tin nhắn | `app/message.tsx` | Chọn xưng hô và giọng, sao chép hoặc chia sẻ sang Zalo |
+
+Mục không ghi hoặc ghi chưa rõ trong hợp đồng có nền vàng. Cảnh báo có độ tin cậy thấp ghi "AI không chắc, bạn nên đọc lại dòng gốc".
+
+## 5. Công nghệ và cấu trúc repo
 
 Toàn bộ viết bằng TypeScript để app và backend dùng chung schema.
 
-| Lớp | Đề xuất | Ghi chú |
+| Lớp | Dùng | Ghi chú |
 | --- | --- | --- |
-| App di động | Expo (React Native) + TypeScript, Expo Router | Demo nhanh trên điện thoại thật |
-| Chụp tài liệu | react-native-document-scanner-plugin | Tự cắt viền, làm phẳng trang. Cần bản build riêng (không chạy trong Expo Go). Gấp thì bắt đầu bằng expo-image-picker |
-| Tô sáng dòng | react-native-svg | Vẽ khung lên ảnh theo vị trí OCR |
-| Backend | Node + Hono (TypeScript) | API key chỉ để ở backend, không bao giờ đưa vào app |
-| OCR | Google Cloud Vision, chế độ `DOCUMENT_TEXT_DETECTION` | Đọc tiếng Việt có dấu và chữ viết tay. Kết quả chia theo từ, phải tự ghép thành dòng theo dấu xuống dòng (`detectedBreak`) |
-| LLM | Claude Opus 5.5 (`claude-opus-5-5`) | Đọc ảnh, trả JSON đúng khuôn mẫu (structured outputs), lưu đệm phần prompt cố định (prompt caching) |
-| Kiểm tra dữ liệu | Zod, dùng chung app và backend | |
-| Lưu trữ | SQLite hoặc AsyncStorage trên máy | Bản hackathon không cần đăng nhập |
-| Deploy backend | Render, Railway hoặc Cloud Run | |
+| App di động | Expo SDK 58 (React Native), Expo Router, Zustand | Chạy trong Expo Go |
+| Chụp ảnh | `expo-camera`, `expo-image-picker`, `expo-image-manipulator` | Chưa có tự cắt viền: thư viện quét tài liệu cần bản build riêng, không chạy trong Expo Go |
+| Tô sáng dòng | `react-native-svg` | Vẽ khung lên ảnh theo vị trí OCR |
+| Backend | Node 22 + Hono | API key chỉ ở backend, không bao giờ đưa vào app |
+| OCR | Google Cloud Vision (REST, API key hoặc service account) | |
+| LLM | OpenAI `gpt-4.1-mini` (Responses API, `store: false`) hoặc Claude | Đầu ra ép đúng JSON schema (structured outputs) |
+| Kiểm tra dữ liệu | Zod, dùng chung app và backend (`packages/shared`) | |
+| Deploy backend | Render (`render.yaml`), vùng Singapore | Tự deploy khi push nhánh `api/backend` có sửa phần backend |
 
 ```
-apps/mobile/          # Expo app
-apps/api/             # Backend Hono
-packages/shared/      # Zod schema, code kiểm tra theo quy tắc (B3)
-data/checklist.yaml   # Checklist quy tắc rủi ro
-data/market_norms.yaml# Mức tham chiếu: ngưỡng theo luật + quy tắc app (14/11/2026)
-data/samples/         # Hợp đồng mẫu ĐÃ che thông tin (raw/ bị gitignore)
-eval/                 # Bộ kiểm thử + nhãn đúng
-prompts/              # 3 file prompt
-docs/                 # Tài liệu thêm (slide, ảnh demo...)
+apps/mobile/            # Expo app (6 màn hình)
+apps/api/               # Backend Hono: OCR, pipeline B1–B5, chế độ không AI
+packages/shared/        # Zod schema dùng chung, quy tắc B3, kiểm tra câu trích
+data/checklist.yaml     # 21 quy tắc rủi ro kèm căn cứ pháp lý
+data/market_norms.yaml  # Ngưỡng theo luật và quy tắc tham khảo của app
+data/samples/           # Hợp đồng mẫu ĐÃ che thông tin (raw/ bị gitignore)
+eval/                   # Bộ kiểm thử + nhãn đúng (chưa có dữ liệu)
+prompts/                # 4 prompt: 01-extract, 02-risk, 03-message, 04-reread
+docs/DEPLOY.md          # Deploy Render, cài cho thành viên mới, lưu ý demo
+docs/PHAP_LY.md         # Báo cáo căn cứ pháp lý và số liệu thị trường
+docs/bao-cao-app.md     # Báo cáo phần app
+render.yaml             # Cấu hình Render (Blueprint)
 ```
 
-## 5. Bộ kiến thức (làm trước khi viết code)
+## 6. Bộ kiến thức: checklist và căn cứ pháp lý
 
-Chất lượng app phụ thuộc vào checklist nhiều hơn vào code.
+Chất lượng app phụ thuộc vào checklist nhiều hơn vào code. Căn cứ pháp lý được đối chiếu ngày 14/11/2026 và ghi trong trường `legal_basis` của từng quy tắc, kèm mức xác minh: văn bản gốc, toàn văn không chính thức, báo chí, hoặc [QUY TẮC APP] khi không có căn cứ pháp lý. Chi tiết và nguồn ở [`docs/PHAP_LY.md`](docs/PHAP_LY.md).
 
-- [ ] Thu 10–20 hợp đồng thật, có cả bản viết tay, che thông tin cá nhân. Dùng để kiểm thử và demo.
-- [x] Ngưỡng theo luật cho [`data/market_norms.yaml`](data/market_norms.yaml) và căn cứ pháp lý cho [`data/checklist.yaml`](data/checklist.yaml) (14/11/2026, xem `docs/PHAP_LY.md`). Cần sinh viên luật hoặc mentor duyệt.
-- [ ] Khảo sát mức "bình thường" ở Hà Nội: cọc mấy tháng, nước tính thế nào, phí dịch vụ. Hiện các trường `*_typical` còn `null` vì không có khảo sát đáng tin.
-- [ ] Ngày 01/01/2027: sửa `electricity_max` nếu VAT điện trở lại 10% (2472 → 2518).
-- [ ] Hoàn thiện checklist 15–20 quy tắc trong [`data/checklist.yaml`](data/checklist.yaml).
-- [ ] Nhờ mentor hoặc sinh viên luật kiểm tra căn cứ pháp lý.
+| Mã | Nhóm | Quy tắc | Mức | Ai kiểm tra |
+| --- | --- | --- | --- | --- |
+| DEP-01 | Cọc | Không ghi điều kiện hoặc thời hạn trả cọc | Cao | AI (B4) |
+| DEP-02 | Cọc | "Mất cọc trong mọi trường hợp" khi trả phòng sớm, kể cả đã báo trước | Cao | AI (B4) |
+| DEP-03 | Cọc | Được trừ cọc vì "hư hỏng" nhưng không có biên bản bàn giao hiện trạng | Cao | AI (B4) |
+| DEP-04 | Cọc | Cọc cao hơn mức tham khảo | TB | Code (B3) |
+| UTL-01 | Điện nước | Ghi "giá điện theo chủ nhà quy định" hoặc cao hơn mức quy định cho người thuê | Cao | Code (B3) |
+| UTL-02 | Điện nước | Phí dịch vụ không ghi gồm những gì; nước tính theo người hay theo khối không rõ | TB | AI (B4) |
+| UTL-03 | Điện nước | Tiền điện tính khoán, không gắn với công tơ hay hóa đơn, không cho người thuê xem hóa đơn | TB | AI (B4) |
+| RNT-01 | Tiền thuê | Chủ nhà được tăng giá bất kỳ lúc nào, không báo trước | Cao | AI (B4) |
+| RNT-02 | Tiền thuê | Phạt chậm trả quá nặng | TB | AI (B4) |
+| RNT-03 | Tiền thuê | Giá thuê "chưa gồm thuế" hoặc người thuê phải chịu thuế cho thuê nhà | Thấp | AI (B4) |
+| REP-01 | Sửa chữa | Người thuê chịu mọi khoản sửa chữa, kể cả hư hỏng lớn hoặc hao mòn tự nhiên | Cao | AI (B4) |
+| TRM-01 | Chấm dứt | Chủ nhà được tự ý chấm dứt không cần báo trước, còn người thuê thì mất cọc | Cao | AI (B4) |
+| TRM-02 | Chấm dứt | Không ghi thời hạn báo trước | TB | Code (B3) |
+| TRM-03 | Chấm dứt | Chủ nhà được chấm dứt, khóa cửa hoặc dọn đồ khi người thuê chậm tiền dưới 3 tháng | Cao | AI (B4) |
+| OTH-01 | Khác | Không có danh sách đồ đạc hoặc biên bản hiện trạng | TB | AI (B4) |
+| OTH-02 | Khác | Chủ nhà được vào phòng bất kỳ lúc nào | Cao | AI (B4) |
+| OTH-03 | Khác | Không rõ người cho thuê có phải chủ nhà thật không, hoặc thiếu họ tên, số định danh của bên cho thuê | TB | AI (B4) |
+| OTH-04 | Khác | Không nhắc tới đăng ký tạm trú | TB | AI (B4) |
+| OTH-05 | Khác | Cấm hoặc không hỗ trợ đăng ký tạm trú, thu phí "làm tạm trú" | TB | AI (B4) |
+| OTH-06 | Khác | Giữ CCCD gốc, thu ảnh CCCD không nói rõ mục đích hoặc thời gian lưu | TB | AI (B4) |
+| OTH-07 | Khác | Người thuê chịu toàn bộ trách nhiệm cháy nổ, không ghi ai lo thiết bị phòng cháy | TB | AI (B4) |
 
-Checklist khởi đầu:
+Các điểm chính rút ra từ việc đối chiếu luật:
 
-| Mã | Nhóm | Quy tắc | Mức |
-| --- | --- | --- | --- |
-| DEP-01 | Cọc | Không ghi điều kiện hoặc thời hạn trả cọc | Cao |
-| DEP-02 | Cọc | "Mất cọc trong mọi trường hợp" khi trả phòng sớm, kể cả đã báo trước | Cao |
-| DEP-03 | Cọc | Được trừ cọc vì "hư hỏng" nhưng không có biên bản bàn giao hiện trạng | Cao |
-| DEP-04 | Cọc | Cọc cao bất thường so với mặt bằng | TB |
-| UTL-01 | Điện nước | Ghi "giá điện theo chủ nhà quy định" hoặc cao hơn mức quy định cho người thuê | Cao |
-| UTL-02 | Điện nước | Phí dịch vụ không ghi gồm những gì; nước tính theo người hay theo khối không rõ | TB |
-| RNT-01 | Tiền thuê | Chủ nhà được tăng giá bất kỳ lúc nào, không báo trước | Cao |
-| RNT-02 | Tiền thuê | Phạt chậm trả quá nặng | TB |
-| REP-01 | Sửa chữa | Người thuê chịu mọi khoản sửa chữa, kể cả hư hỏng lớn hoặc hao mòn tự nhiên | Cao |
-| TRM-01 | Chấm dứt | Chủ nhà được tự ý chấm dứt không cần báo trước, còn người thuê thì mất cọc | Cao |
-| TRM-02 | Chấm dứt | Không ghi thời hạn báo trước | TB |
-| OTH-01 | Khác | Không có danh sách đồ đạc hoặc biên bản hiện trạng | TB |
-| OTH-02 | Khác | Chủ nhà được vào phòng bất kỳ lúc nào | TB |
-| OTH-03 | Khác | Không rõ người cho thuê có phải chủ nhà thật không (có thể là người cho thuê lại) | TB |
-| OTH-04 | Khác | Không nhắc tới đăng ký tạm trú | Thấp |
+- **Căn cứ chính:** Luật Nhà ở 2023 (27/2023/QH15) cho các vấn đề thuê nhà ở, Bộ luật Dân sự 2015 cho phần chung (đặt cọc Điều 328, thuê tài sản Điều 472–482).
+- **Cọc được thỏa thuận:** luật không đặt trần tiền cọc và cho hai bên tự thỏa thuận về mất cọc. App khuyên thương lượng, không nói "trái luật".
+- **Căn cứ cứng nhất:**
+  - Chủ nhà chỉ được đơn phương chấm dứt trong các trường hợp Luật Nhà ở liệt kê, và phải báo trước 30 ngày (Điều 172).
+  - Thu tiền điện cao hơn quy định có thể bị phạt 20–30 triệu đồng (Nghị định 133/2026, Điều 13 khoản 7).
+- **Không cảnh báo** các điểm sau, vì đã kiểm tra là không có căn cứ: hợp đồng không công chứng; phòng dưới 8 hoặc 15 m²/người (ngưỡng này chỉ dành cho thường trú); chủ trọ chưa lập doanh nghiệp.
 
-Căn cứ pháp lý để tham khảo (**cần kiểm tra số điều và hiệu lực** trước khi đưa vào app):
+Ngưỡng trong [`data/market_norms.yaml`](data/market_norms.yaml):
 
-- Bộ luật Dân sự 2015: Điều 328 về đặt cọc, phần hợp đồng thuê tài sản từ Điều 472
-- Luật Nhà ở 2023
-- Luật Cư trú (đăng ký tạm trú)
-- Quy định của Bộ Công Thương về giá điện cho người thuê nhà
-
-## 6. Triển khai
-
-Làm pipeline cho ra kết quả tốt trước, rồi mới làm giao diện đẹp.
-
-### Lịch 7 ngày trước ngày thi
-
-| Ngày | App | Backend + Prompt | Kiến thức + Thiết kế |
-| --- | --- | --- | --- |
-| N1 · 9/11 | Clone repo, chạy khung Expo | Khung API Hono, schema Zod | Thu hợp đồng mẫu, checklist bản đầu |
-| N2 · 10/11 | Màn chụp nhiều trang | OCR + ghép dòng, LLM lần 1 | Khảo sát mức bình thường |
-| N3 · 11/11 | Gọi API, màn chờ, danh sách kết quả | Quy tắc B3, LLM lần 2 | Phác giao diện, gắn nhãn bộ kiểm thử |
-| N4 · 12/11 | Tô sáng dòng, màn duyệt cảnh báo | Kiểm tra mã dòng + câu trích, eval lần 1 | Nhờ mentor xem checklist |
-| N5 · 13/11 | Màn tin nhắn, chia sẻ Zalo | LLM lần 3, deploy backend | Hoàn thiện giao diện |
-| N6 · 14/11 | Ảnh xấu, lỗi mạng, câu miễn trừ | Che CCCD/SĐT, eval lần 2, tính năng thêm nếu kịp | Slide pitch |
-| N7 · 15/11 | Đóng băng tính năng, build demo | Số liệu eval cho slide | Tập demo, cập nhật README |
-
-### Các màn hình
-
-1. Giới thiệu + câu "không phải tư vấn pháp lý" + xin đồng ý xử lý ảnh.
-2. Chụp nhiều trang, báo chụp lại nếu ảnh mờ.
-3. Đang phân tích: hiện từng bước "Đọc chữ → Trích điều khoản → Kiểm tra rủi ro".
-4. Tổng quan: thẻ Tiền thuê / Cọc / Điện / Nước / Thời hạn / Báo trước, số cảnh báo theo mức độ.
-5. Chi tiết cảnh báo: ảnh có dòng được tô, giải thích, mức bình thường, câu hỏi gợi ý, nút Giữ / Bỏ / Sửa.
-6. Tin nhắn gửi chủ nhà: chọn cách xưng hô và giọng, sao chép hoặc gửi Zalo.
-
-### Chia việc (nhóm 4 người)
-
-| Vai | Thư mục chính | Việc chính |
+| Trường | Giá trị | Nguồn |
 | --- | --- | --- |
-| App | `apps/mobile` | Expo, chụp ảnh, tô sáng, màn review, tin nhắn |
-| Backend | `apps/api`, `packages/shared` | API, OCR, ghép dòng, code kiểm tra theo quy tắc, deploy |
-| Prompt | `prompts`, `eval` | 3 prompt, schema, bộ kiểm thử, đo chỉ số |
-| Kiến thức + Thiết kế | `data`, `docs` | Hợp đồng mẫu, khảo sát, checklist, giao diện, pitch |
+| `electricity_max` | 2.472 đ/kWh | Giá bậc 2 (2.289 đ chưa VAT, QĐ 2892/QĐ-BCT từ 01/11/2026, Thông tư 60/2025) × VAT 8%. Hợp đồng từ 12 tháng thì app chỉ gợi ý hỏi cách tính, vì chủ nhà có thể đã kê khai định mức |
+| `deposit_months_max` | 2 tháng | Quy tắc tham khảo của app, không phải luật |
+| `notice_days_typical` | 30 ngày | Mặc định của Luật Nhà ở 2023 Điều 172 khoản 4 |
+| Các trường `*_typical` khác | `null` | Không có khảo sát đáng tin. Cố ý không điền giá điện "hay gặp" (3.500–5.000 đ), để AI không coi mức có thể bị phạt là bình thường |
 
-### Tính năng thêm nếu còn thời gian
+## 7. Chống AI đọc sai và bịa
 
-- **"Nếu… thì sao?"**: ví dụ "nếu tôi chuyển đi sau 4 tháng", app chỉ ra điều khoản liên quan và số tiền có thể mất.
-- **Checklist ngày nhận phòng**: chụp số đồng hồ điện nước và hiện trạng phòng để bảo vệ tiền cọc.
+Đọc sai một con số là lỗi nặng nhất của app, nên backend không tin AI mặc định:
 
-## 7. Hướng dẫn viết prompt
+- **Con số khi sửa OCR:** bản sửa OCR của AI chỉ được nhận khi các con số giữ nguyên. Riêng trang khó đọc thì cần 2 trong 3 lần đọc khớp nhau.
+- **Số tiền trích ra:** số tiền trong các khoản chính và phí khác phải đọc được từ chính dòng được trích dẫn. Không có thì chuyển thành "chưa rõ" kèm con số AI đọc, để sinh viên tự kiểm tra.
+- **Cảnh báo:** cảnh báo có mã dòng không tồn tại, hoặc câu trích không khớp chữ trên dòng, sẽ bị bỏ hoặc hạ độ tin cậy.
+- **Quy tắc tính được:** những quy tắc này do code tính (B3). Nếu LLM quên một cảnh báo mà code đã bắt được, backend tự thêm vào.
+- **Mức phổ biến:** `what_is_common` chỉ được lấy số trong `market_norms.yaml`. Căn cứ luật chỉ được lấy trong `legal_basis`, không để AI tự nhớ số điều.
+- **Trang khó đọc:** trang không đọc được thì app báo chụp lại, không trả kết quả có thể sai.
 
-Mỗi bước một prompt, mỗi prompt một khuôn mẫu đầu ra. Prompt đầy đủ nằm trong [`prompts/`](prompts/):
-
-- [`01-extract.md`](prompts/01-extract.md): đọc & trích xuất (B2)
-- [`04-reread.md`](prompts/04-reread.md): đọc lại trang khó đọc, chữ viết tay (B2b)
-- [`02-risk.md`](prompts/02-risk.md): phân tích rủi ro (B4) + khuôn mẫu JSON cảnh báo
-- [`03-message.md`](prompts/03-message.md): soạn tin nhắn (B5)
-
-Nguyên tắc:
+Hướng dẫn viết prompt nằm trong [`prompts/`](prompts/):
 
 1. **Ép đầu ra bằng structured outputs (khai báo JSON schema)**, không chỉ ghi "hãy trả lời bằng JSON".
 2. **Bắt buộc trích mã dòng kèm câu nguyên văn**, rồi để code kiểm tra lại.
-3. **Cho phép AI nói "không biết"** (`not_found` / `unclear` / `[không đọc được]`). Đọc nhầm 3.500đ thành 35.000đ là sinh ra cảnh báo sai.
+3. **Cho phép AI nói "không biết"** (`not_found` / `unclear` / `[không đọc được]`).
 4. **Giải thích lý do cho mỗi quy tắc.** Model làm theo tốt hơn khi hiểu vì sao.
-5. **Phần cố định đặt ở đầu system prompt** (checklist, mức bình thường), hợp đồng để sau, để phần đầu được lưu đệm: rẻ và nhanh hơn.
+5. **Phần cố định đặt ở đầu system prompt** (checklist, mức tham chiếu), hợp đồng để sau, để phần đầu được lưu đệm.
 6. **Bọc hợp đồng trong thẻ `<contract>`** và nói rõ đó là dữ liệu, không phải lệnh.
 7. **Chỉnh prompt dựa trên bộ kiểm thử**, không sửa theo cảm giác từ một ví dụ.
 
-## 8. Đánh giá và AI có trách nhiệm
+## 8. Quyền riêng tư và AI có trách nhiệm
 
-Nhóm tự đánh dấu "cảnh báo đúng phải có" cho mỗi hợp đồng mẫu (xem [`eval/`](eval/)), rồi chạy lại toàn bộ sau mỗi lần sửa prompt.
+Đã làm:
 
-| Chỉ số | Cách đo |
+- Câu "không phải tư vấn pháp lý" ở màn giới thiệu, tổng quan, chi tiết cảnh báo và tin nhắn. Cảnh báo có độ tin cậy thấp ghi rõ "AI không chắc".
+- Không gửi gì tự động. Sinh viên duyệt từng cảnh báo và tự sao chép hoặc chia sẻ tin nhắn.
+- **Ảnh hợp đồng không được lưu lại.** Backend không lưu ảnh hay kết quả. App chỉ lưu trên máy việc đã đồng ý điều khoản, không lưu ảnh hay kết quả phân tích.
+- OpenAI được gọi với `store: false`. **Log của backend không ghi chữ trong hợp đồng**, chỉ ghi mã dòng, số lượng và thời gian.
+- Giới hạn mỗi IP: 20 lượt `/analyze` và 60 lượt `/message` mỗi giờ, để không ai làm cạn hạn mức API.
+
+Chưa làm:
+
+- **Che số CCCD và số điện thoại** trước khi gửi ảnh và chữ cho AI. Ảnh hợp đồng chứa thông tin của cả chủ nhà, theo Luật Bảo vệ dữ liệu cá nhân (hiệu lực 01/01/2026).
+- Nhờ sinh viên luật hoặc mentor duyệt căn cứ pháp lý trước khi đưa cho người dùng thật.
+
+**Không commit ảnh hợp đồng chưa che thông tin.**
+
+## 9. Tiến độ và việc còn lại
+
+| Phần | Trạng thái |
 | --- | --- |
-| Bắt được cảnh báo mức Cao | Số cảnh báo Cao app tìm ra / số cảnh báo Cao nhóm đánh dấu |
-| Cảnh báo thừa | Số cảnh báo app đưa ra nhưng nhóm cho là sai |
-| Tô đúng dòng | Tỉ lệ cảnh báo có mã dòng đúng |
-| Đọc đúng số tiền | Tỉ lệ tiền thuê, cọc, giá điện nước đọc đúng |
+| 6 màn hình app, tô dòng trên ảnh, duyệt cảnh báo, tin nhắn | Xong, chạy trên điện thoại thật qua Expo Go |
+| Backend B1–B5, chế độ không AI, giới hạn lượt gọi | Xong, deploy trên Render |
+| Đọc lại trang viết tay (B2b), các khoản phí khác | Xong, chờ thử trên hợp đồng viết tay thật |
+| Checklist 21 quy tắc, căn cứ pháp lý, ngưỡng giá điện | Xong, chờ người có chuyên môn duyệt |
+| Test tự động | API 76 test, app 103 test, đều đạt |
+| Bộ kiểm thử có nhãn (`eval/`) và số liệu cho slide | Chưa có |
+| Che CCCD và số điện thoại | Chưa có |
+| Bản phát hành (EAS Update hoặc file APK) | Để sau. App chưa nối với project trên expo.dev |
 
-- Câu "không phải tư vấn pháp lý" ở màn giới thiệu và màn kết quả. Cảnh báo có độ tin cậy thấp ghi rõ "AI không chắc".
-- Không gửi gì tự động. Sinh viên duyệt từng cảnh báo trước khi gửi.
-- Che số CCCD và số điện thoại trước khi lưu; mặc định không giữ ảnh sau khi phân tích. **Không commit ảnh hợp đồng chưa che thông tin.**
+Việc nên làm tiếp:
+
+- [ ] Thu 10–20 hợp đồng thật, có cả bản viết tay, che thông tin cá nhân, gắn nhãn trong `eval/` rồi đo 4 chỉ số: bắt được cảnh báo mức Cao, cảnh báo thừa, tô đúng dòng, đọc đúng số tiền.
+- [ ] Che CCCD và số điện thoại trong chữ OCR trước bước B2.
+- [ ] Nhờ mentor hoặc sinh viên luật duyệt `data/checklist.yaml` và `docs/PHAP_LY.md`.
+- [ ] Khảo sát mức "bình thường" ở Hà Nội (cọc mấy tháng, nước, phí dịch vụ) để điền các trường `*_typical`.
+- [ ] Ngày 01/01/2027: sửa `electricity_max` từ 2472 thành 2518 nếu VAT điện trở lại 10%. Khi Quốc hội thông qua Luật Nhà ở mới thì kiểm tra lại số điều trong `legal_basis`.
+- [ ] Phát hành bản cho người ngoài nhóm thử (EAS Update qua Expo Go, hoặc file APK).
+- [ ] Tính năng thêm nếu còn thời gian: "Nếu… thì sao?" (ví dụ "nếu tôi chuyển đi sau 4 tháng" thì mất bao nhiêu), checklist ngày nhận phòng (chụp đồng hồ điện nước và hiện trạng phòng).
 
 Câu pitch: *"Bỏ AI đi thì sản phẩm không còn tồn tại."* Demo dùng 2–3 hợp đồng, trong đó có một bản viết tay, và bấm giờ từ lúc chụp đến lúc có tin nhắn.
-
-## 9. Quyết định và câu hỏi mở
-
-| Câu hỏi | Quyết định |
-| --- | --- |
-| Model bắt buộc? | Không. Chỉ cần trình bày sản phẩm đầu ra → dùng Claude Opus 5.5 |
-| Ngôn ngữ | TypeScript (cả app và backend) |
-| Thời gian | Chuẩn bị trước 1 tuần, được mang sản phẩm làm sẵn đến thi → hoàn thiện tối đa theo lịch 7 ngày |
-
-Còn mở:
-
-- [ ] Ngưỡng "cọc cao bất thường" và "giá điện cao" là bao nhiêu, sau khi khảo sát?
-- [ ] Ai là mentor hoặc sinh viên luật kiểm tra checklist?
-- [ ] Ngày thi chính xác?
 
 ## 10. Bắt đầu làm việc với repo
 
 ```bash
-git clone https://github.com/baohp2005-code/rental-contract-ai.git
+git clone -b api/backend https://github.com/baohp2005-code/rental-contract-ai.git
 cd rental-contract-ai
 npm install
 cd apps/mobile && npx expo start   # app mặc định gọi backend chung trên Render
 ```
 
-Hướng dẫn đầy đủ (deploy backend lên Render, cài cho thành viên mới, lưu ý khi demo): [`docs/DEPLOY.md`](docs/DEPLOY.md). Phát triển backend trên máy mình: [`apps/api/README.md`](apps/api/README.md).
+Mở app bằng Expo Go trên điện thoại (quét mã QR trong terminal). Không cần key hay file `.env` nào để chạy app.
+
+- Deploy backend, cài cho thành viên mới, lưu ý khi demo: [`docs/DEPLOY.md`](docs/DEPLOY.md)
+- Chạy backend trên máy mình, biến môi trường, chế độ không AI: [`apps/api/README.md`](apps/api/README.md)
 
 Quy ước:
 
-- Mỗi người làm trên nhánh riêng (`app/...`, `api/...`, `prompt/...`, `data/...`), mở Pull Request vào `main`.
-- Không commit `.env`, API key, file service account, hay ảnh hợp đồng chưa che thông tin.
-- Sửa prompt: chạy lại `eval/` và ghi chỉ số vào mô tả PR.
+- Mỗi người làm trên nhánh riêng (`app/...`, `api/...`, `prompt/...`, `data/...`). Phần backend đang chạy từ nhánh `api/backend`: push vào đó là Render tự deploy.
+- Không commit `.env`, API key, file service account, `out.json`, hay ảnh hợp đồng chưa che thông tin.
+- Sửa prompt hoặc checklist: chạy lại test (`npm test -w @rental/api`) và, khi đã có, bộ `eval/`, rồi ghi chỉ số vào mô tả commit hoặc PR.
