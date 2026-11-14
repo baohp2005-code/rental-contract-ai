@@ -1,30 +1,20 @@
+/**
+ * Màn 1: giới thiệu, bố cục "hình trước, chữ sau".
+ *
+ * Hình minh họa (trang hợp đồng có dòng được tô) nói thay phần giải thích các bước.
+ * Cách xử lý ảnh nằm trong một ngăn riêng; lần đầu bấm ô đồng ý, ngăn này tự mở
+ * để người dùng đọc trước khi đồng ý.
+ */
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Modal, Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AppText, Button, Card, Disclaimer, Screen, type IconName } from '@/components/ui';
+import { AppText, Button, Disclaimer, Screen } from '@/components/ui';
 import { useAppStore } from '@/lib/store';
-import { MIN_TOUCH, colors, radius, spacing } from '@/theme';
-
-const STEPS: { icon: IconName; title: string; text: string }[] = [
-  {
-    icon: 'camera-outline',
-    title: 'Chụp hợp đồng',
-    text: 'Chụp từng trang, bản in hay viết tay đều được.',
-  },
-  {
-    icon: 'search-outline',
-    title: 'Xem điểm đáng lo',
-    text: 'App chỉ ra điều khoản có rủi ro, còn thiếu hoặc nói chưa rõ, và tô đúng dòng đó trên ảnh.',
-  },
-  {
-    icon: 'chatbubble-ellipses-outline',
-    title: 'Hỏi lại chủ nhà',
-    text: 'App soạn sẵn câu hỏi để bạn hỏi trước khi ký. Gửi hay không là do bạn, app không tự gửi gì.',
-  },
-];
+import { useStatusBarStyle } from '@/lib/use-status-bar';
+import { MIN_TOUCH, colors, radius, severityColors, spacing } from '@/theme';
 
 /** Điều bạn đồng ý khi dùng app. Viết đúng với cách app đang chạy, không hứa thêm. */
 const DATA_POINTS = [
@@ -35,9 +25,12 @@ const DATA_POINTS = [
 
 export default function IntroScreen() {
   const insets = useSafeAreaInsets();
+  useStatusBarStyle('light');
   const hydrated = useAppStore((s) => s.hydrated);
   const consentAccepted = useAppStore((s) => s.consentAccepted);
   const [checked, setChecked] = useState(false);
+  const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [privacySeen, setPrivacySeen] = useState(false);
 
   // Chờ đọc xong lựa chọn đã lưu để không nhấp nháy ô đồng ý với người dùng cũ.
   if (!hydrated) {
@@ -56,145 +49,267 @@ export default function IntroScreen() {
     router.push('/capture');
   };
 
+  const openPrivacy = () => {
+    setPrivacySeen(true);
+    setPrivacyOpen(true);
+  };
+
+  const toggleConsent = () => {
+    // Chưa đọc cách xử lý ảnh thì mở ra trước, đồng ý ngay trong ngăn đó.
+    if (!checked && !privacySeen) {
+      openPrivacy();
+      return;
+    }
+    setChecked((c) => !c);
+  };
+
   const footer = (
-    <Button
-      title={consentAccepted ? 'Chụp hợp đồng' : 'Đồng ý và bắt đầu'}
-      icon="camera-outline"
-      onPress={start}
-      disabled={!canContinue}
-      accessibilityHint={
-        canContinue ? 'Mở màn chụp hợp đồng' : 'Đánh dấu ô đồng ý ở trên trước khi bắt đầu'
-      }
-    />
-  );
-
-  return (
-    <Screen footer={footer} style={{ paddingTop: insets.top + spacing.xl }}>
-      <View style={styles.hero}>
-        <View style={styles.logo}>
-          <Ionicons name="document-text-outline" size={36} color={colors.primary} />
+    <>
+      {consentAccepted ? (
+        <View style={styles.accepted}>
+          <Ionicons name="checkmark-circle" size={20} color={colors.success} />
+          <AppText variant="caption" color={colors.success} style={styles.flex}>
+            Bạn đã đồng ý cho app xử lý ảnh hợp đồng.{' '}
+            <AppText variant="caption" color={colors.primary} onPress={openPrivacy}>
+              Xem lại
+            </AppText>
+          </AppText>
         </View>
-        <AppText variant="title" accessibilityRole="header">
-          Soi Hợp Đồng Trọ
-        </AppText>
-        <AppText color={colors.textMuted}>
-          Chụp hợp đồng thuê trọ, app chỉ cho bạn những điều khoản đáng lo trước khi ký và cọc tiền.
-        </AppText>
-      </View>
-
-      <View style={styles.steps}>
-        {STEPS.map((step, index) => (
-          <View key={step.title} style={styles.step}>
-            <View style={styles.stepIcon}>
-              <Ionicons name={step.icon} size={22} color={colors.primary} />
-            </View>
-            <View style={styles.stepText}>
-              <AppText variant="bodyStrong">
-                {index + 1}. {step.title}
-              </AppText>
-              <AppText variant="caption" color={colors.textMuted}>
-                {step.text}
-              </AppText>
-            </View>
-          </View>
-        ))}
-      </View>
-
-      <Disclaimer />
-
-      <Card>
-        <View style={styles.cardTitle}>
-          <Ionicons name="lock-closed-outline" size={18} color={colors.text} />
-          <AppText variant="bodyStrong">Ảnh của bạn được xử lý thế nào</AppText>
-        </View>
-        {DATA_POINTS.map((point) => (
-          <View key={point} style={styles.bullet}>
-            <AppText variant="caption" color={colors.textMuted}>
-              •
-            </AppText>
-            <AppText variant="caption" color={colors.textMuted} style={styles.bulletText}>
-              {point}
-            </AppText>
-          </View>
-        ))}
-
-        {consentAccepted ? (
-          <View style={styles.accepted}>
-            <Ionicons name="checkmark-circle" size={20} color={colors.success} />
-            <AppText variant="caption" color={colors.success} style={styles.bulletText}>
-              Bạn đã đồng ý cho app xử lý ảnh hợp đồng như trên.
-            </AppText>
-          </View>
-        ) : (
+      ) : (
+        <View style={styles.consentRow}>
           <Pressable
             accessibilityRole="checkbox"
             accessibilityState={{ checked }}
-            accessibilityLabel="Tôi đã đọc và đồng ý để app gửi ảnh hợp đồng đi phân tích như trên"
-            onPress={() => setChecked((c) => !c)}
-            style={({ pressed }) => [styles.checkbox, pressed && styles.checkboxPressed]}
+            accessibilityLabel="Tôi đã đọc và đồng ý để app gửi ảnh hợp đồng đi phân tích"
+            accessibilityHint={privacySeen ? undefined : 'Mở phần giải thích cách xử lý ảnh'}
+            onPress={toggleConsent}
+            style={({ pressed }) => [styles.checkbox, pressed && styles.pressed]}
           >
             <Ionicons
               name={checked ? 'checkbox' : 'square-outline'}
               size={26}
               color={checked ? colors.primary : colors.textMuted}
             />
-            <AppText style={styles.bulletText}>
-              Tôi đã đọc và đồng ý để app gửi ảnh hợp đồng đi phân tích như trên.
+            <AppText variant="caption" style={styles.flex}>
+              Tôi đã đọc và đồng ý để app gửi ảnh hợp đồng đi phân tích.
             </AppText>
           </Pressable>
-        )}
-      </Card>
+          <Pressable
+            onPress={openPrivacy}
+            accessibilityRole="button"
+            hitSlop={spacing.xs}
+            style={({ pressed }) => [styles.link, pressed && styles.pressed]}
+          >
+            <Ionicons name="lock-closed-outline" size={16} color={colors.primary} />
+            <AppText variant="label" color={colors.primary}>
+              Ảnh được xử lý thế nào?
+            </AppText>
+          </Pressable>
+        </View>
+      )}
+      <Button
+        title={consentAccepted ? 'Chụp hợp đồng' : 'Bắt đầu chụp'}
+        icon="camera-outline"
+        onPress={start}
+        disabled={!canContinue}
+        accessibilityHint={
+          canContinue ? 'Mở màn chụp hợp đồng' : 'Đánh dấu ô đồng ý ở trên trước khi bắt đầu'
+        }
+      />
+      <Disclaimer variant="inline" />
+    </>
+  );
+
+  return (
+    <Screen footer={footer} padded={false}>
+      <View style={[styles.hero, { paddingTop: insets.top + spacing.xl }]}>
+        <ContractIllustration />
+      </View>
+      <View style={styles.intro}>
+        <AppText variant="title" accessibilityRole="header">
+          Soi Hợp Đồng Trọ
+        </AppText>
+        <AppText color={colors.textMuted}>
+          Chụp hợp đồng thuê trọ, app tô màu chỗ đáng lo và soạn sẵn câu để bạn hỏi chủ nhà trước
+          khi ký. App không tự gửi gì.
+        </AppText>
+      </View>
+
+      <PrivacySheet
+        visible={privacyOpen}
+        showAccept={!consentAccepted}
+        onClose={() => setPrivacyOpen(false)}
+        onAccept={() => {
+          setChecked(true);
+          setPrivacyOpen(false);
+        }}
+      />
     </Screen>
   );
 }
 
+/** Trang hợp đồng có hai dòng được tô và hai nhãn câu hỏi. Chỉ để minh họa, đọc màn hình bỏ qua. */
+function ContractIllustration() {
+  const high = severityColors.high;
+  const medium = severityColors.medium;
+  return (
+    <View
+      style={styles.illustration}
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
+    >
+      <View style={styles.paper}>
+        <View style={[styles.line, styles.lineTitle]} />
+        <View style={[styles.line, { width: '100%' }]} />
+        <View style={[styles.line, { width: '92%' }]} />
+        <View style={[styles.mark, { backgroundColor: high.highlight, borderColor: high.border }]} />
+        <View style={[styles.line, { width: '85%' }]} />
+        <View style={[styles.line, { width: '96%' }]} />
+        <View
+          style={[styles.mark, { backgroundColor: medium.highlight, borderColor: medium.border }]}
+        />
+        <View style={[styles.line, { width: '100%' }]} />
+        <View style={[styles.line, { width: '78%' }]} />
+        <View style={[styles.line, { width: '60%' }]} />
+      </View>
+      <View style={[styles.tag, styles.tagRight]}>
+        <AppText variant="label" color={high.fg}>
+          Mất cọc?
+        </AppText>
+      </View>
+      <View style={[styles.tag, styles.tagLeft]}>
+        <AppText variant="label" color={medium.fg}>
+          Giá điện?
+        </AppText>
+      </View>
+    </View>
+  );
+}
+
+function PrivacySheet({
+  visible,
+  showAccept,
+  onClose,
+  onAccept,
+}: {
+  visible: boolean;
+  showAccept: boolean;
+  onClose: () => void;
+  onAccept: () => void;
+}) {
+  const insets = useSafeAreaInsets();
+  return (
+    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
+      <View style={styles.backdrop}>
+        <Pressable
+          style={StyleSheet.absoluteFill}
+          onPress={onClose}
+          accessibilityRole="button"
+          accessibilityLabel="Đóng"
+        />
+        <View style={[styles.sheet, { paddingBottom: spacing.lg + insets.bottom }]}>
+          <View style={styles.sheetTitle}>
+            <Ionicons name="lock-closed-outline" size={20} color={colors.text} />
+            <AppText variant="heading" accessibilityRole="header" style={styles.flex}>
+              Ảnh của bạn được xử lý thế nào
+            </AppText>
+          </View>
+          {DATA_POINTS.map((point) => (
+            <View key={point} style={styles.bullet}>
+              <AppText color={colors.textMuted}>•</AppText>
+              <AppText color={colors.textMuted} style={styles.flex}>
+                {point}
+              </AppText>
+            </View>
+          ))}
+          <View style={styles.sheetButtons}>
+            {showAccept ? (
+              <>
+                <Button title="Đóng" variant="ghost" onPress={onClose} style={styles.flex} />
+                <Button title="Đồng ý" icon="checkmark" onPress={onAccept} style={styles.flex} />
+              </>
+            ) : (
+              <Button title="Đã hiểu" onPress={onClose} style={styles.flex} />
+            )}
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
 const styles = StyleSheet.create({
+  flex: { flex: 1 },
+  pressed: { opacity: 0.6 },
   loading: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.bg,
   },
-  hero: { gap: spacing.sm },
-  logo: {
-    width: 64,
-    height: 64,
-    borderRadius: radius.lg,
-    backgroundColor: colors.primarySoft,
+  hero: {
+    backgroundColor: colors.primary,
+    borderBottomLeftRadius: radius.lg * 2,
+    borderBottomRightRadius: radius.lg * 2,
+    paddingBottom: spacing.xxl,
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  illustration: { width: 280, height: 290, alignItems: 'center', justifyContent: 'center' },
+  paper: {
+    width: 200,
+    height: 260,
+    padding: spacing.lg,
+    gap: 9,
+    borderRadius: radius.sm,
+    backgroundColor: colors.surface,
+    transform: [{ rotate: '-4deg' }],
+    boxShadow: '0 12px 32px rgba(0,0,0,0.25)',
+  },
+  line: { height: 6, borderRadius: 3, backgroundColor: colors.border },
+  lineTitle: {
+    width: '60%',
+    height: 8,
+    alignSelf: 'center',
     marginBottom: spacing.xs,
+    backgroundColor: colors.text,
   },
-  steps: { gap: spacing.md },
-  step: { flexDirection: 'row', alignItems: 'flex-start', gap: spacing.md },
-  stepIcon: {
-    width: 40,
-    height: 40,
+  mark: { height: 14, width: '100%', borderRadius: 4, borderWidth: 1.5 },
+  tag: {
+    position: 'absolute',
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs + 2,
     borderRadius: radius.pill,
-    backgroundColor: colors.primarySoft,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: colors.surface,
+    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
   },
-  stepText: { flex: 1, gap: 2 },
-  cardTitle: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
-  bullet: { flexDirection: 'row', gap: spacing.sm },
-  bulletText: { flex: 1 },
-  accepted: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    paddingTop: spacing.xs,
-  },
+  tagRight: { right: 0, top: 64 },
+  tagLeft: { left: 0, top: 150 },
+  intro: { padding: spacing.lg, paddingTop: spacing.xl, gap: spacing.sm },
+  consentRow: { gap: spacing.xs },
   checkbox: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.md,
     minHeight: MIN_TOUCH,
-    marginTop: spacing.xs,
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.sm,
-    marginHorizontal: -spacing.sm,
-    borderRadius: radius.md,
   },
-  checkboxPressed: { backgroundColor: colors.surfaceMuted },
+  link: {
+    alignSelf: 'flex-start',
+    minHeight: 36,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+    marginLeft: 26 + spacing.md,
+  },
+  accepted: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  backdrop: { flex: 1, justifyContent: 'flex-end', backgroundColor: colors.overlay },
+  sheet: {
+    padding: spacing.lg,
+    gap: spacing.md,
+    backgroundColor: colors.surface,
+    borderTopLeftRadius: radius.lg + spacing.sm,
+    borderTopRightRadius: radius.lg + spacing.sm,
+  },
+  sheetTitle: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  bullet: { flexDirection: 'row', gap: spacing.sm },
+  sheetButtons: { flexDirection: 'row', gap: spacing.sm, marginTop: spacing.xs },
 });

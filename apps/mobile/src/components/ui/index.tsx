@@ -201,12 +201,29 @@ export function LowConfidenceNote({ confidence }: { confidence: number }) {
 
 // ---------- Ghi chú cố định ----------
 
-/** Câu miễn trừ bắt buộc ở màn giới thiệu và màn kết quả. */
-export function Disclaimer({ style }: { style?: StyleProp<ViewStyle> }) {
+/**
+ * Câu miễn trừ bắt buộc ở màn giới thiệu và màn kết quả.
+ * `inline`: chữ nhỏ không nền, cho màn cần gọn; nội dung câu giữ nguyên.
+ */
+export function Disclaimer({
+  style,
+  variant = 'box',
+}: {
+  style?: StyleProp<ViewStyle>;
+  variant?: 'box' | 'inline';
+}) {
+  const inline = variant === 'inline';
+  const color = inline ? colors.textMuted : colors.info;
   return (
-    <View style={[styles.note, { backgroundColor: colors.infoSoft }, style]}>
-      <Ionicons name="information-circle-outline" size={20} color={colors.info} />
-      <Text style={[typography.caption, { color: colors.info, flex: 1 }]}>
+    <View
+      style={[
+        styles.note,
+        inline ? styles.noteInline : { backgroundColor: colors.infoSoft },
+        style,
+      ]}
+    >
+      <Ionicons name="information-circle-outline" size={inline ? 16 : 20} color={color} />
+      <Text style={[typography.caption, { color, flex: 1 }]}>
         Đây không phải tư vấn pháp lý. Ứng dụng chỉ giúp bạn hiểu hợp đồng và gợi ý điều nên hỏi
         lại. Bạn là người quyết định.
       </Text>
@@ -352,6 +369,7 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     borderRadius: radius.md,
   },
+  noteInline: { padding: 0, gap: spacing.xs },
   segmented: {
     flexDirection: 'row',
     backgroundColor: colors.surfaceMuted,

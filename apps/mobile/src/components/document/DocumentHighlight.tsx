@@ -20,17 +20,46 @@ type Props = {
   severity: Severity;
 };
 
-type PageGroup = {
+export type PageGroup = {
   pageNumber: number;
   lines: OcrLine[];
   page: CapturedPage | undefined;
   size: Size | null;
 };
 
-function resolveSize(page: CapturedPage | undefined, info: PageInfo | undefined): Size | null {
+export function resolveSize(
+  page: CapturedPage | undefined,
+  info: PageInfo | undefined,
+): Size | null {
   if (page && page.width > 0 && page.height > 0) return { width: page.width, height: page.height };
   if (info && info.width > 0 && info.height > 0) return { width: info.width, height: info.height };
   return null;
+}
+
+/** Gom các dòng theo trang (trang nhỏ trước), mỗi trang kèm ảnh và kích thước ảnh. */
+export function groupLinesByPage(
+  lines: readonly OcrLine[],
+  pages: readonly CapturedPage[],
+  pageInfo?: readonly PageInfo[],
+): PageGroup[] {
+  const byPage = new Map<number, OcrLine[]>();
+  for (const line of lines) {
+    const list = byPage.get(line.page) ?? [];
+    list.push(line);
+    byPage.set(line.page, list);
+  }
+  return [...byPage.entries()]
+    .sort(([a], [b]) => a - b)
+    .map(([pageNumber, pageLines]) => {
+      const page = pages[pageNumber - 1];
+      const info = pageInfo?.find((p) => p.page === pageNumber);
+      return {
+        pageNumber,
+        lines: [...pageLines].sort((a, b) => a.bbox.y - b.bbox.y),
+        page,
+        size: resolveSize(page, info),
+      };
+    });
 }
 
 /**
@@ -40,26 +69,10 @@ function resolveSize(page: CapturedPage | undefined, info: PageInfo | undefined)
 export function DocumentHighlight({ lines, pages, pageInfo, severity }: Props) {
   const [openPage, setOpenPage] = useState<number | null>(null);
 
-  const groups = useMemo<PageGroup[]>(() => {
-    const byPage = new Map<number, OcrLine[]>();
-    for (const line of lines) {
-      const list = byPage.get(line.page) ?? [];
-      list.push(line);
-      byPage.set(line.page, list);
-    }
-    return [...byPage.entries()]
-      .sort(([a], [b]) => a - b)
-      .map(([pageNumber, pageLines]) => {
-        const page = pages[pageNumber - 1];
-        const info = pageInfo?.find((p) => p.page === pageNumber);
-        return {
-          pageNumber,
-          lines: [...pageLines].sort((a, b) => a.bbox.y - b.bbox.y),
-          page,
-          size: resolveSize(page, info),
-        };
-      });
-  }, [lines, pages, pageInfo]);
+  const groups = useMemo(
+    () => groupLinesByPage(lines, pages, pageInfo),
+    [lines, pages, pageInfo],
+  );
 
   const opened = groups.find((g) => g.pageNumber === openPage && g.page && g.size);
   const openedBoxes = useMemo(() => opened?.lines.map((l) => l.bbox) ?? [], [opened]);

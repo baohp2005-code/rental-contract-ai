@@ -21,6 +21,10 @@ export const colors = {
   success: '#1E6B3A',
   successSoft: '#E1F3E7',
   overlay: 'rgba(0,0,0,0.55)',
+  /** Nền tối phía sau ảnh hợp đồng ở màn chi tiết, để ảnh nổi lên. */
+  stage: '#2A2F33',
+  textOnStage: '#FFFFFF',
+  textOnStageMuted: '#C9CFD4',
 } as const;
 
 /** Màu theo mức độ cảnh báo. `highlight` dùng để tô dòng trên ảnh hợp đồng. */
