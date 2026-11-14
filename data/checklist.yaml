@@ -11,6 +11,7 @@
 #   [QUY TẮC APP]  không có căn cứ pháp lý, là ngưỡng tham khảo của app
 # Viết giải thích bằng "có thể", "theo quy định hiện hành"; không nói "vô hiệu",
 # "trái luật", "phạm tội". Không tự nhớ số điều ngoài legal_basis.
+# legal_basis chỉ để chọn cách diễn đạt: hợp đồng khớp quy tắc thì VẪN phải cảnh báo.
 rules:
   - id: DEP-01
     category: deposit
@@ -25,7 +26,7 @@ rules:
     severity: high
     auto: false
     description: '"Mất cọc trong mọi trường hợp" khi trả phòng sớm, kể cả đã báo trước'
-    why: Luật cho hai bên tự thỏa thuận về cọc, nên điều khoản ghi rõ thì thường được công nhận. Sinh viên hay phải chuyển chỗ giữa chừng nên có thể mất toàn bộ cọc; cần thương lượng trước khi ký.
+    why: Sinh viên hay phải chuyển chỗ giữa chừng nên có thể mất toàn bộ cọc. Vì luật cho hai bên tự thỏa thuận về cọc, điều khoản đã ký có thể được công nhận, nên phải thương lượng sửa TRƯỚC khi ký.
     legal_basis: "BLDS 2015 Đ328 k2 (toàn văn KCT): bên đặt cọc mất cọc khi từ chối thực hiện hợp đồng, trừ thỏa thuận khác. BLDS Đ405 k3 (toàn văn KCT): điều khoản mẫu loại bỏ quyền lợi chính đáng của bên kia có thể không có hiệu lực. Luật Nhà ở 2023 Đ172 k3 (VB gốc): các trường hợp người thuê được đơn phương chấm dứt."
     question: "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?"
   - id: DEP-03

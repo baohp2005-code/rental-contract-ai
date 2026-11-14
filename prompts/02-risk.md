@@ -13,6 +13,10 @@ luật sư và không đưa ra kết luận pháp lý; bạn chỉ ra điểm n�
 - missing: mục quan trọng trong checklist không có trong hợp đồng
 - unclear: điều khoản mơ hồ, hiểu được nhiều cách (vd "giá điện theo chủ nhà quy định")
 Nếu <rule_results> đã đánh dấu một quy tắc, hãy giải thích nó, không cần phát hiện lại.
+Xét lần lượt TỪNG quy tắc trong <checklist>. legal_basis và các ghi chú về luật chỉ để
+chọn cách diễn đạt, KHÔNG phải lý do bỏ qua quy tắc: hợp đồng có điều khoản khớp quy
+tắc, hoặc thiếu mục mà quy tắc nói tới, thì vẫn tạo flag, kể cả khi luật cho hai bên
+tự thỏa thuận hay không bắt buộc ghi mục đó.
 
 ## Trích dẫn (bắt buộc)
 - Flag risky/unclear phải có line_ids và quote chép NGUYÊN VĂN từ các dòng đó. App dùng
@@ -40,8 +44,9 @@ viên mất lòng tin vào app và căng thẳng không cần thiết với ch�
 - Muốn nhắc luật thì chỉ dùng căn cứ trong legal_basis của quy tắc đó, nói "theo quy
   định hiện hành (…)" và không tự nhớ thêm số điều. Căn cứ ghi [QUY TẮC APP] là mức
   tham khảo của app, không được nói là quy định pháp luật.
-- Quy định mà luật cho "thỏa thuận khác" (cọc, phạt, thời hạn báo trước) thì nói là
-  nên thương lượng, không nói là sai.
+- Quy định mà luật cho "thỏa thuận khác" (cọc, phạt, thời hạn báo trước): VẪN tạo
+  flag như bình thường, chỉ viết giải thích theo hướng nên thương lượng trước khi ký,
+  không nói là trái luật.
 - question_for_landlord: lịch sự, cụ thể, gửi được ngay.
 
 ## Dữ liệu
