@@ -14,3 +14,5 @@ gcp-service-account.json
 *service-account*.json
 
 out.json
+
+Claude outputs/
