@@ -70,7 +70,7 @@ Muốn dùng dữ liệu mẫu (không cần mạng) hoặc backend chạy trên
 
 ## Lưu ý khi demo
 
-- **Gói miễn phí ngủ sau 15 phút không ai gọi**, lần gọi đầu sau đó mất khoảng 1 phút để thức dậy. Trước giờ demo vài phút, mở `<địa chỉ>/health` để đánh thức server.
+- **Gói miễn phí ngủ sau 15 phút không ai gọi**, lần gọi đầu sau đó mất khoảng 1 phút để thức dậy. App tự gọi `/health` khi mở app, khi quay lại app và khi vào màn chụp (tối đa một lần mỗi 4 phút), nên server thường đã dậy lúc sinh viên chụp xong. Trước giờ demo vài phút vẫn nên mở `<địa chỉ>/health` cho chắc.
 - Mỗi IP bị giới hạn **20 lượt phân tích** và **60 lượt soạn tin nhắn mỗi giờ** (đổi bằng `RATE_LIMIT_ANALYZE_PER_HOUR`, `RATE_LIMIT_MESSAGE_PER_HOUR` trên Render). Quá giới hạn thì app báo lỗi máy chủ; chờ hoặc tăng giới hạn.
 - Render chỉ deploy lại khi đổi code backend, `data/`, `prompts/` hoặc file lock (xem `buildFilter` trong `render.yaml`). Sửa riêng app thì không làm backend khởi động lại.
 - Xem log: trang dịch vụ trên Render → **Logs**. Mỗi lượt gọi in `→ POST /analyze`, `[B1]`, `[B3]`, `[xong]`.

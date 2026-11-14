@@ -86,6 +86,10 @@ export function createMockClient(): ApiClient {
   return {
     isMock: true,
 
+    wake() {
+      // Dữ liệu mẫu: không có backend để đánh thức.
+    },
+
     async analyze(_pages: CapturedPage[], options: AnalyzeOptions = {}) {
       for (const step of ANALYSIS_STEPS) {
         options.onStep?.(step);

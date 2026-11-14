@@ -19,6 +19,13 @@ const ANALYZE_TIMEOUT_MS = 120_000;
 const MESSAGE_TIMEOUT_MS = 60_000;
 
 /**
+ * Đánh thức backend: Render ngủ sau 15 phút, nên gọi lại sau 4 phút là đủ an toàn
+ * mà không gửi thừa. Máy chủ ngủ thì mất khoảng 1 phút để trả lời.
+ */
+export const WAKE_INTERVAL_MS = 4 * 60_000;
+const WAKE_TIMEOUT_MS = 90_000;
+
+/**
  * Backend trả kết quả một lần, không báo tiến độ. Các bước hiển thị vì vậy
  * chạy theo đồng hồ ước lượng, và dừng ở bước cuối cho tới khi có kết quả.
  */
@@ -80,9 +87,20 @@ async function request(
 
 export function createHttpClient(baseUrl: string): ApiClient {
   const base = baseUrl.replace(/\/+$/, '');
+  let lastWakeAt = Number.NEGATIVE_INFINITY;
 
   return {
     isMock: false,
+
+    wake() {
+      const now = Date.now();
+      if (now - lastWakeAt < WAKE_INTERVAL_MS) return;
+      lastWakeAt = now;
+      // Không chờ kết quả: chỉ cần yêu cầu tới được Render để máy chủ khởi động.
+      request(`${base}/health`, { method: 'GET' }, WAKE_TIMEOUT_MS).catch(() => {
+        // Lỗi mạng lúc đánh thức không ảnh hưởng gì; lượt phân tích sau sẽ báo lỗi nếu có.
+      });
+    },
 
     async analyze(pages: CapturedPage[], options: AnalyzeOptions = {}) {
       const form = new FormData();
