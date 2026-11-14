@@ -1,4 +1,4 @@
-# Soi Hợp Đồng Trọ: app đọc hợp đồng thuê trọ cho sinh viên
+# Phân Tích Hợp Đồng Trọ: app đọc hợp đồng thuê trọ cho sinh viên
 
 > Sinh viên chụp hợp đồng thuê trọ (in hoặc viết tay). Trong vài phút, app chỉ ra điều khoản rủi ro hoặc còn thiếu, tô đúng dòng trên ảnh, giải thích bằng tiếng Việt dễ hiểu và soạn sẵn câu hỏi gửi chủ nhà.
 >
@@ -11,16 +11,18 @@
 
 ## Mục lục
 
-1. [Bài toán và giá trị của AI](#1-bài-toán-và-giá-trị-của-ai)
-2. [Quyết định kiến trúc: tô đúng dòng trên ảnh](#2-quyết-định-kiến-trúc-tô-đúng-dòng-trên-ảnh)
-3. [Luồng xử lý](#3-luồng-xử-lý)
-4. [Các màn hình](#4-các-màn-hình)
-5. [Công nghệ và cấu trúc repo](#5-công-nghệ-và-cấu-trúc-repo)
-6. [Bộ kiến thức: checklist và căn cứ pháp lý](#6-bộ-kiến-thức-checklist-và-căn-cứ-pháp-lý)
-7. [Chống AI đọc sai và bịa](#7-chống-ai-đọc-sai-và-bịa)
-8. [Quyền riêng tư và AI có trách nhiệm](#8-quyền-riêng-tư-và-ai-có-trách-nhiệm)
-9. [Tiến độ và việc còn lại](#9-tiến-độ-và-việc-còn-lại)
-10. [Bắt đầu làm việc với repo](#10-bắt-đầu-làm-việc-với-repo)
+- [Phân Tích Hợp Đồng Trọ: app đọc hợp đồng thuê trọ cho sinh viên](#phân-tích-hợp-đồng-trọ-app-đọc-hợp-đồng-thuê-trọ-cho-sinh-viên)
+  - [Mục lục](#mục-lục)
+  - [1. Bài toán và giá trị của AI](#1-bài-toán-và-giá-trị-của-ai)
+  - [2. Quyết định kiến trúc: tô đúng dòng trên ảnh](#2-quyết-định-kiến-trúc-tô-đúng-dòng-trên-ảnh)
+  - [3. Luồng xử lý](#3-luồng-xử-lý)
+  - [4. Các màn hình](#4-các-màn-hình)
+  - [5. Công nghệ và cấu trúc repo](#5-công-nghệ-và-cấu-trúc-repo)
+  - [6. Bộ kiến thức: checklist và căn cứ pháp lý](#6-bộ-kiến-thức-checklist-và-căn-cứ-pháp-lý)
+  - [7. Chống AI đọc sai và bịa](#7-chống-ai-đọc-sai-và-bịa)
+  - [8. Quyền riêng tư và AI có trách nhiệm](#8-quyền-riêng-tư-và-ai-có-trách-nhiệm)
+  - [9. Tiến độ và việc còn lại](#9-tiến-độ-và-việc-còn-lại)
+  - [10. Bắt đầu làm việc với repo](#10-bắt-đầu-làm-việc-với-repo)
 
 ## 1. Bài toán và giá trị của AI
 
