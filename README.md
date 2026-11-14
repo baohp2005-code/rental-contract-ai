@@ -212,10 +212,13 @@ Còn mở:
 ## 10. Bắt đầu làm việc với repo
 
 ```bash
-git clone <url-repo>
+git clone https://github.com/baohp2005-code/rental-contract-ai.git
 cd rental-contract-ai
-cp .env.example apps/api/.env   # điền ANTHROPIC_API_KEY, Google Cloud credentials
+npm install
+cp apps/mobile/.env.example apps/mobile/.env   # điền địa chỉ backend chung của nhóm
 ```
+
+Hướng dẫn đầy đủ (deploy backend lên Render, cài cho thành viên mới, lưu ý khi demo): [`docs/DEPLOY.md`](docs/DEPLOY.md). Phát triển backend trên máy mình: [`apps/api/README.md`](apps/api/README.md).
 
 Quy ước:
 

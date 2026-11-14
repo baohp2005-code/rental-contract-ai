@@ -29,17 +29,25 @@ const app = createApp({
   llm,
   knowledge,
   prompts: loadPrompts(config.promptsDir, knowledge),
-});
+}, { analyzePerHour: config.analyzePerHour, messagePerHour: config.messagePerHour });
 
 // 0.0.0.0 để điện thoại cùng Wi-Fi gọi được vào máy tính.
 serve({ fetch: app.fetch, port: config.port, hostname: '0.0.0.0' }, (info) => {
   console.log(`API chạy · LLM ${llm?.label ?? 'none (chế độ không AI: quy tắc + từ khóa)'}`);
-  console.log(`  Trên máy này:  http://localhost:${info.port}/health`);
-  // IP trong mạng nội bộ: điền vào EXPO_PUBLIC_API_URL để điện thoại cùng Wi-Fi gọi được.
-  const lan = Object.values(networkInterfaces())
-    .flat()
-    .filter((n) => n && n.family === 'IPv4' && !n.internal)
-    .map((n) => n!.address);
-  for (const ip of lan) console.log(`  Cho điện thoại: http://${ip}:${info.port}`);
+  if (config.publicUrl) {
+    // Chạy trên Render: cả nhóm điền địa chỉ này vào EXPO_PUBLIC_API_URL.
+    console.log(`  Địa chỉ công khai: ${config.publicUrl}`);
+  } else {
+    console.log(`  Trên máy này:  http://localhost:${info.port}/health`);
+    // IP trong mạng nội bộ: điền vào EXPO_PUBLIC_API_URL để điện thoại cùng Wi-Fi gọi được.
+    const lan = Object.values(networkInterfaces())
+      .flat()
+      .filter((n) => n && n.family === 'IPv4' && !n.internal)
+      .map((n) => n!.address);
+    for (const ip of lan) console.log(`  Cho điện thoại: http://${ip}:${info.port}`);
+  }
+  if (config.analyzePerHour > 0) {
+    console.log(`  Giới hạn mỗi IP: ${config.analyzePerHour} lượt /analyze, ${config.messagePerHour || 'không giới hạn'} lượt /message mỗi giờ`);
+  }
   console.log(`Checklist: ${knowledge.checklist.rules.length} quy tắc · dữ liệu: ${config.dataDir}`);
 });

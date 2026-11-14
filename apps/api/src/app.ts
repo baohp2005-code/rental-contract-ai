@@ -12,6 +12,7 @@ import { ApiFailure } from './pipeline/errors';
 import type { PageImage } from './pipeline/extract';
 import { composeMessage } from './pipeline/message';
 import { composeMessageOffline } from './pipeline/offline';
+import { rateLimit } from './rate-limit';
 
 const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
 
@@ -25,7 +26,14 @@ export function sniffImageType(data: Buffer): PageImage['mediaType'] | null {
   return null;
 }
 
-export function createApp(pipeline: Pipeline) {
+export type AppOptions = {
+  /** Số lượt /analyze tối đa mỗi giờ cho một IP. 0 = không giới hạn (mặc định khi chạy trên máy). */
+  analyzePerHour?: number;
+  /** Số lượt /message tối đa mỗi giờ cho một IP. */
+  messagePerHour?: number;
+};
+
+export function createApp(pipeline: Pipeline, options: AppOptions = {}) {
   const app = new Hono();
 
   app.use('*', cors());
@@ -40,6 +48,9 @@ export function createApp(pipeline: Pipeline) {
   });
 
   app.get('/health', (c) => c.json({ ok: true }));
+
+  app.use('/analyze', rateLimit(options.analyzePerHour ?? 0));
+  app.use('/message', rateLimit(options.messagePerHour ?? 0));
 
   app.post(
     '/analyze',

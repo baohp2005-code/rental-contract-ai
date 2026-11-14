@@ -1,3 +1,5 @@
+import { File } from 'expo-file-system';
+
 import {
   AnalyzeResponseSchema,
   ApiErrorSchema,
@@ -43,9 +45,12 @@ async function request(
   outer?.addEventListener('abort', onOuterAbort);
 
   let response: Response;
+  console.log(`[api] → ${init.method ?? 'GET'} ${url}`);
   try {
     response = await fetch(url, { ...init, signal: controller.signal });
-  } catch {
+  } catch (err) {
+    // In lỗi gốc ra terminal Expo, để biết iPhone/Android báo gì thay vì chỉ "không kết nối được".
+    console.warn(`[api] ✗ ${init.method ?? 'GET'} ${url}:`, err instanceof Error ? `${err.name}: ${err.message}` : err);
     if (timedOut) throw new ApiRequestError('timeout', 'Request timed out');
     if (outer?.aborted) throw new ApiRequestError('aborted', 'Request aborted');
     throw new ApiRequestError('network', 'Network request failed');
@@ -61,6 +66,7 @@ async function request(
     // Thân phản hồi không phải JSON: xử lý ở dưới theo mã trạng thái.
   }
 
+  console.log(`[api] ← ${response.status} ${url}`);
   if (!response.ok) {
     const parsed = ApiErrorSchema.safeParse(body);
     if (parsed.success) {
@@ -81,12 +87,10 @@ export function createHttpClient(baseUrl: string): ApiClient {
     async analyze(pages: CapturedPage[], options: AnalyzeOptions = {}) {
       const form = new FormData();
       pages.forEach((page, index) => {
-        // React Native nhận file trong FormData dưới dạng { uri, name, type }.
-        form.append('pages', {
-          uri: page.uri,
-          name: `page-${index + 1}.jpg`,
-          type: 'image/jpeg',
-        } as unknown as Blob);
+        // fetch của Expo (expo/fetch) không nhận kiểu cũ { uri, name, type } của
+        // React Native ("Unsupported FormDataPart implementation"). Dùng File của
+        // expo-file-system: nó có bytes() nên fetch đọc được nội dung ảnh.
+        form.append('pages', new File(page.uri) as unknown as Blob, `page-${index + 1}.jpg`);
       });
 
       options.onStep?.('upload');

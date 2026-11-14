@@ -7,7 +7,7 @@ export class ApiFailure extends Error {
   constructor(
     readonly code: ApiErrorCode,
     message: string,
-    readonly status: 400 | 413 | 422 | 500 | 502 = 422,
+    readonly status: 400 | 413 | 422 | 429 | 500 | 502 = 422,
     readonly pages?: number[],
   ) {
     super(message);

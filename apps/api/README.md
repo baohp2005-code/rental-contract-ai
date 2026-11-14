@@ -40,6 +40,10 @@ Dùng khi sửa prompt hoặc chạy eval:
 npm run analyze -w @rental/api -- data/samples/hd01-p1.jpg data/samples/hd01-p2.jpg --out out.json
 ```
 
+## Deploy
+
+Đưa lên Render bằng `render.yaml` ở gốc repo: xem [`docs/DEPLOY.md`](../../docs/DEPLOY.md). Trên mạng công khai nên đặt `RATE_LIMIT_ANALYZE_PER_HOUR` và `RATE_LIMIT_MESSAGE_PER_HOUR` để người lạ không gọi liên tục làm tốn tiền key (`render.yaml` đặt sẵn 20 và 60). Chạy trên máy thì mặc định không giới hạn.
+
 ## Lệnh
 
 | Lệnh (ở gốc repo) | Việc |
@@ -55,6 +59,7 @@ npm run analyze -w @rental/api -- data/samples/hd01-p1.jpg data/samples/hd01-p2.
 src/index.ts              Khởi động server, đọc .env
 src/app.ts                Các endpoint (Hono), nhận ảnh, trả lỗi đúng khuôn
 src/config.ts             Biến môi trường, đường dẫn data/ và prompts/
+src/rate-limit.ts         Giới hạn số lượt gọi mỗi giờ cho từng IP
 src/knowledge.ts          Đọc data/*.yaml và prompts/*.md
 src/ocr/vision.ts         B1 · Gọi Google Vision qua REST, bằng API key hoặc service account
 src/ocr/lines.ts          B1 · Ghép ký tự Vision thành dòng có mã p1-L01 + bbox 0..1
@@ -117,5 +122,4 @@ Cả hai trường hợp đều in cảnh báo `[B2]` ra terminal.
 
 - Chưa thử với key thật (cả Claude, OpenAI và Google). Lần chạy đầu cần xem log để chỉnh `max_tokens` và thời gian chờ.
 - Chưa che số CCCD và số điện thoại (kế hoạch N6).
-- Chưa deploy (Render, Railway hoặc Cloud Run).
 - Ngưỡng DEP-04 và UTL-01 chờ `data/market_norms.yaml`. Chưa có số thì B3 bỏ qua hai phần đó, riêng "giá điện theo chủ nhà quy định" vẫn luôn bị bắt.

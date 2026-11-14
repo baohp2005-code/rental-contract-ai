@@ -12,3 +12,5 @@ data/samples/raw/
 # Khóa Google Cloud: KHÔNG commit
 gcp-service-account.json
 *service-account*.json
+
+out.json

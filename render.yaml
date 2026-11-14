@@ -1,0 +1,40 @@
+# Cấu hình deploy backend lên Render (gói miễn phí). Xem docs/DEPLOY.md.
+# Key KHÔNG nằm ở đây: các mục có `sync: false` được điền trên trang Render.
+services:
+  - type: web
+    name: rental-contract-api
+    runtime: node
+    plan: free
+    region: singapore
+    # Chỉ cài thư viện của backend (không kéo Expo/React Native của app).
+    buildCommand: npm ci --workspace=@rental/api --include-workspace-root
+    startCommand: npm run start -w @rental/api
+    healthCheckPath: /health
+    autoDeploy: true
+    # Chỉ deploy lại khi đổi những phần backend dùng tới.
+    buildFilter:
+      paths:
+        - apps/api/**
+        - packages/shared/**
+        - data/**
+        - prompts/**
+        - package.json
+        - package-lock.json
+        - render.yaml
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # none = chế độ không AI. Có key OpenAI thì đổi thành openai trên trang Render.
+      - key: LLM_PROVIDER
+        value: none
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4.1-mini
+      - key: GOOGLE_CLOUD_VISION_API_KEY
+        sync: false
+      # Chặn người lạ gọi liên tục làm tốn tiền key.
+      - key: RATE_LIMIT_ANALYZE_PER_HOUR
+        value: "20"
+      - key: RATE_LIMIT_MESSAGE_PER_HOUR
+        value: "60"
