@@ -1,12 +1,34 @@
-# Mức "bình thường" ở Hà Nội. ĐIỀN SAU KHI KHẢO SÁT, không tự bịa số.
-# LLM chỉ được dùng số trong file này cho trường what_is_common.
-source: "Khảo sát của nhóm, ngày ..., n = ... người trả lời"
-deposit_months_typical: null      # ví dụ 1
-deposit_months_max: null          # ngưỡng cảnh báo DEP-04
-electricity_vnd_per_kwh_typical: null
-electricity_max: null             # ngưỡng cảnh báo UTL-01
+# Mức tham chiếu cho hợp đồng thuê trọ, ưu tiên Hà Nội. Cập nhật: 14/11/2026.
+# Nguồn chi tiết: docs/PHAP_LY.md
+# Nhãn trong chú thích:
+#   [LUẬT]        số lấy từ văn bản pháp luật hoặc biểu giá nhà nước
+#   [QUY TẮC APP] quy tắc tham khảo của app, KHÔNG có căn cứ pháp lý hay số liệu khảo sát
+#   [GIAI THOẠI]  báo chí kể lại, không có cỡ mẫu. KHÔNG dùng làm "mức phổ biến"
+# LLM chỉ được dùng số trong file này cho trường what_is_common. Trường null = không có dữ liệu.
+# HẠN DÙNG: sửa electricity_max khi có biểu giá điện mới hoặc khi VAT 8% hết hạn (01/01/2027).
+source: "Tổng hợp văn bản pháp luật và báo chí đến 14/11/2026. CHƯA có khảo sát của nhóm (n = 0)."
+
+deposit_months_typical: null   # Không có khảo sát 2025–2026. [GIAI THOẠI] VnExpress 29/8/2025: một tân SV Hà Nội cọc 1 tháng.
+deposit_months_max: 2          # [QUY TẮC APP] Luật không đặt trần tiền cọc (BLDS Đ328). Trên 2 tháng thì gợi ý hỏi lại.
+
+electricity_vnd_per_kwh_typical: null  # Cố ý để trống. Báo chí ghi nhận mức hay gặp 3.500–5.000 đ/kWh (Tuổi Trẻ 03/5/2026), cao hơn mức quy định.
+electricity_max: 2472          # [LUẬT] Bậc 2 (101–200 kWh) = 2.289 đ/kWh chưa VAT (QĐ 2892/QĐ-BCT, từ 01/11/2026;
+                               # TT 60/2025/TT-BCT Đ12 k5 điểm c) × VAT 8% (đến 31/12/2026). Từ 01/01/2027 nếu VAT 10%: 2518.
+                               # Áp cho thuê dưới 12 tháng, chủ nhà chưa kê khai đủ người. Có định mức thì giá có thể khác: hỏi hóa đơn.
+
 water:
-  per_person_vnd_typical: null
-  per_m3_vnd_typical: null
-service_fee_vnd_typical: null
-notice_days_typical: null
+  per_person_vnd_typical: null # [GIAI THOẠI] khoảng 100.000 đ/người/tháng (Hà Đông, Tuổi Trẻ 05/2026). Không có trần giá nước trọ.
+  per_m3_vnd_typical: null     # Không có số liệu về mức chủ trọ thu. Giá nhà nước xem reference.water bên dưới.
+
+service_fee_vnd_typical: null  # Không có số liệu đáng tin. Không có quy định trần phí dịch vụ hay internet.
+notice_days_typical: 30        # [LUẬT – mặc định] Luật Nhà ở 2023 Đ172 k4: báo trước ít nhất 30 ngày, trừ thỏa thuận khác.
+                               # Đây là mặc định của luật, KHÔNG phải số liệu khảo sát.
+
+reference:                     # Schema hiện không đọc khối này. Chỉ để LLM giải thích, KHÔNG dùng cho what_is_common.
+  electricity_tier2_vnd_ex_vat: 2289   # [LUẬT] QĐ 2892/QĐ-BCT
+  vat_rate_until_2026_12_31: 0.08      # [LUẬT] NQ 204/2025/QH15, NĐ 174/2025
+  water:
+    hanoi_tier1_vnd_per_m3_ex_vat: 8500  # [LUẬT] QĐ 3541/QĐ-UBND, 10 m³ đầu/hộ; chưa VAT 5% và phí BVMT
+    hcm_tier1_vnd_per_m3_ex_vat: 6700    # [LUẬT] 4 m³ đầu/người; chưa VAT 5% và phí thoát nước 30%
+  garbage_hanoi_ward_vnd_per_person: 10000  # [LUẬT] Q1–Q2/2026, tăng dần đến 30.000 đ vào Q3–Q4/2027
+  rent_index_q4_2025_yoy_pct: 7.47     # Cục Thống kê, cả nước, không riêng phòng trọ

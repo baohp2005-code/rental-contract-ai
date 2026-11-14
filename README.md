@@ -78,7 +78,7 @@ apps/mobile/          # Expo app
 apps/api/             # Backend Hono
 packages/shared/      # Zod schema, code kiểm tra theo quy tắc (B3)
 data/checklist.yaml   # Checklist quy tắc rủi ro
-data/market_norms.yaml# Mức "bình thường" (điền sau khảo sát)
+data/market_norms.yaml# Mức tham chiếu: ngưỡng theo luật + quy tắc app (14/11/2026)
 data/samples/         # Hợp đồng mẫu ĐÃ che thông tin (raw/ bị gitignore)
 eval/                 # Bộ kiểm thử + nhãn đúng
 prompts/              # 3 file prompt
@@ -90,7 +90,9 @@ docs/                 # Tài liệu thêm (slide, ảnh demo...)
 Chất lượng app phụ thuộc vào checklist nhiều hơn vào code.
 
 - [ ] Thu 10–20 hợp đồng thật, có cả bản viết tay, che thông tin cá nhân. Dùng để kiểm thử và demo.
-- [ ] Khảo sát mức "bình thường" ở Hà Nội: cọc mấy tháng, điện bao nhiêu một số, nước tính thế nào, phí dịch vụ. Lưu vào [`data/market_norms.yaml`](data/market_norms.yaml).
+- [x] Ngưỡng theo luật cho [`data/market_norms.yaml`](data/market_norms.yaml) và căn cứ pháp lý cho [`data/checklist.yaml`](data/checklist.yaml) (14/11/2026, xem `docs/PHAP_LY.md`). Cần sinh viên luật hoặc mentor duyệt.
+- [ ] Khảo sát mức "bình thường" ở Hà Nội: cọc mấy tháng, nước tính thế nào, phí dịch vụ. Hiện các trường `*_typical` còn `null` vì không có khảo sát đáng tin.
+- [ ] Ngày 01/01/2027: sửa `electricity_max` nếu VAT điện trở lại 10% (2472 → 2518).
 - [ ] Hoàn thiện checklist 15–20 quy tắc trong [`data/checklist.yaml`](data/checklist.yaml).
 - [ ] Nhờ mentor hoặc sinh viên luật kiểm tra căn cứ pháp lý.
 

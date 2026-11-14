@@ -134,4 +134,4 @@ Giới hạn: B2 và bước đọc lại dùng cùng một model, nên hai lầ
 
 - Chưa thử với key thật (cả Claude, OpenAI và Google). Lần chạy đầu cần xem log để chỉnh `max_tokens` và thời gian chờ.
 - Chưa che số CCCD và số điện thoại (kế hoạch N6).
-- Ngưỡng DEP-04 và UTL-01 chờ `data/market_norms.yaml`. Chưa có số thì B3 bỏ qua hai phần đó, riêng "giá điện theo chủ nhà quy định" vẫn luôn bị bắt.
+- Ngưỡng DEP-04 (cọc tối đa 2 tháng, quy tắc tham khảo của app) và UTL-01 (2.472đ/kWh, giá bậc 2 có VAT 8%) lấy từ `data/market_norms.yaml`. Trường nào để `null` thì B3 bỏ qua, riêng "giá điện theo chủ nhà quy định" vẫn luôn bị bắt. Hợp đồng từ 12 tháng thì UTL-01 chỉ gợi ý hỏi cách tính, vì chủ nhà có thể đã kê khai định mức.

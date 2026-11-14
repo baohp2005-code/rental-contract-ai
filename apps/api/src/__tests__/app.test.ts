@@ -97,9 +97,9 @@ const riskAnswer = {
   ],
 };
 
-function setup(llmAnswers: Record<string, unknown>, ocrPages: OcrLine[][] = [PAGE1]) {
+function setup(llmAnswers: Record<string, unknown>, ocrPages: OcrLine[][] = [PAGE1], k = knowledge) {
   const { llm, calls } = fakeLlm(llmAnswers);
-  const app = createApp({ ocr: fakeOcr(ocrPages), llm, knowledge, prompts });
+  const app = createApp({ ocr: fakeOcr(ocrPages), llm, knowledge: k, prompts });
   return { app, calls };
 }
 
@@ -137,8 +137,8 @@ describe('POST /analyze', () => {
     const trm = body.flags.find((f) => f.rule_id === 'TRM-02')!;
     expect(trm).toMatchObject({ type: 'missing', line_ids: [], quote: '' });
 
-    // Chưa có số liệu khảo sát → what_is_common phải rỗng, không để LLM bịa.
-    expect(body.flags.every((f) => f.what_is_common === '')).toBe(true);
+    // Đã có market_norms → giữ what_is_common của LLM (prompt bắt chỉ lấy số từ file này).
+    expect(body.flags.find((f) => f.rule_id === 'DEP-02')!.what_is_common).toBe('Thường cọc 1 tháng');
 
     // B2 nhận ảnh + dòng OCR; B4 nhận hợp đồng đã sửa và kết quả B3.
     expect(calls.map((c) => c.step)).toEqual(['B2', 'B4']);
@@ -148,6 +148,16 @@ describe('POST /analyze', () => {
     expect(b4.type === 'text' && b4.text).toContain('[p1-L01] HỢP ĐỒNG THUÊ PHÒNG TRỌ');
     expect(b4.type === 'text' && b4.text).toContain('"rule_id":"UTL-01"');
     expect(calls[1].system).toContain('DEP-01');
+  });
+
+  it('market_norms toàn null → what_is_common phải rỗng, không để LLM bịa', async () => {
+    const empty = {
+      ...knowledge,
+      norms: { source: null, deposit_months_max: null, electricity_max: null, notice_days_typical: null },
+    };
+    const { app } = setup({ B2: extractAnswer, B4: riskAnswer }, [PAGE1], empty);
+    const body = AnalyzeResponseSchema.parse(await (await app.request('/analyze', { method: 'POST', body: form(1) })).json());
+    expect(body.flags.every((f) => f.what_is_common === '')).toBe(true);
   });
 
   it('trang không có chữ → image_unreadable kèm số trang, không gọi LLM', async () => {

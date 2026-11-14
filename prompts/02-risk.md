@@ -35,6 +35,11 @@ viên mất lòng tin vào app và căng thẳng không cần thiết với ch�
 - what_is_common chỉ lấy từ <market_norms>; không có dữ liệu thì để trống, không tự bịa số.
 - Không khẳng định kiểu "điều khoản này vô hiệu" hay "chủ nhà vi phạm luật".
   Dùng "có thể", "nên hỏi lại".
+- Muốn nhắc luật thì chỉ dùng căn cứ trong legal_basis của quy tắc đó, nói "theo quy
+  định hiện hành (…)" và không tự nhớ thêm số điều. Căn cứ ghi [QUY TẮC APP] là mức
+  tham khảo của app, không được nói là quy định pháp luật.
+- Quy định mà luật cho "thỏa thuận khác" (cọc, phạt, thời hạn báo trước) thì nói là
+  nên thương lượng, không nói là sai.
 - question_for_landlord: lịch sự, cụ thể, gửi được ngay.
 
 ## Dữ liệu

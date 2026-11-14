@@ -74,11 +74,16 @@ export const AUTO_CHECKS: Record<string, AutoCheck> = {
     }
     const max = norms.electricity_max;
     if (max == null) return skip('Chưa có ngưỡng electricity_max trong market_norms.yaml');
+    // Ngưỡng là giá bậc 2 cho người thuê dưới 12 tháng. Thuê từ 12 tháng mà chủ nhà
+    // kê khai định mức theo số người thì giá bình quân có thể cao hơn hợp lệ.
+    const longLease = terms.term_months.status === 'found' && (terms.term_months.value ?? 0) >= 12;
     return {
       triggered: e.value > max,
       checked: true,
-      flag_type: 'risky',
-      reason: `Giá điện ${vnd(e.value)}/số; ngưỡng ${vnd(max)}/số.`,
+      flag_type: longLease ? 'unclear' : 'risky',
+      reason: longLease
+        ? `Giá điện ${vnd(e.value)}/số, cao hơn ${vnd(max)}/số (giá cho người thuê dưới 12 tháng). Hợp đồng ${terms.term_months.value} tháng: nếu chủ nhà đã kê khai định mức theo số người thì giá có thể khác, nên hỏi cách tính và xin xem hóa đơn, không khẳng định là thu sai.`
+        : `Giá điện ${vnd(e.value)}/số; ngưỡng ${vnd(max)}/số (giá điện quy định cho người thuê dưới 12 tháng, đã gồm VAT).`,
       line_ids: e.line_ids,
     };
   },

@@ -11,7 +11,7 @@ import { loadKnowledge } from '../knowledge';
 import { found, line, notFound, terms, unclear } from './helpers';
 
 const knowledge = loadKnowledge(path.join(REPO_ROOT, 'data'));
-const NO_NORMS = knowledge.norms;
+const NO_NORMS = { ...knowledge.norms, deposit_months_max: null, electricity_max: null };
 const NORMS = { ...knowledge.norms, deposit_months_max: 1, electricity_max: 4000 };
 
 describe('B3 · runRuleChecks', () => {
@@ -57,6 +57,40 @@ describe('B3 · runRuleChecks', () => {
       ),
     );
     expect(r['UTL-01']).toMatchObject({ triggered: true, flag_type: 'unclear', line_ids: ['p1-L13'] });
+  });
+
+  it('ngưỡng thật trong market_norms.yaml: cọc tối đa 2 tháng, điện theo giá bậc 2 có VAT', () => {
+    expect(knowledge.norms.deposit_months_max).toBe(2);
+    expect(knowledge.norms.electricity_max).toBe(2472);
+    expect(knowledge.norms.notice_days_typical).toBe(30);
+    const r = byId(
+      runRuleChecks(
+        terms({ rent_vnd: found(3_000_000), deposit_vnd: found(6_000_000), electricity_vnd_per_kwh: found(4000) }),
+        knowledge.checklist,
+        knowledge.norms,
+      ),
+    );
+    expect(r['DEP-04'].triggered).toBe(false); // đúng 2 tháng: không bắt
+    expect(r['UTL-01']).toMatchObject({ triggered: true, flag_type: 'risky' });
+  });
+
+  it('UTL-01: hợp đồng từ 12 tháng thì chỉ gợi ý hỏi cách tính (có thể đã kê khai định mức)', () => {
+    const r = byId(
+      runRuleChecks(
+        terms({ electricity_vnd_per_kwh: found(3000), term_months: found(12) }),
+        knowledge.checklist,
+        knowledge.norms,
+      ),
+    );
+    expect(r['UTL-01']).toMatchObject({ triggered: true, flag_type: 'unclear' });
+    expect(r['UTL-01'].reason).toContain('kê khai định mức');
+  });
+
+  it('checklist: mọi quy tắc có căn cứ hoặc nhãn [QUY TẮC APP], mã không trùng', () => {
+    const ids = knowledge.checklist.rules.map((r) => r.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const id of ['TRM-03', 'OTH-05', 'OTH-06', 'OTH-07', 'RNT-03', 'UTL-03']) expect(ids).toContain(id);
+    for (const rule of knowledge.checklist.rules) expect(rule.legal_basis, rule.id).toBeTruthy();
   });
 
   it('UTL-01: giá điện vượt ngưỡng', () => {

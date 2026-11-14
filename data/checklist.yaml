@@ -1,118 +1,198 @@
-# Checklist quy tắc rủi ro. Bản khởi đầu, nhóm sửa trực tiếp.
+# Checklist quy tắc rủi ro. Nhóm sửa trực tiếp.
+# Căn cứ pháp lý đối chiếu ngày 14/11/2026, xem docs/PHAP_LY.md.
+# CẦN sinh viên luật hoặc mentor duyệt trước khi hiển thị căn cứ cho người dùng.
+#
 # severity: high | medium | low
 # auto: true = bước B3 kiểm tra được bằng code từ key_terms; false = để LLM đánh giá
-# Căn cứ pháp lý: CẦN mentor/sinh viên luật kiểm tra trước khi dùng trong app.
+# legal_basis: căn cứ kèm mức xác minh trong ngoặc:
+#   (VB gốc)      đã đọc văn bản gốc trên cổng nhà nước
+#   (toàn văn KCT) bản toàn văn không chính thức, khớp số điều nhưng chưa đối chiếu Công báo
+#   (báo chí)      báo, tạp chí, bài hỏi đáp pháp luật
+#   [QUY TẮC APP]  không có căn cứ pháp lý, là ngưỡng tham khảo của app
+# Viết giải thích bằng "có thể", "theo quy định hiện hành"; không nói "vô hiệu",
+# "trái luật", "phạm tội". Không tự nhớ số điều ngoài legal_basis.
 rules:
   - id: DEP-01
     category: deposit
     severity: high
     auto: false
     description: Không ghi điều kiện hoặc thời hạn trả cọc
-    why: Không có mốc trả cọc thì chủ nhà có thể giữ cọc lâu hoặc không trả.
+    why: Luật không đặt hạn trả cọc, nên nếu hợp đồng không ghi thì chủ nhà có thể giữ cọc lâu hoặc không trả.
+    legal_basis: "BLDS 2015 Đ328 k2 (toàn văn KCT): hợp đồng được thực hiện thì cọc được trả lại hoặc trừ vào tiền phải trả, trừ thỏa thuận khác. Luật Nhà ở 2023 Đ163 (VB gốc): nội dung hợp đồng."
     question: "Anh/chị cho em hỏi khi hết hợp đồng thì sau bao nhiêu ngày em nhận lại cọc, và trong trường hợp nào thì bị trừ cọc ạ?"
   - id: DEP-02
     category: deposit
     severity: high
     auto: false
     description: '"Mất cọc trong mọi trường hợp" khi trả phòng sớm, kể cả đã báo trước'
-    why: Sinh viên hay phải chuyển chỗ giữa chừng; điều khoản này có thể làm mất toàn bộ cọc.
+    why: Luật cho hai bên tự thỏa thuận về cọc, nên điều khoản ghi rõ thì thường được công nhận. Sinh viên hay phải chuyển chỗ giữa chừng nên có thể mất toàn bộ cọc; cần thương lượng trước khi ký.
+    legal_basis: "BLDS 2015 Đ328 k2 (toàn văn KCT): bên đặt cọc mất cọc khi từ chối thực hiện hợp đồng, trừ thỏa thuận khác. BLDS Đ405 k3 (toàn văn KCT): điều khoản mẫu loại bỏ quyền lợi chính đáng của bên kia có thể không có hiệu lực. Luật Nhà ở 2023 Đ172 k3 (VB gốc): các trường hợp người thuê được đơn phương chấm dứt."
     question: "Nếu em báo trước 30 ngày khi chuyển đi sớm thì em có được nhận lại cọc không ạ?"
   - id: DEP-03
     category: deposit
     severity: high
     auto: false
     description: Được trừ cọc vì "hư hỏng" nhưng không có biên bản bàn giao hiện trạng
-    why: Không có biên bản thì không chứng minh được hư hỏng có từ trước.
+    why: Người thuê chỉ phải trả phòng như lúc nhận, trừ hao mòn tự nhiên. Không có biên bản kèm ảnh thì khó chứng minh hư hỏng có từ trước.
+    legal_basis: "BLDS 2015 Đ482 k1, Đ479 k1 (toàn văn KCT): trả lại tài sản như khi nhận, trừ hao mòn tự nhiên. Luật không bắt buộc có biên bản."
     question: "Mình có thể lập biên bản bàn giao kèm ảnh hiện trạng phòng khi em nhận phòng không ạ?"
   - id: DEP-04
     category: deposit
     severity: medium
     auto: true
-    description: Cọc cao bất thường so với mặt bằng
-    threshold: "deposit_months > market_norms.deposit_months_max  # ngưỡng: CHƯA CHỐT"
-    why: Cọc càng cao thì rủi ro mất tiền càng lớn.
+    description: Cọc cao hơn mức tham khảo
+    threshold: "deposit_months > market_norms.deposit_months_max"
+    why: Cọc càng cao thì rủi ro mất tiền càng lớn. Luật không giới hạn tiền cọc, nên đây là mức tham khảo để thương lượng, không phải vi phạm.
+    legal_basis: "[QUY TẮC APP] Không có trần tiền cọc trong BLDS 2015 hay Luật Nhà ở 2023."
     question: "Anh/chị có thể giảm cọc xuống 1 tháng tiền nhà được không ạ?"
   - id: UTL-01
     category: utilities
     severity: high
     auto: true
     description: Ghi "giá điện theo chủ nhà quy định" hoặc cao hơn mức quy định cho người thuê
-    threshold: "electricity_vnd_per_kwh > market_norms.electricity_max  # ngưỡng: CHƯA CHỐT"
-    why: Giá điện không cố định có thể tăng bất kỳ lúc nào.
-    question: "Giá điện cụ thể là bao nhiêu một số và có ghi cố định trong hợp đồng được không ạ?"
+    threshold: "electricity_vnd_per_kwh > market_norms.electricity_max"
+    why: Giá điện không ghi số thì có thể tăng bất kỳ lúc nào. Thuê dưới 12 tháng mà chủ nhà chưa kê khai đủ người thì giá điện theo quy định là giá bậc 2. Hợp đồng từ 12 tháng có kê khai định mức thì giá bình quân có thể cao hơn, nên hỏi cách tính và xin xem hóa đơn.
+    legal_basis: "TT 60/2025/TT-BCT Đ12 k5 điểm c (toàn văn KCT); QĐ 2892/QĐ-BCT, áp dụng từ 01/11/2026 (báo chí); NĐ 133/2026/NĐ-CP Đ13 k7, từ 25/5/2026: chủ nhà thu tiền điện cao hơn quy định có thể bị xử phạt (báo chí)."
+    question: "Giá điện cụ thể là bao nhiêu một số, tính theo công tơ riêng hay hóa đơn chung, và có ghi cố định trong hợp đồng được không ạ?"
   - id: UTL-02
     category: utilities
     severity: medium
     auto: false
     description: Phí dịch vụ không ghi gồm những gì; nước tính theo người hay theo khối không rõ
-    why: Phí mơ hồ dễ phát sinh tranh cãi hàng tháng.
+    why: Không có trần phí dịch vụ, nên phí mơ hồ dễ phát sinh tranh cãi hàng tháng. Điều khoản mẫu không rõ ràng thường được hiểu theo hướng có lợi cho người thuê.
+    legal_basis: "BLDS 2015 Đ405 k2 (toàn văn KCT). Không có quy định giá nước riêng cho người thuê ở cấp quốc gia (báo chí)."
     question: "Phí dịch vụ gồm những khoản nào, và nước tính theo người hay theo đồng hồ ạ?"
+  - id: UTL-03
+    category: utilities
+    severity: medium
+    auto: false
+    description: Tiền điện tính khoán hoặc chia theo cách không gắn với công tơ hay hóa đơn, không cho người thuê xem hóa đơn
+    why: Tổng tiền điện chủ nhà thu không được vượt hóa đơn hằng tháng. Không xem được hóa đơn thì người thuê không kiểm tra được mình trả đúng hay không.
+    legal_basis: "TT 60/2025/TT-BCT Đ12 k5 (toàn văn KCT); NĐ 133/2026/NĐ-CP Đ13 k7 (báo chí)."
+    question: "Tiền điện tính theo công tơ riêng của phòng hay chia hóa đơn chung ạ? Em xem hóa đơn hằng tháng được không ạ?"
   - id: RNT-01
     category: rent
     severity: high
     auto: false
     description: Chủ nhà được tăng giá bất kỳ lúc nào, không báo trước
-    why: Tiền thuê có thể tăng giữa hợp đồng mà người thuê không kịp chuẩn bị.
+    why: Tiền thuê có thể tăng giữa hợp đồng mà người thuê không kịp chuẩn bị. Mức tăng định trước (ví dụ x%/năm) thì không phải vấn đề.
+    legal_basis: "Luật Nhà ở 2023 Đ170 k1–2 (VB gốc): giá thuê do hai bên thỏa thuận; trong thời hạn thuê chỉ điều chỉnh khi đã cải tạo nhà với sự đồng ý của bên thuê và thời hạn còn lại từ 1/3 trở xuống. Đ172 k3 b (VB gốc): người thuê được chấm dứt khi bị tăng giá bất hợp lý hoặc không báo trước."
     question: "Trong thời hạn hợp đồng giá thuê có giữ nguyên không, nếu tăng thì báo trước bao lâu ạ?"
   - id: RNT-02
     category: rent
     severity: medium
     auto: false
     description: Phạt chậm trả quá nặng
-    why: Mức phạt cao có thể vượt xa số tiền chậm trả.
+    why: Mức phạt cao có thể vượt xa số tiền chậm trả. Ví dụ chậm 10 ngày với tiền thuê 3 triệu, lãi theo mức trần 20%/năm chỉ khoảng 16.000đ. Luật để hai bên tự thỏa thuận mức phạt, nên chỉ nói là mất cân bằng, không nói vượt trần.
+    legal_basis: "BLDS 2015 Đ357, Đ468 (toàn văn KCT): lãi chậm trả tối đa 20%/năm. BLDS Đ418 (toàn văn KCT): mức phạt vi phạm do các bên thỏa thuận."
     question: "Nếu em chậm vài ngày thì mức phạt cụ thể là bao nhiêu ạ?"
+  - id: RNT-03
+    category: rent
+    severity: low
+    auto: false
+    description: Giá thuê "chưa gồm thuế" hoặc người thuê phải chịu thuế cho thuê nhà
+    why: Cá nhân cho thuê có doanh thu từ 1 tỷ đồng/năm trở xuống không phải nộp thuế GTGT và TNCN, nên phần lớn chủ trọ không có khoản thuế nào để chuyển cho người thuê.
+    legal_basis: "NĐ 141/2026/NĐ-CP, áp dụng từ 01/01/2026 (báo chí)."
+    question: "Khoản thuế ghi trong hợp đồng là thuế gì và tính thế nào ạ?"
   - id: REP-01
     category: repairs
     severity: high
     auto: false
     description: Người thuê chịu mọi khoản sửa chữa, kể cả hư hỏng lớn hoặc hao mòn tự nhiên
-    why: Hỏng điều hòa, bình nóng lạnh có thể tốn vài triệu đồng.
+    why: Theo quy định chung, chủ nhà sửa hư hỏng, người thuê chỉ tự sửa hư hỏng nhỏ theo thói quen và không chịu hao mòn tự nhiên. Hỏng điều hòa, bình nóng lạnh có thể tốn vài triệu đồng.
+    legal_basis: "BLDS 2015 Đ477 k1, k3 và Đ479 k1 (toàn văn KCT). Luật Nhà ở 2023 Đ132 k4 và Đ172 k3 a (VB gốc): người thuê được yêu cầu bảo trì, được chấm dứt khi chủ nhà không sửa hư hỏng nặng."
     question: "Những hư hỏng do thiết bị cũ hoặc hao mòn tự nhiên thì bên nào chịu chi phí sửa ạ?"
   - id: TRM-01
     category: termination
     severity: high
     auto: false
     description: Chủ nhà được tự ý chấm dứt không cần báo trước, còn người thuê thì mất cọc
-    why: Bất cân xứng; người thuê có thể mất chỗ ở đột ngột.
+    why: Theo Luật Nhà ở, trong thời hạn thuê chủ nhà chỉ được đơn phương chấm dứt ở một số trường hợp luật liệt kê và phải báo trước. Điều khoản cho chủ nhà lấy lại phòng bất cứ lúc nào khiến người thuê có thể mất chỗ ở đột ngột.
+    legal_basis: "Luật Nhà ở 2023 Đ172 k1, k2, k4 và Đ173 (VB gốc). Hiến pháp 2013 Đ22 (VB gốc)."
     question: "Nếu anh/chị cần lấy lại phòng trước hạn thì sẽ báo trước bao lâu và hoàn cọc thế nào ạ?"
   - id: TRM-02
     category: termination
     severity: medium
     auto: true
     description: Không ghi thời hạn báo trước
-    why: Không rõ phải báo trước bao lâu thì dễ bị coi là vi phạm.
+    why: Không ghi thì theo luật mỗi bên phải báo trước ít nhất 30 ngày; nên ghi rõ để tránh tranh cãi.
+    legal_basis: "Luật Nhà ở 2023 Đ172 k4 (VB gốc): báo trước ít nhất 30 ngày, trừ thỏa thuận khác. Đ171 k2 a (VB gốc): hợp đồng không xác định thời hạn chấm dứt sau 90 ngày kể từ khi chủ nhà thông báo."
     question: "Khi muốn chấm dứt hợp đồng thì mỗi bên cần báo trước bao nhiêu ngày ạ?"
+  - id: TRM-03
+    category: termination
+    severity: high
+    auto: false
+    description: Chủ nhà được chấm dứt, khóa cửa hoặc dọn đồ khi người thuê chậm tiền dưới 3 tháng
+    why: Theo Luật Nhà ở, chủ nhà chỉ được đơn phương chấm dứt vì nợ tiền thuê khi nợ từ 3 tháng trở lên. Tự ý khóa cửa hay đuổi người khỏi chỗ ở có thể vi phạm pháp luật.
+    legal_basis: "Luật Nhà ở 2023 Đ172 k1, k2 b (VB gốc); BLHS 2015 Đ158 (báo chí)."
+    question: "Nếu em chậm tiền phòng vài ngày thì anh/chị xử lý thế nào, có báo trước bằng văn bản không ạ?"
   - id: OTH-01
     category: other
     severity: medium
     auto: false
     description: Không có danh sách đồ đạc hoặc biên bản hiện trạng
-    why: Dễ bị quy trách nhiệm cho đồ đạc hỏng hoặc thiếu.
+    why: Dễ bị quy trách nhiệm cho đồ đạc hỏng hoặc thiếu khi trả phòng.
+    legal_basis: "BLDS 2015 Đ482 k1 (toàn văn KCT); Luật Nhà ở 2023 Đ163 (VB gốc)."
     question: "Mình có thể ghi danh sách đồ đạc trong phòng vào hợp đồng không ạ?"
   - id: OTH-02
     category: other
-    severity: medium
+    severity: high
     auto: false
     description: Chủ nhà được vào phòng bất kỳ lúc nào
-    why: Ảnh hưởng quyền riêng tư và an toàn tài sản.
+    why: Chỗ ở được pháp luật bảo vệ, không ai được tự ý vào khi người ở chưa đồng ý. Điều khoản này ảnh hưởng quyền riêng tư và an toàn tài sản.
+    legal_basis: "Hiến pháp 2013 Đ22 k2 (VB gốc); Luật Nhà ở 2023 Đ132 k1 (VB gốc): bảo trì, cải tạo cần bên thuê đồng ý."
     question: "Khi cần vào phòng, anh/chị có thể báo trước cho em được không ạ?"
   - id: OTH-03
     category: other
     severity: medium
     auto: false
-    description: Không rõ người cho thuê có phải chủ nhà thật không (có thể là người cho thuê lại)
-    why: Người cho thuê lại không có quyền thì hợp đồng có thể không được chủ nhà công nhận.
-    question: "Anh/chị là chủ nhà hay đang cho thuê lại ạ? Em có thể xem giấy tờ liên quan không ạ?"
+    description: Không rõ người cho thuê có phải chủ nhà thật không (có thể là người cho thuê lại), hoặc thiếu họ tên, số định danh của bên cho thuê
+    why: Người cho thuê lại phải được chủ nhà đồng ý, nếu không hợp đồng có thể không được công nhận. Thiếu thông tin bên cho thuê cũng là dấu hiệu hay gặp của lừa đảo "phòng ảo" nhận cọc giữ phòng rồi cắt liên lạc.
+    legal_basis: "BLDS 2015 Đ475 (toàn văn KCT); Luật Nhà ở 2023 Đ170 k4, Đ172 k2 đ (VB gốc): chỉ được cho thuê lại khi bên cho thuê đồng ý."
+    question: "Anh/chị là chủ nhà hay đang cho thuê lại ạ? Em có thể xem giấy tờ nhà hoặc văn bản đồng ý cho thuê lại không ạ?"
   - id: OTH-04
     category: other
-    severity: low
+    severity: medium
     auto: false
     description: Không nhắc tới đăng ký tạm trú
-    why: Sinh viên cần đăng ký tạm trú; cần chủ nhà hỗ trợ giấy tờ.
+    why: Sinh viên ở từ 30 ngày phải đăng ký tạm trú, không đăng ký có thể bị phạt. Tạm trú còn là điều kiện để được tính định mức điện (hợp đồng từ 12 tháng) và định mức nước ở TP.HCM.
+    legal_basis: "Luật Cư trú 2020 Đ27, Đ28 (toàn văn KCT); NĐ 154/2024/NĐ-CP Đ5 (toàn văn KCT): hợp đồng dùng để tạm trú không cần công chứng; NĐ 282/2025/NĐ-CP (báo chí)."
     question: "Anh/chị có hỗ trợ em đăng ký tạm trú không ạ?"
+  - id: OTH-05
+    category: other
+    severity: medium
+    auto: false
+    description: Cấm hoặc không hỗ trợ đăng ký tạm trú, thu phí "làm tạm trú", bắt người thuê tự chịu phạt tạm trú
+    why: Đăng ký tạm trú là nghĩa vụ của sinh viên và luật cấm cản trở việc đăng ký cư trú. Có thể tự đăng ký trên VNeID.
+    legal_basis: "Luật Cư trú 2020 Đ7, Đ27 (toàn văn KCT); NĐ 282/2025/NĐ-CP (báo chí)."
+    question: "Anh/chị xác nhận giúp em đăng ký tạm trú trên VNeID được không ạ? Có mất khoản phí nào không ạ?"
+  - id: OTH-06
+    category: other
+    severity: medium
+    auto: false
+    description: Giữ CCCD gốc, thu ảnh CCCD không nói rõ mục đích hoặc thời gian lưu, được chia sẻ thông tin người thuê cho bên thứ ba
+    why: Dữ liệu cá nhân được bảo vệ theo luật từ 01/01/2026. Thủ tục tạm trú không cần chủ nhà giữ giấy tờ đã có trên VNeID.
+    legal_basis: "Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15; NĐ 356/2025/NĐ-CP; TT 116/2026/TT-BCA (báo chí). Chưa xác minh điều cấm cụ thể việc giữ CCCD gốc."
+    question: "Anh/chị giữ ảnh CCCD của em để làm gì và bao lâu thì xóa ạ? Em có thể không để lại CCCD gốc được không ạ?"
+  - id: OTH-07
+    category: other
+    severity: medium
+    auto: false
+    description: Người thuê chịu toàn bộ trách nhiệm cháy nổ, hoặc không ghi ai trang bị và bảo dưỡng thiết bị phòng cháy
+    why: Cháy nhà trọ gây hậu quả rất nặng. Nên biết tòa nhà có bình chữa cháy, báo cháy, lối thoát nạn thứ hai không và ai chịu trách nhiệm.
+    legal_basis: "[QUY TẮC APP] Chưa có căn cứ riêng cho nhà trọ; Luật PCCC và CNCH 2024 Đ21 chỉ điều chỉnh nhà ở kết hợp kinh doanh (báo chí)."
+    question: "Tòa nhà có bình chữa cháy, báo cháy và lối thoát nạn thứ hai không, ai chịu trách nhiệm bảo dưỡng ạ?"
 
-legal_refs:  # CẦN KIỂM TRA số điều và hiệu lực
-  - Bộ luật Dân sự 2015, Điều 328 (đặt cọc); hợp đồng thuê tài sản từ Điều 472
-  - Luật Nhà ở 2023
-  - Luật Cư trú (đăng ký tạm trú)
-  - Quy định của Bộ Công Thương về giá điện cho người thuê nhà
+# KHÔNG cảnh báo các điểm sau (đã kiểm tra, không có căn cứ):
+# - Hợp đồng không công chứng: Luật Nhà ở 2023 Đ164 k2 không bắt buộc công chứng hợp đồng thuê nhà ở.
+# - Phòng dưới 8 hoặc 15 m²/người: ngưỡng diện tích chỉ áp dụng cho đăng ký thường trú, không áp dụng cho tạm trú.
+# - Chủ trọ chưa lập doanh nghiệp: cá nhân kinh doanh bất động sản quy mô nhỏ không phải thành lập doanh nghiệp.
+
+legal_refs:  # Đối chiếu ngày 14/11/2026. Quốc hội đang thảo luận Luật Nhà ở thay thế: số điều có thể đổi.
+  - "Luật Nhà ở 2023 (27/2023/QH15), hiệu lực 01/8/2024: Đ132, Đ163, Đ164, Đ170–173 (VB gốc)"
+  - "Bộ luật Dân sự 2015 (91/2015/QH13): Đ328, 357, 405, 418, 468, 472–482 (toàn văn KCT)"
+  - "Hiến pháp 2013 Đ22 (VB gốc); Bộ luật Hình sự 2015 Đ158 (báo chí)"
+  - "Thông tư 60/2025/TT-BCT Đ12 k5; Quyết định 2892/QĐ-BCT (giá điện từ 01/11/2026); Nghị định 133/2026/NĐ-CP Đ13 k7"
+  - "Luật Cư trú 2020 Đ7, 27, 28; Nghị định 154/2024 Đ5; Nghị định 282/2025; Luật 118/2025/QH15"
+  - "Nghị định 141/2026/NĐ-CP (ngưỡng thuế cho thuê 1 tỷ đồng/năm)"
+  - "Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15; Nghị định 356/2025/NĐ-CP"

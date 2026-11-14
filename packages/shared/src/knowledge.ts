@@ -16,6 +16,8 @@ export const ChecklistRuleSchema = z.object({
   why: z.string(),
   question: z.string(),
   threshold: z.string().optional(),
+  /** Căn cứ pháp lý kèm mức xác minh, ví dụ "Luật Nhà ở 2023 Đ172 k4 (VB gốc)". */
+  legal_basis: z.string().optional(),
 });
 export type ChecklistRule = z.infer<typeof ChecklistRuleSchema>;
 
