@@ -1,28 +1,26 @@
-# Phân Tích Hợp Đồng Trọ: app đọc hợp đồng thuê trọ cho sinh viên
+# Soi Hợp Đồng Trọ: app đọc hợp đồng thuê trọ cho sinh viên
 
 > Sinh viên chụp hợp đồng thuê trọ (in hoặc viết tay). Trong vài phút, app chỉ ra điều khoản rủi ro hoặc còn thiếu, tô đúng dòng trên ảnh, giải thích bằng tiếng Việt dễ hiểu và soạn sẵn câu hỏi gửi chủ nhà.
 >
 > **App không phải tư vấn pháp lý.** Sinh viên duyệt từng cảnh báo trước khi gửi bất cứ điều gì.
 
-**Trạng thái (14/11/2026):** chạy được trọn luồng trên điện thoại thật qua Expo Go, gọi backend chung trên Render. Còn thiếu: bộ kiểm thử có nhãn (`eval/`), che CCCD và số điện thoại, bản phát hành cho người ngoài nhóm. Xem [mục 9](#9-tiến-độ-và-việc-còn-lại).
+**Trạng thái (14/11/2026):** chạy được trọn luồng trên điện thoại thật. Bản phát hành mở bằng Expo Go (EAS Update), gọi backend chung trên Render. Còn thiếu: bộ kiểm thử có nhãn (`eval/`), che CCCD và số điện thoại, bản cho người ngoài nhóm. Xem [mục 9](#9-tiến-độ-và-việc-còn-lại).
 
 - Backend: `https://rental-contract-api.onrender.com` (gói miễn phí, lần gọi đầu sau 15 phút nghỉ mất khoảng 1 phút)
 - Bản kế hoạch cả nhóm cùng sửa và bình luận: [Claude Docs](https://claude.ai/artifact/K8m3iE7C2ruwwLZxEMVjci)
 
 ## Mục lục
 
-- [Phân Tích Hợp Đồng Trọ: app đọc hợp đồng thuê trọ cho sinh viên](#phân-tích-hợp-đồng-trọ-app-đọc-hợp-đồng-thuê-trọ-cho-sinh-viên)
-  - [Mục lục](#mục-lục)
-  - [1. Bài toán và giá trị của AI](#1-bài-toán-và-giá-trị-của-ai)
-  - [2. Quyết định kiến trúc: tô đúng dòng trên ảnh](#2-quyết-định-kiến-trúc-tô-đúng-dòng-trên-ảnh)
-  - [3. Luồng xử lý](#3-luồng-xử-lý)
-  - [4. Các màn hình](#4-các-màn-hình)
-  - [5. Công nghệ và cấu trúc repo](#5-công-nghệ-và-cấu-trúc-repo)
-  - [6. Bộ kiến thức: checklist và căn cứ pháp lý](#6-bộ-kiến-thức-checklist-và-căn-cứ-pháp-lý)
-  - [7. Chống AI đọc sai và bịa](#7-chống-ai-đọc-sai-và-bịa)
-  - [8. Quyền riêng tư và AI có trách nhiệm](#8-quyền-riêng-tư-và-ai-có-trách-nhiệm)
-  - [9. Tiến độ và việc còn lại](#9-tiến-độ-và-việc-còn-lại)
-  - [10. Bắt đầu làm việc với repo](#10-bắt-đầu-làm-việc-với-repo)
+1. [Bài toán và giá trị của AI](#1-bài-toán-và-giá-trị-của-ai)
+2. [Quyết định kiến trúc: tô đúng dòng trên ảnh](#2-quyết-định-kiến-trúc-tô-đúng-dòng-trên-ảnh)
+3. [Luồng xử lý](#3-luồng-xử-lý)
+4. [Các màn hình](#4-các-màn-hình)
+5. [Công nghệ và cấu trúc repo](#5-công-nghệ-và-cấu-trúc-repo)
+6. [Bộ kiến thức: checklist và căn cứ pháp lý](#6-bộ-kiến-thức-checklist-và-căn-cứ-pháp-lý)
+7. [Chống AI đọc sai và bịa](#7-chống-ai-đọc-sai-và-bịa)
+8. [Quyền riêng tư và AI có trách nhiệm](#8-quyền-riêng-tư-và-ai-có-trách-nhiệm)
+9. [Tiến độ và việc còn lại](#9-tiến-độ-và-việc-còn-lại)
+10. [Bắt đầu làm việc với repo](#10-bắt-đầu-làm-việc-với-repo)
 
 ## 1. Bài toán và giá trị của AI
 
@@ -90,7 +88,7 @@ Toàn bộ viết bằng TypeScript để app và backend dùng chung schema.
 
 | Lớp | Dùng | Ghi chú |
 | --- | --- | --- |
-| App di động | Expo SDK 58 (React Native), Expo Router, Zustand | Chạy trong Expo Go |
+| App di động | Expo SDK 58 (React Native), Expo Router, Zustand | Chạy trong Expo Go. Phát hành bằng EAS Update, project `pbao309s-team/hop-dong-ai` |
 | Chụp ảnh | `expo-camera`, `expo-image-picker`, `expo-image-manipulator` | Chưa có tự cắt viền: thư viện quét tài liệu cần bản build riêng, không chạy trong Expo Go |
 | Tô sáng dòng | `react-native-svg` | Vẽ khung lên ảnh theo vị trí OCR |
 | Backend | Node 22 + Hono | API key chỉ ở backend, không bao giờ đưa vào app |
@@ -111,6 +109,7 @@ prompts/                # 4 prompt: 01-extract, 02-risk, 03-message, 04-reread
 docs/DEPLOY.md          # Deploy Render, cài cho thành viên mới, lưu ý demo
 docs/PHAP_LY.md         # Báo cáo căn cứ pháp lý và số liệu thị trường
 docs/bao-cao-app.md     # Báo cáo phần app
+docs/huong-dan-chay-thu.md # Chạy thử app trên điện thoại, phát hành bản mới
 render.yaml             # Cấu hình Render (Blueprint)
 ```
 
@@ -209,7 +208,7 @@ Chưa làm:
 | Test tự động | API 76 test, app 103 test, đều đạt |
 | Bộ kiểm thử có nhãn (`eval/`) và số liệu cho slide | Chưa có |
 | Che CCCD và số điện thoại | Chưa có |
-| Bản phát hành (EAS Update hoặc file APK) | Để sau. App chưa nối với project trên expo.dev |
+| Bản phát hành | Có: EAS Update branch `preview`, thành viên organization `pbao309s-team` mở bằng Expo Go trên iPhone và Android. Chưa có file APK cho người ngoài nhóm |
 
 Việc nên làm tiếp:
 
@@ -218,7 +217,7 @@ Việc nên làm tiếp:
 - [ ] Nhờ mentor hoặc sinh viên luật duyệt `data/checklist.yaml` và `docs/PHAP_LY.md`.
 - [ ] Khảo sát mức "bình thường" ở Hà Nội (cọc mấy tháng, nước, phí dịch vụ) để điền các trường `*_typical`.
 - [ ] Ngày 01/01/2027: sửa `electricity_max` từ 2472 thành 2518 nếu VAT điện trở lại 10%. Khi Quốc hội thông qua Luật Nhà ở mới thì kiểm tra lại số điều trong `legal_basis`.
-- [ ] Phát hành bản cho người ngoài nhóm thử (EAS Update qua Expo Go, hoặc file APK).
+- [ ] Phát hành lại bản mới lên branch `preview` mỗi khi đổi app (lệnh trong [`docs/huong-dan-chay-thu.md`](docs/huong-dan-chay-thu.md)). Build file APK nếu cần cho người ngoài nhóm thử.
 - [ ] Tính năng thêm nếu còn thời gian: "Nếu… thì sao?" (ví dụ "nếu tôi chuyển đi sau 4 tháng" thì mất bao nhiêu), checklist ngày nhận phòng (chụp đồng hồ điện nước và hiện trạng phòng).
 
 Câu pitch: *"Bỏ AI đi thì sản phẩm không còn tồn tại."* Demo dùng 2–3 hợp đồng, trong đó có một bản viết tay, và bấm giờ từ lúc chụp đến lúc có tin nhắn.
@@ -226,13 +225,15 @@ Câu pitch: *"Bỏ AI đi thì sản phẩm không còn tồn tại."* Demo dùn
 ## 10. Bắt đầu làm việc với repo
 
 ```bash
-git clone -b api/backend https://github.com/baohp2005-code/rental-contract-ai.git
+git clone https://github.com/baohp2005-code/rental-contract-ai.git
 cd rental-contract-ai
 npm install
 cd apps/mobile && npx expo start   # app mặc định gọi backend chung trên Render
 ```
 
 Mở app bằng Expo Go trên điện thoại (quét mã QR trong terminal). Không cần key hay file `.env` nào để chạy app.
+
+- Chạy thử trên điện thoại, mở bản đã phát hành, phát hành bản mới: [`docs/huong-dan-chay-thu.md`](docs/huong-dan-chay-thu.md)
 
 - Deploy backend, cài cho thành viên mới, lưu ý khi demo: [`docs/DEPLOY.md`](docs/DEPLOY.md)
 - Chạy backend trên máy mình, biến môi trường, chế độ không AI: [`apps/api/README.md`](apps/api/README.md)
