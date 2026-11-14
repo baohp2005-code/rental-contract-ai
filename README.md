@@ -165,6 +165,7 @@ Làm pipeline cho ra kết quả tốt trước, rồi mới làm giao diện đ
 Mỗi bước một prompt, mỗi prompt một khuôn mẫu đầu ra. Prompt đầy đủ nằm trong [`prompts/`](prompts/):
 
 - [`01-extract.md`](prompts/01-extract.md): đọc & trích xuất (B2)
+- [`04-reread.md`](prompts/04-reread.md): đọc lại trang khó đọc, chữ viết tay (B2b)
 - [`02-risk.md`](prompts/02-risk.md): phân tích rủi ro (B4) + khuôn mẫu JSON cảnh báo
 - [`03-message.md`](prompts/03-message.md): soạn tin nhắn (B5)
 

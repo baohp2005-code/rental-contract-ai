@@ -37,6 +37,12 @@ export const ExtractOutSchema = z.object({
 });
 export type ExtractOut = z.infer<typeof ExtractOutSchema>;
 
+/** B2b · Đọc lại một trang khó đọc thẳng từ ảnh, theo đúng các id dòng OCR. */
+export const RereadOutSchema = z.object({
+  lines: z.array(z.object({ id: z.string(), text: z.string() })),
+});
+export type RereadOut = z.infer<typeof RereadOutSchema>;
+
 /** B4 · Phân tích rủi ro. Backend tự gán id F1, F2... */
 export const RiskOutSchema = z.object({
   flags: z.array(

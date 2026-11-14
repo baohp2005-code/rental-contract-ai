@@ -5,7 +5,7 @@ Backend Node + Hono (TypeScript). Phụ trách: vai **Backend**.
 | Endpoint | Việc |
 | --- | --- |
 | `GET /health` | Kiểm tra server còn sống |
-| `POST /analyze` | Nhận ảnh các trang (multipart, trường `pages`, tối đa 8 ảnh JPEG/PNG/WebP) → B1 OCR → B2 LLM đọc → B3 quy tắc → B4 LLM rủi ro → trả `AnalyzeResponse` |
+| `POST /analyze` | Nhận ảnh các trang (multipart, trường `pages`, tối đa 8 ảnh JPEG/PNG/WebP) → B1 OCR → B2 LLM đọc (B2b đọc lại trang khó đọc) → B3 quy tắc → B4 LLM rủi ro → trả `AnalyzeResponse` |
 | `POST /message` | Nhận các cảnh báo sinh viên đã giữ (`MessageRequest`) → B5 LLM soạn tin nhắn → trả `MessageResponse` |
 
 Khuôn dữ liệu nằm ở `packages/shared` (`@rental/shared`), dùng chung với app. Lỗi luôn trả theo `ApiErrorSchema` (`image_unreadable` kèm số trang, `not_a_contract`, `too_many_pages`, `internal`).
@@ -68,7 +68,7 @@ src/llm/types.ts          Interface Llm chung cho mọi nhà cung cấp
 src/llm/claude.ts         Gọi Claude: structured outputs + prompt caching
 src/llm/openai.ts         Gọi OpenAI Responses API: Structured Outputs, store:false
 src/pipeline/schemas.ts   Khuôn JSON ép cho LLM ở B2, B4, B5
-src/pipeline/extract.ts   B2 · Sửa lỗi OCR, trích key_terms
+src/pipeline/extract.ts   B2 · Sửa lỗi OCR, trích key_terms; B2b · đọc lại trang khó đọc
 src/pipeline/risk.ts      B4 · Phân tích rủi ro, rồi kiểm tra lại từng cảnh báo
 src/pipeline/message.ts   B5 · Soạn tin nhắn
 src/pipeline/numbers.ts   Đọc số tiền, so chữ số giữa OCR và bản AI sửa
@@ -112,7 +112,19 @@ Trên hợp đồng mẫu của app, chế độ này bắt được 10/11 cản
 - Bản sửa OCR của AI chỉ được nhận khi **các con số giữ nguyên** so với chữ OCR gốc (có tính lỗi O/0, l/1 của OCR). Đổi `3.500.000` thành `5.500.000` thì bản sửa bị bỏ, giữ chữ OCR.
 - Số tiền AI trích vào `key_terms` phải **đọc được từ chính dòng nó trích dẫn**. Không có thì chuyển thành `unclear`.
 
-Cả hai trường hợp đều in cảnh báo `[B2]` ra terminal.
+Cả hai trường hợp đều in cảnh báo `[B2]` ra terminal (chỉ mã dòng, không in chữ hợp đồng).
+
+### Trang khó đọc (B2b)
+
+Chữ viết tay hoặc ảnh mờ làm OCR đọc sai số ở nhiều dòng, nên AI phải sửa số và bị chặn hàng loạt. Trang nào có từ 4 dòng bị chặn và chiếm từ 20% số dòng của trang thì:
+
+1. Gửi riêng ảnh trang đó cho LLM đọc lại từng dòng (prompt [`prompts/04-reread.md`](../../prompts/04-reread.md)), kèm vị trí dòng trên trang. Nhiều trang thì gọi song song.
+2. Mỗi dòng có ba lần đọc: OCR, B2, đọc lại. Con số chỉ được nhận khi **bản đọc lại khớp số với B2 hoặc với OCR**. Lệch cả hai thì dòng vẫn "chưa chắc", giữ chữ OCR.
+3. Đếm lại dòng chưa chắc. Trang vẫn còn khó đọc thì trả `image_unreadable` để sinh viên chụp lại, không trả "0 cảnh báo".
+
+Hợp đồng in rõ không chạy bước này nên không tốn thêm. Mỗi trang khó đọc tốn thêm một lần gọi LLM (khoảng 5–10 giây). Lần gọi lỗi thì trang đó vẫn bị báo khó đọc như cũ.
+
+Giới hạn: B2 và bước đọc lại dùng cùng một model, nên hai lần đọc có thể sai giống nhau. Kết quả trên hợp đồng viết tay vẫn cần sinh viên xem lại.
 
 ## Lấy từ nhánh develop
 

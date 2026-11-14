@@ -25,6 +25,8 @@ export type Knowledge = {
 
 export type Prompts = {
   extract: string;
+  /** B2b · đọc lại trang khó đọc thẳng từ ảnh. */
+  reread: string;
   risk: string;
   message: string;
 };
@@ -65,6 +67,7 @@ export function loadPrompts(promptsDir: string, knowledge: Knowledge): Prompts {
 
   return {
     extract: read('01-extract.md'),
+    reread: read('04-reread.md'),
     risk,
     message: read('03-message.md'),
   };

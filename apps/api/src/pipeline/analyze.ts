@@ -1,5 +1,5 @@
 /**
- * Luồng POST /analyze: B1 OCR → B2 LLM đọc → B3 quy tắc → B4 LLM rủi ro.
+ * Luồng POST /analyze: B1 OCR → B2 LLM đọc (B2b đọc lại trang khó đọc) → B3 quy tắc → B4 LLM rủi ro.
  */
 import { randomUUID } from 'node:crypto';
 
@@ -48,7 +48,7 @@ export async function analyzeContract(p: Pipeline, images: PageImage[]): Promise
 
   // B2 · LLM đọc & trích xuất
   const extracted = p.llm
-    ? await extract(p.llm, p.prompts.extract, images, ocrLines)
+    ? await extract(p.llm, p.prompts.extract, images, ocrLines, p.prompts.reread)
     : extractOffline(ocrLines);
   if (!extracted.isRentalContract) {
     throw new ApiFailure('not_a_contract', 'Ảnh có vẻ không phải hợp đồng thuê trọ.', 422);

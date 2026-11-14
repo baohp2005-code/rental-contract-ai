@@ -246,7 +246,8 @@ describe('POST /message', () => {
 });
 
 describe('prompt và tiện ích', () => {
-  it('đọc đủ 3 prompt từ prompts/*.md và chèn checklist + market_norms vào prompt B4', () => {
+  it('đọc đủ 4 prompt từ prompts/*.md và chèn checklist + market_norms vào prompt B4', () => {
+    expect(prompts.reread).toContain('[không đọc được]');
     expect(prompts.extract).toContain('key_terms');
     expect(prompts.message).toContain('kept_flags');
     expect(prompts.risk).toContain('id: DEP-01');
